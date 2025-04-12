@@ -1,5 +1,6 @@
 // src/hooks/useWebSocket.ts
 import { useEffect, useRef, useState } from "react";
+import DisplayService from "../services/display.service";
 
 export const useWebSocket = (url: string) => {
 	const socket = useRef<WebSocket | null>(null);
@@ -12,16 +13,16 @@ export const useWebSocket = (url: string) => {
 		socket.current.onopen = () => {
 			setIsConnected(true);
 			console.log("WebSocket connected");
-			console.log(socket.current);
 			setTimeout(() => {
-				socket.current?.send(JSON.stringify({ type: "getHistorical" }));
-			}, 1500);
+				socket.current?.send(JSON.stringify({ type: "getHistorical", symbol: "TSLA" }));
+			}, 500);
 		};
 
 		socket.current.onmessage = (event) => {
 			try {
 				const data = JSON.parse(event.data);
 				setMessages((prev) => [...prev, data]);
+				DisplayService.setHistorical(messages, data)
 			} catch (err) {
 				console.error("WebSocket message parse error", err);
 			}
