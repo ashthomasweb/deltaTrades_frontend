@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import {
   JSX,
@@ -9,13 +9,13 @@ import {
   useEffect,
   useRef,
   RefObject,
-} from "react"
-import DisplayService from "../services/display.service"
+} from 'react'
+import DisplayService from '../services/display.service'
 
 export type MainStateType = {
   userName: string | null
   userObj: unknown | null
-  theme: "light" | "dark"
+  theme: 'light' | 'dark'
   historicData: any
 }
 
@@ -36,7 +36,7 @@ type MainProviderProps = {
 export const MainState: MainStateType = {
   userName: null,
   userObj: null,
-  theme: "dark",
+  theme: 'dark',
   historicData: null,
 }
 

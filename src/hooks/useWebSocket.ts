@@ -1,6 +1,6 @@
 // src/hooks/useWebSocket.ts
-import { useEffect, useRef, useState } from "react"
-import DisplayService from "../services/display.service"
+import { useEffect, useRef, useState } from 'react'
+import DisplayService from '../services/display.service'
 
 export const useWebSocket = (url: string) => {
   const socket = useRef<WebSocket | null>(null)
@@ -12,25 +12,27 @@ export const useWebSocket = (url: string) => {
 
     socket.current.onopen = () => {
       setIsConnected(true)
-      console.log("WebSocket connected")
+      console.log('WebSocket connected')
       setTimeout(() => {
-        socket.current?.send(JSON.stringify({ type: "getHistorical", symbol: "TSLA" }))
+        socket.current?.send(
+          JSON.stringify({ type: 'getHistorical', symbol: 'TSLA' }),
+        )
       }, 500)
     }
 
-    socket.current.onmessage = event => {
+    socket.current.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data)
-        setMessages(prev => [...prev, data])
+        setMessages((prev) => [...prev, data])
         DisplayService.setHistorical(messages, data)
       } catch (err) {
-        console.error("WebSocket message parse error", err)
+        console.error('WebSocket message parse error', err)
       }
     }
 
     socket.current.onclose = () => {
       setIsConnected(false)
-      console.log("WebSocket disconnected")
+      console.log('WebSocket disconnected')
     }
 
     return () => {
