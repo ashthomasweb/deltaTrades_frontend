@@ -8,12 +8,8 @@
     "build": "tsc && vite build",
     "test": "jest",
     "lint": "eslint .",
-    "preview": "vite preview"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint && npx prettier . -c"
-    }
+    "preview": "vite preview",
+    "prepare": "husky"
   },
   "dependencies": {
     "echarts": "^5.6.0",
