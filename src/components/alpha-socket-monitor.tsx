@@ -9,14 +9,6 @@ export const AlphaSocketMonitor: React.FC = () => {
     <div className="">
       <h2>Status: {isConnected ? '🟢 Connected' : '🔴 Disconnected'}</h2>
       <div>
-        {/* <h3>Messages:</h3> */}
-        {/* <ul>
-          {messages.map((msg, idx) => (
-            <li key={idx}>
-              <pre>{JSON.stringify(msg, null, 2)}</pre>
-            </li>
-          ))}
-        </ul> */}
           <Candlestick messages={messages} />
       </div>
     </div>
