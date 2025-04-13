@@ -1,86 +1,94 @@
-'use client' 
+'use client'
 
-import { JSX, Dispatch, ReactNode, createContext, useReducer, useEffect, useRef, RefObject } from "react";
-import DisplayService from "../services/display.service";
+import {
+  JSX,
+  Dispatch,
+  ReactNode,
+  createContext,
+  useReducer,
+  useEffect,
+  useRef,
+  RefObject,
+} from 'react'
+import DisplayService from '../services/display.service'
 
 export type MainStateType = {
-    userName: string | null
-    userObj: unknown | null
-    theme: 'light' | 'dark',
-    historicData: any
+  userName: string | null
+  userObj: unknown | null
+  theme: 'light' | 'dark'
+  historicData: any
 }
 
 export type MainActionType = {
-    type?: string
-    payload?: Partial<MainStateType>
+  type?: string
+  payload?: Partial<MainStateType>
 }
 
 type MainContextType = {
-    mainState: MainStateType
-    mainDispatch: Dispatch<MainActionType>
+  mainState: MainStateType
+  mainDispatch: Dispatch<MainActionType>
 }
 
 type MainProviderProps = {
-    children: ReactNode,
+  children: ReactNode
 }
 
 export const MainState: MainStateType = {
-    userName: null,
-    userObj: null,
-    theme: 'dark',
-    historicData: null
+  userName: null,
+  userObj: null,
+  theme: 'dark',
+  historicData: null,
 }
 
 export const MainContext = createContext<MainContextType>({
-    mainState: MainState,
-    mainDispatch: () => {}
+  mainState: MainState,
+  mainDispatch: () => {},
 })
 
 const MainReducer = (state: MainStateType, action: MainActionType) => {
-    try {
-        // ContextValidator.validate(action.payload, initialMainState, 'MainContext')
-        // ShareService.gatherSharedDataForURL()
-        // StateSyncService.syncServiceClasses()
-        return {
-            ...state,
-            ...action.payload
-        }
-    } catch (error) {
-        console.error(error)
-        return {
-            ...state
-        }
+  try {
+    // ContextValidator.validate(action.payload, initialMainState, 'MainContext')
+    // ShareService.gatherSharedDataForURL()
+    // StateSyncService.syncServiceClasses()
+    return {
+      ...state,
+      ...action.payload,
     }
+  } catch (error) {
+    console.error(error)
+    return {
+      ...state,
+    }
+  }
 }
 
-const MainProvider = ({children}: MainProviderProps): JSX.Element => {
-    // logInit && logComponentInit(file)
+const MainProvider = ({ children }: MainProviderProps): JSX.Element => {
+  // logInit && logComponentInit(file)
 
-    const [mainState, mainDispatch] = useReducer(MainReducer, MainState)
-    const appRef = useRef<HTMLDivElement | null>(null)
+  const [mainState, mainDispatch] = useReducer(MainReducer, MainState)
+  const appRef = useRef<HTMLDivElement | null>(null)
 
+  DisplayService.setLocalDispatch(mainDispatch)
+  // APIService.setLocalDispatch(mainDispatch)
+  // DebugService.setLocalDispatch(mainDispatch)
 
-    DisplayService.setLocalDispatch(mainDispatch)
-    // APIService.setLocalDispatch(mainDispatch)
-    // DebugService.setLocalDispatch(mainDispatch)
-    
-    // FirebaseAuthService.setLocalDispatch(mainDispatch)
-    // FirebaseReadService.setLocalDispatch(mainDispatch)
-    // FirebaseUpdateService.setLocalDispatch(mainDispatch)
-    // FirebaseDeleteService.setLocalDispatch(mainDispatch)
+  // FirebaseAuthService.setLocalDispatch(mainDispatch)
+  // FirebaseReadService.setLocalDispatch(mainDispatch)
+  // FirebaseUpdateService.setLocalDispatch(mainDispatch)
+  // FirebaseDeleteService.setLocalDispatch(mainDispatch)
 
-    useEffect(() => {
-        DisplayService.appRef = appRef
-        // ShareService.setURLBase64ToState()
-    }, [])
+  useEffect(() => {
+    DisplayService.appRef = appRef
+    // ShareService.setURLBase64ToState()
+  }, [])
 
-    return (
-            <MainContext.Provider value={{ mainState, mainDispatch }}>
-                <div ref={appRef} data-theme='dark' >
-                    {children}
-                </div>
-            </MainContext.Provider>
-    )
+  return (
+    <MainContext.Provider value={{ mainState, mainDispatch }}>
+      <div ref={appRef} data-theme="dark">
+        {children}
+      </div>
+    </MainContext.Provider>
+  )
 }
 
 export default MainProvider
