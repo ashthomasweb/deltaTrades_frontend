@@ -1,15 +1,15 @@
-import { defineConfig, configDefaults } from "vitest/config"
+import { defineConfig, configDefaults } from 'vitest/config'
 
 export default defineConfig({
   test: {
     globals: true,
-    environment: "jsdom",
-    setupFiles: "./tests/setup.ts",
+    environment: 'jsdom',
+    setupFiles: './tests/setup.ts',
     coverage: {
-      provider: "istanbul",
-      include: ["src/**/*"],
+      provider: 'istanbul',
+      include: ['src/**/*'],
       thresholds: {
-        "**/**": {
+        '**/**': {
           branches: 100,
           functions: 100,
           lines: 100,
@@ -17,6 +17,6 @@ export default defineConfig({
         },
       },
     },
-    exclude: [...configDefaults.exclude, "e2e"],
+    exclude: [...configDefaults.exclude, 'e2e'],
   },
 })
