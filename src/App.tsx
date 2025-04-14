@@ -1,4 +1,3 @@
-import './App.css'
 import { ContentView } from './layout/content/content'
 import { HeaderView } from './layout/header/header'
 import { AlphaSocketMonitor } from './components/alpha-socket-monitor/alpha-socket-monitor'
@@ -6,7 +5,7 @@ import { TradierSocketMonitor } from './components/tradier-socket-monitor/tradie
 
 export function App(props: { path: string }) {
   return (
-    <div className="app-container">
+    <>
       <HeaderView />
       <ContentView>
         {props.path === '/' ? <p>Hello Delta!</p> : null}
@@ -14,6 +13,6 @@ export function App(props: { path: string }) {
         {props.path === '/real-time' ? <TradierSocketMonitor /> : null}
         {props.path === '/analysis' ? <p>A place for research.</p> : null}
       </ContentView>
-    </div>
+    </>
   )
 }

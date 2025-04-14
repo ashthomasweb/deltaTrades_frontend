@@ -1,0 +1,19 @@
+@use '@/_styles/abstracts' as *;
+
+.content-container {
+    height: calc(100%);
+    @include displayFlex();
+    @include flexDirection(column);
+    
+    .header-spacer {
+        @include dimensions(100%, $header-height);
+    }
+    
+    .content-pane {
+        border: 3px solid green;
+        padding: 20px;
+        flex: 1;
+        @include flexCenter();
+        @include displayFlex();
+    }
+}

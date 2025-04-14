@@ -84,7 +84,7 @@ const MainProvider = ({ children }: MainProviderProps): JSX.Element => {
 
   return (
     <MainContext.Provider value={{ mainState, mainDispatch }}>
-      <div ref={appRef} data-theme="dark">
+      <div ref={appRef} className='app-container' data-theme="dark">
         {children}
       </div>
     </MainContext.Provider>

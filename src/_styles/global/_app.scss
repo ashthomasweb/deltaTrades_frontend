@@ -7,13 +7,17 @@ body {
   @include dimensions(100vw, 100vh);
 }
 
-#app {
+#root {
   position: relative;
-  @include displayFlex();
-  @include flexCenter();
-  @include flexDirection(column);
-  flex-wrap: nowrap;
   @include dimensions(100vw, 100vh);
+}
+
+.app-container {
+    // @include displayFlex();
+    // @include flexCenter();
+    // @include flexDirection(column);
+    // flex-wrap: nowrap;
+    @include dimensions(100%, 100%);
 }
 
 /* Scrollbar Styles */

@@ -4,6 +4,7 @@ import {
   ReactNode,
   ReactPortal,
 } from 'react'
+import './content.scss'
 
 export const ContentView = (props: {
   children:
@@ -16,5 +17,10 @@ export const ContentView = (props: {
     | null
     | undefined
 }) => {
-  return <div className="content-container">{props.children}</div>
+  return (
+    <div className="content-container">
+      <div className="header-spacer"></div>
+      <div className="content-pane">{props.children}</div>
+    </div>
+  )
 }
