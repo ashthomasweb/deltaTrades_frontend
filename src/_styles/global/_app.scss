@@ -13,11 +13,11 @@ body {
 }
 
 .app-container {
-    // @include displayFlex();
-    // @include flexCenter();
-    // @include flexDirection(column);
-    // flex-wrap: nowrap;
-    @include dimensions(100%, 100%);
+  // @include displayFlex();
+  // @include flexCenter();
+  // @include flexDirection(column);
+  // flex-wrap: nowrap;
+  @include dimensions(100%, 100%);
 }
 
 /* Scrollbar Styles */
