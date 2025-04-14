@@ -7,6 +7,7 @@
 
   .header-spacer {
     @include dimensions(100%, $header-height);
+    min-height: $header-height;
   }
 
   .content-pane {
@@ -15,5 +16,7 @@
     flex: 1;
     @include flexCenter();
     @include displayFlex();
+    flex-wrap: wrap;
+    overflow-y: scroll;
   }
 }

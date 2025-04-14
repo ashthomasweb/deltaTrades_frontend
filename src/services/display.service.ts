@@ -27,12 +27,6 @@ class displayService {
   }
 
   setHistorical(prevData: any, data: any) {
-    // console.log(
-    // 	"***\n%cTRACE: setHistorical",
-    // 	"color: green; font-weight: 900"
-    // );
-    // console.log(prevData);
-    // console.log(data);
     const payload = {
       historicData: data,
     }
@@ -40,6 +34,7 @@ class displayService {
       this.mainDispatch({ payload })
     }
   }
+
   // toggleTheme() {
   //     this.theme = this.theme === 'dark' ? 'light' : 'dark'
   //     const payload: Partial<MainStateType> = {

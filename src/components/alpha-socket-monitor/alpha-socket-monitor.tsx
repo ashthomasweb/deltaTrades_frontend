@@ -1,6 +1,7 @@
 import React from 'react'
 import { useWebSocket } from '../../hooks/useWebSocket'
 import Candlestick from '../candlestick/candlestick'
+import './alpha-socket-monitor.scss'
 
 export const AlphaSocketMonitor: React.FC = () => {
   const { isConnected, messages } = useWebSocket('ws://localhost:8080')

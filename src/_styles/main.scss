@@ -1,5 +1,5 @@
 @use 'abstracts';
 @use 'base';
 @use 'global';
-@use 'themes';
+@use './themes' as *;
 // @use 'vendors'; // No vendors, or '@forwards' rule currently in place
