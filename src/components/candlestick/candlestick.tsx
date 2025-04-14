@@ -22,7 +22,6 @@ const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps) => {
 
   useEffect(() => {
     if (props.messages.length > 1) {
-      console.log(props.messages[1]?.data)
       setMetaData(props.messages[1]?.data['Meta Data'])
       const dataset = Object.values(
         props.messages[1]?.data['Time Series (1min)'],
@@ -41,9 +40,9 @@ const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps) => {
       )
 
       function splitData(rawData: any) {
-        let categoryData = []
-        let values = []
-        let volumes = []
+        const categoryData = []
+        const values = []
+        const volumes = []
         for (let i = 0; i < rawData.length; i++) {
           categoryData.push(rawData[i].splice(0, 1)[0])
           values.push(rawData[i])
@@ -53,7 +52,7 @@ const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps) => {
             rawData[i][0] > rawData[i][1] ? -1 : 1,
           ])
         }
-        let result = {
+        const result = {
           categoryData: categoryData,
           values: values,
           volumes: volumes,
@@ -63,8 +62,6 @@ const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps) => {
       setData(splitData(formattedData))
     }
   }, [props.messages])
-
-  // console.log(Object.entries(metaData))
 
   const options = {
     animation: false,
@@ -244,7 +241,7 @@ const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps) => {
     <div
       style={{
         width: 1000,
-        height: 1000,
+        height: 800,
         background: 'whitesmoke',
         padding: 20,
         borderRadius: 14,
