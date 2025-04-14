@@ -37,6 +37,7 @@ export const useWebSocket = (url: string) => {
 
     return () => {
       socket.current?.close()
+      socket.current = null
     }
   }, [url])
 
