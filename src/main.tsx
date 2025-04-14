@@ -8,19 +8,19 @@ import MainProvider from './_context/MainContext.tsx'
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App path='/'/>,
+    element: <App path="/" />,
   },
   {
     path: '/historic',
-    element: <App path='/historic'/>,
+    element: <App path="/historic" />,
   },
   {
     path: '/real-time',
-    element:  <App path='/real-time'/>,
+    element: <App path="/real-time" />,
   },
   {
     path: '/analysis',
-    element:  <App path='/analysis'/>,
+    element: <App path="/analysis" />,
   },
 ])
 

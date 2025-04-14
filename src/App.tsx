@@ -6,7 +6,7 @@ import { TradierSocketMonitor } from './components/tradier-socket-monitor/tradie
 
 export function App(props: { path: string }) {
   return (
-    <div className='app-container'>
+    <div className="app-container">
       <HeaderView />
       <ContentView>
         {props.path === '/' ? <p>Hello Delta!</p> : null}
