@@ -3,101 +3,96 @@
 // A scss 'object' is called a map.
 // keys with nested 'maps' can be accessed, or looped over.
 $styleModes: (
-    night: (
-        bgColor: $cGreyDark,
-        textColor: $cTypographyLight,
-        textContrasting: $cTypographyDark,
-        sliderThumb: $cWhiteLight,
-        sliderBacking: $cWhiteDark,
-        sliderChecked: $cLinks,
-        sliderIcon: $cPrimaryDark,
-        commonButton: $cPrimaryLightest,
-        commonButtonText: $cTypographyDark,
-        settingsIcon: $cPrimary,
-        boxShadow: $cPureBlack,
+  night: (
+    bgColor: $cGreyDark,
+    textColor: $cTypographyLight,
+    textContrasting: $cTypographyDark,
+    sliderThumb: $cWhiteLight,
+    sliderBacking: $cWhiteDark,
+    sliderChecked: $cLinks,
+    sliderIcon: $cPrimaryDark,
+    commonButton: $cPrimaryLightest,
+    commonButtonText: $cTypographyDark,
+    settingsIcon: $cPrimary,
+    boxShadow: $cPureBlack,
 
-        borderColor: $cWhiteDarkest,
-        // primaryColor: ,
-        // primaryLight: ,
-        // primaryDark: ,
-        // secondaryColor: ,
-        // secondaryLight: ,
-        // secondaryDark: ,
-        linkColor: $cLinks,
-        greyScale7: $cGreyDarkest,
-        greyScale6: $cGreyDarker,
-        greyScale5: $cGreyDark,
-        greyScale4: $cGreyMid,
-        greyScale3: $cGrey,
-        greyScale2: $cGreyLight,
-        greyScale1: $cGreyLightest,
-        /* Contrasting Greyscale */
-        contrastScale7: $cWhiteDarkest,
-        contrastScale6: $cWhiteDarker,
-        contrastScale5: $cWhiteDark,
-        contrastScale4: $cWhiteMid,
-        contrastScale3: $cWhite,
-        contrastScale2: $cWhiteLight,
-        contrastScale1: $cWhiteLightest,
-    ),
-    day: (
-        bgColor: $cWhite,
-        textColor: $cTypographyDark,
-        textContrasting: $cTypographyLight,
-        sliderThumb: $cLinks,
-        sliderBacking: $cWhite,
-        sliderChecked: $cLinks,
-        sliderIcon: $cWhiteLight,
-        commonButton: $cPrimaryLightest,
-        commonButtonText: $cTypographyDark,
-        settingsIcon: $cPrimary,
-        boxShadow: $cGreyLightest,
+    borderColor: $cWhiteDarkest,
+    // primaryColor: ,
+    // primaryLight: ,
+    // primaryDark: ,
+    // secondaryColor: ,
+    // secondaryLight: ,
+    // secondaryDark: ,
+    linkColor: $cLinks,
+    greyScale7: $cGreyDarkest,
+    greyScale6: $cGreyDarker,
+    greyScale5: $cGreyDark,
+    greyScale4: $cGreyMid,
+    greyScale3: $cGrey,
+    greyScale2: $cGreyLight,
+    greyScale1: $cGreyLightest,
+    /* Contrasting Greyscale */ contrastScale7: $cWhiteDarkest,
+    contrastScale6: $cWhiteDarker,
+    contrastScale5: $cWhiteDark,
+    contrastScale4: $cWhiteMid,
+    contrastScale3: $cWhite,
+    contrastScale2: $cWhiteLight,
+    contrastScale1: $cWhiteLightest,
+  ),
+  day: (
+    bgColor: $cWhite,
+    textColor: $cTypographyDark,
+    textContrasting: $cTypographyLight,
+    sliderThumb: $cLinks,
+    sliderBacking: $cWhite,
+    sliderChecked: $cLinks,
+    sliderIcon: $cWhiteLight,
+    commonButton: $cPrimaryLightest,
+    commonButtonText: $cTypographyDark,
+    settingsIcon: $cPrimary,
+    boxShadow: $cGreyLightest,
 
-        borderColor: $cGreyLightest,
-        // primaryColor: ,
-        // primaryLight: ,
-        // primaryDark: ,
-        // secondaryColor: ,
-        // secondaryLight: ,
-        // secondaryDark: ,
-        linkColor: $cLinks,
-        greyScale7: $cWhiteDarkest,
-        greyScale6: $cWhiteDarker,
-        greyScale5: $cWhiteDark,
-        greyScale4: $cWhiteMid,
-        greyScale3: $cWhite,
-        greyScale2: $cWhiteLight,
-        greyScale1: $cWhiteLightest,
-        /* Contrasting Greyscale */
-        contrastScale7: $cGreyDarkest,
-        contrastScale6: $cGreyDarker,
-        contrastScale5: $cGreyDark,
-        contrastScale4: $cGreyMid,
-        contrastScale3: $cGrey,
-        contrastScale2: $cGreyLight,
-        contrastScale1: $cGreyLightest,
-    ),
+    borderColor: $cGreyLightest,
+    // primaryColor: ,
+    // primaryLight: ,
+    // primaryDark: ,
+    // secondaryColor: ,
+    // secondaryLight: ,
+    // secondaryDark: ,
+    linkColor: $cLinks,
+    greyScale7: $cWhiteDarkest,
+    greyScale6: $cWhiteDarker,
+    greyScale5: $cWhiteDark,
+    greyScale4: $cWhiteMid,
+    greyScale3: $cWhite,
+    greyScale2: $cWhiteLight,
+    greyScale1: $cWhiteLightest,
+    /* Contrasting Greyscale */ contrastScale7: $cGreyDarkest,
+    contrastScale6: $cGreyDarker,
+    contrastScale5: $cGreyDark,
+    contrastScale4: $cGreyMid,
+    contrastScale3: $cGrey,
+    contrastScale2: $cGreyLight,
+    contrastScale1: $cGreyLightest,
+  ),
 );
 
 // A Mixin is a re-useable block of styles that can be used in multiple places
 // in the app, and that accept arguments.
 @mixin use-style($styleModes) {
-
-    // @each is a loop. Used on a map, you declare the key:value pair names within the given map
-    @each $mode, $map in $styleModes {
-
-        // build out custom CSS variables, to be selected with an attribute selector
-        // The `#{}` is a scss string interpolation, just like a template literal in js
-        [data-style='#{$mode}'] {
-
-            // This will create an attribute selector for each key in the styleMode map ... 'data-styleMode=night' etc.
-            @each $property, $value in $map {
-                // Create custom CSS variables from each listed property:value pair in the styleMode map
-                --#{$property}: #{$value};
-            }
-        }
+  // @each is a loop. Used on a map, you declare the key:value pair names within the given map
+  @each $mode, $map in $styleModes {
+    // build out custom CSS variables, to be selected with an attribute selector
+    // The `#{}` is a scss string interpolation, just like a template literal in js
+    [data-style='#{$mode}'] {
+      // This will create an attribute selector for each key in the styleMode map ... 'data-styleMode=night' etc.
+      @each $property, $value in $map {
+        // Create custom CSS variables from each listed property:value pair in the styleMode map
+        --#{$property}: #{$value};
+      }
     }
+  }
 }
 
 // Call the 'use-style' mixin and build all theme variables in the current application context
-@include use-style($styleModes)
+@include use-style($styleModes);

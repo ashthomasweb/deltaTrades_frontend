@@ -1,17 +1,18 @@
 $zIndex: (
-    base: 0,
-    aboveBacking: 10, // To be used within component/element level zIndex context
-    headerView: 100,
-    contentView: 100,
-    headerModal: 200,
-    contentModal: 1000,
-    aboveAll: 9000,
+  base: 0,
+  aboveBacking: 10,
+  // To be used within component/element level zIndex context
+  headerView: 100,
+  contentView: 100,
+  headerModal: 200,
+  contentModal: 1000,
+  aboveAll: 9000,
 );
 
 @function zIndex($element) {
-    @return map-get($map: $zIndex, $key: $element );
+  @return map-get($map: $zIndex, $key: $element);
 }
 
 @mixin zIndex($element) {
-    z-index: zIndex($element);
+  z-index: zIndex($element);
 }

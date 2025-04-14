@@ -1,9 +1,9 @@
 /* Declare re-usable function to set variables from style map as dynamically built above */
 @function useTheme($property) {
-    @return var(--#{$property});
+  @return var(--#{$property});
 }
 
 /* PX to REM - Usage: font-size: rem(37px) - courtesy of Adam Marsden */
 @function rem($px, $base: $base-font-size) {
-    @return calc($px / $base) * 1rem;
+  @return calc($px / $base) * 1rem;
 }
