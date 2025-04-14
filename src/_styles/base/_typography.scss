@@ -1,0 +1,237 @@
+@use '@/_styles/abstracts' as *;
+
+/*** Typography Settings - Inspired by Adam Marsden ***/
+
+// Font import paths must be relative to the primary 'styles.scss' file, not where they are declared
+@font-face {
+    font-family: NotoSansReg;
+    src: url("../_assets/fonts/display/NotoSansDisplay-VariableFont.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: NotoSansItal;
+    src: url("../_assets/fonts/display/NotoSansDisplay-Italic-VariableFont.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: OpenSansReg;
+    src: url("../_assets/fonts/copy/OpenSans-VariableFont.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: OpenSansItal;
+    src: url("../_assets/fonts/copy/OpenSans-Italic-VariableFont.ttf") format("truetype");
+}
+
+/*** Normalize type across browsers ***/
+*, html, body {
+    font-size: $base-font-size;
+    font-family: $font-family;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    letter-spacing: 0.5px;
+}
+
+/*** Headers ***/
+h1, h2, h3, h4, h5, h6 {
+    margin-top: $hTag-margin * 1.5;
+    color: useTheme(textColor);
+    line-height: $hTag-line-height;
+    font-weight: 700;
+    font-family: NotoSansReg;
+    margin-top: 0;
+}
+
+h1 {
+    font-size: $hTag-rel-size;
+    margin-bottom: $hTag-margin;
+}
+
+h2 {
+    font-size: calc($hTag-rel-size / 1.3);
+    margin-bottom: calc($hTag-margin / 1.3);
+}
+
+h3 {
+    font-size: calc($hTag-rel-size / 1.5);
+    margin-bottom: calc($hTag-margin / 1.5);
+}
+
+h4 {
+    font-size: calc($hTag-rel-size / 1.7);
+    margin-bottom: calc($hTag-margin / 1.7);
+}
+
+h5 {
+    font-size: calc($hTag-rel-size / 1.8);
+    margin-bottom: calc($hTag-margin / 1.8);
+}
+
+h6 {
+    font-size: calc($hTag-rel-size / 2);
+    margin-bottom: calc($hTag-margin / 2);
+}
+
+/*** Paragraphs ***/
+p {
+    margin-bottom: $paragraph-margin;
+    font-size: $paragraph-size;
+    line-height: $paragraph-line-height;
+    color: useTheme(textColor);
+
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+}
+
+/*** Links ***/
+a {
+    color: $cLinks;
+    transition: all 0.2s ease;
+
+    &:hover {
+        // color: darken($cLinks, 20%); // TODO: deprecated - sass recommendation doesn't work out-of-box - needs research
+    }
+}
+
+/*** Lists ***/
+ul,
+ol {
+    margin: $paragraph-margin 0 0 20px;
+
+    li {
+        margin-top: 10px;
+        line-height: $paragraph-line-height;
+        color: $paragraph-color; // Associate with theme
+    }
+
+    ul,
+    ol {
+        margin-top: 0;
+    }
+}
+
+ul {
+
+    li {
+        list-style: disc;
+    }
+
+    ul {
+
+        li {
+            list-style: circle;
+        }
+    }
+}
+
+ol {
+
+    li {
+        list-style: decimal;
+    }
+}
+
+/*** hr ***/
+hr {
+    height: 1px;
+    margin: $hr-margin 0;
+    border: none;
+    background-color: useTheme(borderColor);
+}
+
+/*** Blockquote ***/
+blockquote {
+    margin: $blockquote-margin 0;
+    font-size: $blockquote-size;
+    line-height: $blockquote-line-height;
+    color: $blockquote-color; // Associate with theme
+    text-align: center;
+    font-style: italic;
+}
+
+/*** Tables ***/
+table {
+    width: 100%;
+    margin: $blockquote-margin 0;
+    border-collapse: collapse;
+}
+
+table, td, th {
+    border: 1px solid useTheme(borderColor);
+    text-align: left;
+}
+
+th {
+    font-weight: $font-weight-bold;
+}
+
+th, td {
+    padding: 15px;
+}
+
+/*** Figure ***/
+figure {
+    margin: $blockquote-margin 0;
+
+    img {
+        margin: 0;
+    }
+}
+
+figcaption {
+    margin-top: 10px;
+    // color: lighten($paragraph-color, 10%); // 'darken & lighten' declarations can't be used with a 'useTheme' function inside of them - must be handled per use-case
+    font-size: $paragraph-margin * 0.8;
+}
+
+/*** Code ***/
+code {
+    position: relative;
+    padding: 5px 8px;
+    font-family: Courier New, Courier, monospace;
+    font-size: calc($paragraph-size / 1.2);
+    font-weight: 600;
+    color: useTheme(textColor);
+    line-height: 1em;
+    border: 1px solid useTheme(borderColor);
+    @include borderRadius(3px);
+}
+
+pre {
+    display: block;
+    margin: 0 0 40px 0;
+    padding: 20px;
+    // background-color: lighten(useTheme(borderColor), 12%); // 'darken & lighten' declarations can't be used with a 'useTheme' function inside of them - must be handled per use-case
+    border: 1px solid useTheme(borderColor);
+    overflow: auto;
+    @include borderRadius(3px);
+
+    code {
+        position: static;
+        padding: 0;
+        border: none;
+        line-height: 1.5em;
+    }
+}
+
+/*** Misc Styles ***/
+em,
+i,
+.italic {
+    font-style: italic;
+}
+
+strong,
+b,
+.bold {
+    font-weight: $font-weight-bold;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    margin: $blockquote-margin 0;
+}

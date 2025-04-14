@@ -1,0 +1,111 @@
+@mixin displayFlex {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: -moz-box;
+    display: flex;
+}
+
+@mixin displayInlineFlex {
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-flexbox;
+    display: inline-flex;
+}
+
+@mixin flexJustify($position) {
+    -webkit-justify-content: $position;
+    -moz-justify-content: $position;
+    -ms-justify-content: $position;
+    justify-content: $position;
+}
+
+@mixin justifyCenter {
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    -ms-justify-content: center;
+    justify-content: center;
+}
+
+@mixin flexDirection($direction) {
+    -webkit-flex-direction: $direction;
+    -moz-flex-direction: $direction;
+    -ms-flex-direction: $direction;
+    flex-direction: $direction;
+}
+
+@mixin flexAlignItems($position) {
+    -webkit-align-items: $position;
+    align-items: $position;
+}
+
+@mixin flexCenter {
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    -ms-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+// Transition mixin for multi-browser support
+// Pass arguments as comma separated values, just like normal
+@mixin transition($arguments...) {
+    -webkit-transition: $arguments;
+    -moz-transition: $arguments;
+    -ms-transition: $arguments;
+    -o-transition: $arguments;
+    transition: $arguments;
+}
+
+// Transition all properties of element mixin for multi-browser support
+// Pass arguments as comma separated values, just like normal
+@mixin transitionAll($timing...) {
+    -webkit-transition: $timing;
+    -moz-transition: $timing;
+    -ms-transition: $timing;
+    -o-transition: $timing;
+    transition: $timing;
+}
+
+// Transform mixin for multi-browser support
+// Pass arguments as comma separated values, just like normal
+@mixin transform($arguments...) {
+    -webkit-transform: $arguments;
+    -moz-transform: $arguments;
+    -ms-transform: $arguments;
+    -o-transform: $arguments;
+    transform: $arguments;
+}
+
+// Transform Origin mixin for multi-browser support
+@mixin transformOrigin($position) {
+    -webkit-transform-origin: $position;
+    -moz-transform-origin: $position;
+    -o-transform-origin: $position;
+    transform-origin: $position;
+}
+
+@mixin boxShadow($properties) {
+    -webkit-box-shadow: $properties;
+    -moz-box-shadow: $properties;
+    box-shadow: $properties;
+}
+
+@mixin dropShadow($properties) {
+    -webkit-filter: drop-shadow($properties);
+    -moz-filter: drop-shadow($properties);
+    filter: drop-shadow($properties);
+}
+
+@mixin borderRadius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    -o-border-radius: $radius;
+    border-radius: $radius;
+}
+
+@mixin dimensions($width, $height) {
+    width: $width;
+    height: $height;
+}

@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { App } from './App.tsx'
-import './index.css'
+import './_styles/main.scss'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import MainProvider from './_context/MainContext.tsx'
 

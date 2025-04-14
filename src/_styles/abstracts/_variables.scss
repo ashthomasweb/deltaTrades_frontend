@@ -1,0 +1,81 @@
+
+
+/*** Colors ***/
+
+// Primary Color based off 'Alpha-Centauri' - #4d5778)
+$cPrimaryDark       : #363d54;
+$cPrimary           : #4d5778;
+$cPrimaryMid        : #525a72;
+$cPrimaryLight      : #808aad;
+$cPrimaryLighter    : #8f98b7;
+$cPrimaryLightest   : #a3aac3;
+
+// TODO: Need secondary color
+
+// Standard Elements
+$cLinks             : #7389d1;
+$cTypographyLight   : #dedede;
+$cTypographyDark    : #1c1c1c;
+$cShadow            : #13161f;
+$cSunrise           : #f7eeab;
+
+// Greyscale Darks
+$cPureBlack         : #000000;
+$cGreyDarkest       : #121216;
+$cGreyDarker        : #161616;
+$cGreyDark          : #1e1e1e;
+$cGreyMid           : #2d2d32;
+$cGrey              : #474756;
+$cGreyLight         : #5a5a6c;
+$cGreyLightest      : #6c6c82;
+
+// Greyscale Lights
+$cWhiteDarkest      : #aaaac1;
+$cWhiteDarker       : #b5b5c9;
+$cWhiteDark         : #c4c4d3;
+$cWhiteMid          : #cdcdda;
+$cWhite             : #dbdbe5;
+$cWhiteLight        : #e5e5ec;
+$cWhiteLightest     : #eeeef2;
+$cPureWhite         : #ffffff;
+
+$cTransparent       : transparent;
+
+/*** Typography ***/
+// TODO: HTag and Paragraph styles - particularly margins - need attention
+
+// Font Family
+$font-family            : 'OpenSansReg', serif;
+
+// Type Styles
+$base-font-size         : 16px;
+$font-weight-bold       : 800;
+$font-weight-reg        : 500;
+$font-weight-light      : 200;
+
+// Paragraph Styles
+$paragraph-color        : useTheme(textColor);
+$paragraph-size         : rem(17px, $base-font-size);
+$paragraph-line-height  : 1.5em;
+$paragraph-margin       : 20px;
+
+// Header (h1-h6) Styles
+// $hTag-color             : useTheme(textColor);
+$hTag-rel-size          : rem(40px, $base-font-size);
+$hTag-line-height       : 1.25em;
+$hTag-margin            : $paragraph-margin * 1.2;
+$hr-margin              : 10px;
+
+// Blockquote Styles
+$blockquote-color       : useTheme(textColor);
+$blockquote-size        : rem(23px, $base-font-size);
+$blockquote-line-height : 1.5em;
+$blockquote-margin      : $paragraph-margin * 1.5;
+
+/*** Misc styles ***/
+$standard-icon-size     : 25px;
+$scroll-bar-size        : 6px;
+
+/*** Component Sizing Variables ***/
+$modal-header-height    : 60px;
+$header-height          : 80px;
