@@ -1,19 +1,19 @@
 @use '@/_styles/abstracts' as *;
 
 .request-controls-container {
-    border: 2px solid useTheme(greyScale4);
-    padding: 20px;
-    margin-top: 10px;
-    border-radius: 12px;
-    @include displayFlex();
-    @include flexJustifyContent(space-around);
+  border: 2px solid useTheme(greyScale4);
+  padding: 20px;
+  margin-top: 10px;
+  border-radius: 12px;
+  @include displayFlex();
+  @include flexJustifyContent(space-around);
 
-    input, select {
-        width: 300px;
-        background: useTheme(greyScale5);
-        color: useTheme(contrastScale3);
-        border: 1px solid useTheme(greyScale2);
-        outline: none;
-    }
-
+  input,
+  select {
+    width: 300px;
+    background: useTheme(greyScale5);
+    color: useTheme(contrastScale3);
+    border: 1px solid useTheme(greyScale2);
+    outline: none;
+  }
 }

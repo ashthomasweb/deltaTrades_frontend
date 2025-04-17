@@ -12,12 +12,20 @@ export interface RequestParams {
 }
 
 export const AlphaSocketMonitor: React.FC = () => {
-  const [requestParams, setRequestParams] = useState<RequestParams | null>({symbol: null, beginDate: null, endDate: null, interval: null})
-  const { isConnected, messages } = useWebSocket('ws://localhost:8080', requestParams)
+  const [requestParams, setRequestParams] = useState<RequestParams | null>({
+    symbol: null,
+    beginDate: null,
+    endDate: null,
+    interval: null,
+  })
+  const { isConnected, messages } = useWebSocket(
+    'ws://localhost:8080',
+    requestParams,
+  )
 
   const headingData = {
     title: 'Historical Data',
-    isConnected
+    isConnected,
   }
 
   const setParams = (e: any, input: RequestParams) => {
@@ -28,7 +36,7 @@ export const AlphaSocketMonitor: React.FC = () => {
       symbol: formValues.symbol,
       beginDate: formValues.beginDate,
       endDate: formValues.endDate,
-      interval: formValues.interval
+      interval: formValues.interval,
     }
     setRequestParams(params)
 
@@ -39,8 +47,12 @@ export const AlphaSocketMonitor: React.FC = () => {
   return (
     <div className="historical-container">
       {/* <h1>Historical Data</h1> */}
-        <Candlestick messages={messages} headingData={headingData} requestParams={requestParams} />
-        <RequestControls setParams={setParams} />
+      <Candlestick
+        messages={messages}
+        headingData={headingData}
+        requestParams={requestParams}
+      />
+      <RequestControls setParams={setParams} />
     </div>
   )
 }

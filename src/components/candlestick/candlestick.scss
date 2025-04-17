@@ -1,61 +1,61 @@
 @use '@/_styles/abstracts' as *;
 
 .candlestick-container {
-    width: 100%;
-    height: 900px;
-    // background: useTheme(greyScale7);
-    padding: 20px;
-    border-radius: 14px;
-    border: 2px solid useTheme(greyScale4);
-    color: useTheme(contrastScale1);
+  width: 100%;
+  height: 900px;
+  // background: useTheme(greyScale7);
+  padding: 20px;
+  border-radius: 14px;
+  border: 2px solid useTheme(greyScale4);
+  color: useTheme(contrastScale1);
 
-    .meta-data {
-        @include displayFlex();
-        @include flexDirection(column);
-        gap: 4px;
-        border: 1px solid useTheme(greyScale4);
-        border-radius: 6px;
-        padding: 5px 10px;
-        margin-bottom: 8px;
+  .meta-data {
+    @include displayFlex();
+    @include flexDirection(column);
+    gap: 4px;
+    border: 1px solid useTheme(greyScale4);
+    border-radius: 6px;
+    padding: 5px 10px;
+    margin-bottom: 8px;
 
-        header {
-            @include displayFlex();
-            @include flexJustifyContent(space-between);
-        }
-
-        h2 {
-            font-size: 18px;
-            display: inline-block;
-        }
-
-        h3 {
-            font-size: 16px;
-            display: inline-block;
-
-            &.connected {
-                :last-child {
-                    animation: statusCycle 3s infinite;
-                    // animation-duration: infinite;
-                }
-            }
-        }
+    header {
+      @include displayFlex();
+      @include flexJustifyContent(space-between);
     }
+
+    h2 {
+      font-size: 18px;
+      display: inline-block;
+    }
+
+    h3 {
+      font-size: 16px;
+      display: inline-block;
+
+      &.connected {
+        :last-child {
+          animation: statusCycle 3s infinite;
+          // animation-duration: infinite;
+        }
+      }
+    }
+  }
 }
 
 @keyframes statusCycle {
-    0% {
-        opacity: 1
-    }
+  0% {
+    opacity: 1;
+  }
 
-    10% {
-        opacity: 1
-    }
+  10% {
+    opacity: 1;
+  }
 
-    50% {
-        opacity: 0.2
-    }
+  50% {
+    opacity: 0.2;
+  }
 
-    100% {
-        opacity: 1
-    }
+  100% {
+    opacity: 1;
+  }
 }

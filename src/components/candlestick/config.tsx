@@ -69,7 +69,7 @@ export const buildOptions = (data, metaData) => {
     ...options,
     legend,
     xAxis,
-    series
+    series,
   }
 
   console.log(newOptions)
@@ -219,24 +219,24 @@ export const options = {
       end: 100,
     },
   ],
-//   series: [
-//     {
-//       data: data?.values,
-//       type: 'candlestick',
-//       name: metaData ? Object?.entries(metaData)?.[1][1] : '',
-//       itemStyle: {
-//         color: downColor,
-//         color0: upColor,
-//         borderColor: undefined,
-//         borderColor0: undefined,
-//       },
-//     },
-//     {
-//       name: 'Volume',
-//       type: 'bar',
-//       xAxisIndex: 1,
-//       yAxisIndex: 1,
-//       data: data?.volumes,
-//     },
-//   ],
+  //   series: [
+  //     {
+  //       data: data?.values,
+  //       type: 'candlestick',
+  //       name: metaData ? Object?.entries(metaData)?.[1][1] : '',
+  //       itemStyle: {
+  //         color: downColor,
+  //         color0: upColor,
+  //         borderColor: undefined,
+  //         borderColor0: undefined,
+  //       },
+  //     },
+  //     {
+  //       name: 'Volume',
+  //       type: 'bar',
+  //       xAxisIndex: 1,
+  //       yAxisIndex: 1,
+  //       data: data?.volumes,
+  //     },
+  //   ],
 }

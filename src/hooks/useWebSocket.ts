@@ -3,7 +3,10 @@ import { useEffect, useRef, useState } from 'react'
 import DisplayService from '../services/display.service'
 import { RequestParams } from '../components/alpha-socket-monitor/alpha-socket-monitor'
 
-export const useWebSocket = (url: string, requestParams: RequestParams | null) => {
+export const useWebSocket = (
+  url: string,
+  requestParams: RequestParams | null,
+) => {
   const socket = useRef<WebSocket | null>(null)
   const [isConnected, setIsConnected] = useState(false)
   const [messages, setMessages] = useState<any[]>([])
@@ -14,7 +17,6 @@ export const useWebSocket = (url: string, requestParams: RequestParams | null) =
     socket.current.onopen = () => {
       setIsConnected(true)
       console.log('WebSocket connected')
-     
     }
 
     socket.current.onmessage = (event) => {

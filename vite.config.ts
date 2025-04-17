@@ -13,6 +13,6 @@ export default defineConfig({
     },
   },
   css: {
-    devSourcemap: true
-  }
+    devSourcemap: true,
+  },
 })
