@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { useWebSocket } from '../../hooks/useWebSocket'
 import { MainContext } from '../../_context/MainContext'
+import './tradier-socket-monitor.scss'
 
 export const TradierSocketMonitor: React.FC = () => {
   const {

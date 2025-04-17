@@ -12,7 +12,7 @@
   display: inline-flex;
 }
 
-@mixin flexJustify($position) {
+@mixin flexJustifyContent($position) {
   -webkit-justify-content: $position;
   -moz-justify-content: $position;
   -ms-justify-content: $position;

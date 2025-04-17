@@ -12,4 +12,7 @@ export default defineConfig({
       // '@components': path.resolve(__dirname, './src/components') // TODO: Would be nice to make this work...
     },
   },
+  css: {
+    devSourcemap: true
+  }
 })
