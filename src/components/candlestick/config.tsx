@@ -1,16 +1,19 @@
+import { AlphaVantageMetaDataType } from '../../types/types'
+
 const upColor = '#00da3c'
 const downColor = '#ec0000'
 
-export const buildOptions = (data, metaData) => {
-  let result
-
+export const buildOptions = (
+  data: any,
+  metaData: AlphaVantageMetaDataType,
+): any => {
   const legend = [
     {
       bottom: 10,
       left: 'center',
       data: [metaData ? Object?.entries(metaData)?.[1][1] : '', 'Volume'],
     },
-    // {
+    // { // TODO: Find out where we can set the positioning of the 'Volume' chart legend ...
     //   bottom: 50,
     //   left: 'center',
     //   data: [metaData ? Object?.entries(metaData)?.[1][1] : '', 'Volume'],
@@ -72,7 +75,6 @@ export const buildOptions = (data, metaData) => {
     series,
   }
 
-  console.log(newOptions)
   return newOptions
 }
 
@@ -160,32 +162,6 @@ export const options = {
       height: '16%',
     },
   ],
-  //   xAxis: [
-  //     {
-  //       type: 'category',
-  //       data: data?.categoryData,
-  //       boundaryGap: false,
-  //       axisLine: { onZero: false },
-  //       splitLine: { show: false },
-  //       min: 'dataMin',
-  //       max: 'dataMax',
-  //       axisPointer: {
-  //         z: 100,
-  //       },
-  //     },
-  //     {
-  //       type: 'category',
-  //       gridIndex: 1,
-  //     //   data: data?.categoryData,
-  //       boundaryGap: false,
-  //       axisLine: { onZero: false },
-  //       axisTick: { show: false },
-  //       splitLine: { show: false },
-  //       axisLabel: { show: false },
-  //       min: 'dataMin',
-  //       max: 'dataMax',
-  //     },
-  //   ],
   yAxis: [
     {
       scale: true,
@@ -219,24 +195,4 @@ export const options = {
       end: 100,
     },
   ],
-  //   series: [
-  //     {
-  //       data: data?.values,
-  //       type: 'candlestick',
-  //       name: metaData ? Object?.entries(metaData)?.[1][1] : '',
-  //       itemStyle: {
-  //         color: downColor,
-  //         color0: upColor,
-  //         borderColor: undefined,
-  //         borderColor0: undefined,
-  //       },
-  //     },
-  //     {
-  //       name: 'Volume',
-  //       type: 'bar',
-  //       xAxisIndex: 1,
-  //       yAxisIndex: 1,
-  //       data: data?.volumes,
-  //     },
-  //   ],
 }

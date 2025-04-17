@@ -1,7 +1,7 @@
 // src/hooks/useWebSocket.ts
 import { useEffect, useRef, useState } from 'react'
 import DisplayService from '../services/display.service'
-import { RequestParams } from '../components/alpha-socket-monitor/alpha-socket-monitor'
+import { RequestParams } from '../types/types'
 
 export const useWebSocket = (
   url: string,
@@ -41,16 +41,19 @@ export const useWebSocket = (
 
   useEffect(() => {
     if (requestParams && requestParams?.symbol) {
-      setTimeout(() => {
-        socket.current?.send(
-          JSON.stringify({
-            type: 'getHistorical',
-            symbol: requestParams.symbol,
-          }),
-        )
-      }, 500)
+      socket.current?.send(
+        JSON.stringify({
+          type: 'getHistorical',
+          symbol: requestParams.symbol,
+          interval: requestParams.interval,
+          beginDate: requestParams.beginDate,
+          endDate: requestParams.endDate,
+          savedData: requestParams.savedData,
+          isCompact: requestParams.isCompact,
+        }),
+      )
     }
-  }, [requestParams?.symbol])
+  }, [requestParams])
 
   return { isConnected, messages }
 }

@@ -1,9 +1,3 @@
-// class DataAdapter {
-//     constructor() {
-
-//     }
-// }
-
 export interface HistoricDataPoint {
   '1. open': string
   '2. high': string
@@ -13,18 +7,10 @@ export interface HistoricDataPoint {
 }
 
 export const dataAdapter = (data: any, interval: string) => {
-  //   console.log(Object.entries(data))
   const dataEntries = Object.entries(data)
-
   const rawData = dataEntries[1][1]
-  //   console.log(rawData)
-  const metaData = dataEntries[0][1]
-
-  //   const dataset = Object.values(rawData[`Time Series (${interval})`])
-  console.log(Object.keys(data[`Time Series (${interval})`]))
 
   const timeStamps = Object.keys(data[`Time Series (${interval})`])
-  //   console.log(timeStamps[2])
 
   const formattedData = Object.entries(rawData).map(
     ([index, tick]: [string, HistoricDataPoint | any], i: number) => {
@@ -38,8 +24,6 @@ export const dataAdapter = (data: any, interval: string) => {
       ]
     },
   )
-
-  //   console.log(formattedData)
 
   function splitData(formattedData: any) {
     const categoryData = []

@@ -15,6 +15,7 @@ export type MainStateType = {
   userObj: unknown | null
   theme: 'day' | 'night'
   historicData: any
+  savedData: string[]
 }
 
 export type MainActionType = {
@@ -36,6 +37,7 @@ export const MainState: MainStateType = {
   userObj: null,
   theme: 'night',
   historicData: null,
+  savedData: ['TSLA-compact-April', 'IBM-full-May', 'AAPL-compact-June'],
 }
 
 export const MainContext = createContext<MainContextType>({

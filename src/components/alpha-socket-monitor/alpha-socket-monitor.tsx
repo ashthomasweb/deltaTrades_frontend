@@ -1,22 +1,18 @@
 import React, { useState } from 'react'
 import { useWebSocket } from '../../hooks/useWebSocket'
-import Candlestick from '../candlestick/candlestick'
+import { Candlestick } from '../candlestick/candlestick'
 import './alpha-socket-monitor.scss'
 import { RequestControls } from '../request-controls/request-controls'
-
-export interface RequestParams {
-  symbol: string | null | FormDataEntryValue
-  beginDate: string | null | FormDataEntryValue
-  endDate: string | null | FormDataEntryValue
-  interval: string | null | FormDataEntryValue
-}
+import { RequestParams } from '../../types/types'
 
 export const AlphaSocketMonitor: React.FC = () => {
   const [requestParams, setRequestParams] = useState<RequestParams | null>({
     symbol: null,
-    beginDate: null,
+    // beginDate: null,
     endDate: null,
     interval: null,
+    savedData: null,
+    isCompact: null,
   })
   const { isConnected, messages } = useWebSocket(
     'ws://localhost:8080',
@@ -28,31 +24,29 @@ export const AlphaSocketMonitor: React.FC = () => {
     isConnected,
   }
 
-  const setParams = (e: any, input: RequestParams) => {
+  const setParams = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const formData = new FormData(e.target)
+    const formData = new FormData(e.currentTarget)
     const formValues = Object.fromEntries(formData.entries())
     const params: RequestParams = {
-      symbol: formValues.symbol,
-      beginDate: formValues.beginDate,
-      endDate: formValues.endDate,
-      interval: formValues.interval,
+      symbol: formValues.symbol?.toString() ?? null,
+      // beginDate: formValues.beginDate?.toString() ?? null,
+      endDate: formValues.endDate?.toString() ?? null,
+      interval: formValues.interval?.toString() ?? null,
+      savedData: formValues.savedData?.toString() ?? null,
+      isCompact: formValues.isCompact === 'on',
     }
     setRequestParams(params)
-
-    // e.stopPropagation()
-    // setRequestParams(input)
   }
 
   return (
     <div className="historical-container">
-      {/* <h1>Historical Data</h1> */}
       <Candlestick
         messages={messages}
         headingData={headingData}
         requestParams={requestParams}
       />
-      <RequestControls setParams={setParams} />
+      <RequestControls setParams={setParams} requestType="historical" />
     </div>
   )
 }

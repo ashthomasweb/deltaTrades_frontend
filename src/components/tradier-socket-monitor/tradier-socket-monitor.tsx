@@ -1,12 +1,12 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { useWebSocket } from '../../hooks/useWebSocket'
 import { MainContext } from '../../_context/MainContext'
 import './tradier-socket-monitor.scss'
 
-export const TradierSocketMonitor: React.FC = () => {
-  const {
-    mainState: {},
-  } = useContext(MainContext)
+export const TradierSocketMonitor = () => {
+  // const {
+  //   mainState: {  },
+  // } = useContext(MainContext)
 
   const { isConnected, messages } = useWebSocket('ws://localhost:8080')
 

@@ -1,26 +1,11 @@
-import {
-  ReactElement,
-  JSXElementConstructor,
-  ReactNode,
-  ReactPortal,
-} from 'react'
+import { PropsWithChildren } from 'react'
 import './content.scss'
 
-export const ContentView = (props: {
-  children:
-    | string
-    | number
-    | boolean
-    | ReactElement<unknown, string | JSXElementConstructor<unknown>>
-    | Iterable<ReactNode>
-    | ReactPortal
-    | null
-    | undefined
-}) => {
+export const ContentView = ({ children }: PropsWithChildren) => {
   return (
     <div className="content-container">
       <div className="header-spacer"></div>
-      <div className="content-pane">{props.children}</div>
+      <div className="content-pane">{children}</div>
     </div>
   )
 }

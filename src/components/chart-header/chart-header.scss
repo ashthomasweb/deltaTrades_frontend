@@ -8,31 +8,12 @@
   @include displayFlex();
   @include flexJustifyContent(space-around);
 
-  form {
-    @include displayFlex();
-    flex-wrap: wrap;
-    gap: 14px;
-  }
-
   input,
   select {
-    width: 250px;
+    width: 300px;
     background: useTheme(greyScale5);
     color: useTheme(contrastScale3);
     border: 1px solid useTheme(greyScale2);
     outline: none;
-  }
-
-  label {
-    width: 300px;
-    color: useTheme(contrastScale3);
-    background: useTheme(greyScale5);
-    border: 1px solid useTheme(greyScale2);
-    height: 22px;
-    display: inline-block;
-
-    input {
-      width: 30px;
-    }
   }
 }
