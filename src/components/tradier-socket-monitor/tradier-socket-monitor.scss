@@ -1,4 +1,10 @@
 @use '@/_styles/abstracts' as *;
 
 .real-time-container {
+  width: 90vw;
+  height: fit-content;
+  background: useTheme(greyScale7);
+  padding: 20px;
+  border-radius: 14px;
+  border: 2px solid useTheme(greyScale4);
 }

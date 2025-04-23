@@ -1,12 +1,9 @@
 import { AlphaVantageMetaDataType } from '../../types/types'
 
-const upColor = '#00da3c'
-const downColor = '#ec0000'
+const upColor = '#ec0000'
+const downColor = '#00da3c'
 
-export const buildOptions = (
-  data: any,
-  metaData: AlphaVantageMetaDataType,
-): any => {
+export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType): any => {
   const legend = [
     {
       bottom: 10,
@@ -58,6 +55,10 @@ export const buildOptions = (
         borderColor: undefined,
         borderColor0: undefined,
       },
+      large: true,
+      largeThreshold: 1000,
+      progressive: 200,
+      progressiveThreshold: 400,
     },
     {
       name: 'Volume',
@@ -65,6 +66,10 @@ export const buildOptions = (
       xAxisIndex: 1,
       yAxisIndex: 1,
       data: data?.volumes,
+      large: true,
+      largeThreshold: 1000,
+      progressive: 200,
+      progressiveThreshold: 400,
     },
   ]
 
@@ -91,13 +96,7 @@ export const options = {
     textStyle: {
       color: '#000',
     },
-    position: function (
-      pos: any,
-      params: any,
-      el: any,
-      elRect: any,
-      size: any,
-    ) {
+    position: function (pos: any, params: any, el: any, elRect: any, size: any) {
       const obj: any = {
         top: 10,
       }
@@ -183,15 +182,17 @@ export const options = {
     {
       type: 'inside',
       xAxisIndex: [0, 1],
-      start: 1,
+      filterMode: 'weakFilter',
+      start: 94,
       end: 100,
     },
     {
       show: true,
       xAxisIndex: [0, 1],
       type: 'slider',
+      filterMode: 'weakFilter',
       top: '85%',
-      start: 1,
+      start: 94,
       end: 100,
     },
   ],

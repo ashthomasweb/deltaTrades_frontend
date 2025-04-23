@@ -6,18 +6,16 @@ import { RequestControls } from '../request-controls/request-controls'
 import { RequestParams } from '../../types/types'
 
 export const AlphaSocketMonitor: React.FC = () => {
-  const [requestParams, setRequestParams] = useState<RequestParams | null>({
+  const [requestParams, setRequestParams] = useState<Partial<RequestParams> | null>({
+    type: null,
     symbol: null,
-    // beginDate: null,
+    beginDate: null,
     endDate: null,
     interval: null,
     savedData: null,
     isCompact: null,
   })
-  const { isConnected, messages } = useWebSocket(
-    'ws://localhost:8080',
-    requestParams,
-  )
+  const { isConnected, messages } = useWebSocket('ws://localhost:8080', requestParams)
 
   const headingData = {
     title: 'Historical Data',
@@ -28,9 +26,10 @@ export const AlphaSocketMonitor: React.FC = () => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
     const formValues = Object.fromEntries(formData.entries())
-    const params: RequestParams = {
+    const params: Partial<RequestParams> = {
+      type: formValues.type?.toString() ?? null,
       symbol: formValues.symbol?.toString() ?? null,
-      // beginDate: formValues.beginDate?.toString() ?? null,
+      beginDate: formValues.beginDate?.toString() ?? null,
       endDate: formValues.endDate?.toString() ?? null,
       interval: formValues.interval?.toString() ?? null,
       savedData: formValues.savedData?.toString() ?? null,
@@ -45,8 +44,12 @@ export const AlphaSocketMonitor: React.FC = () => {
         messages={messages}
         headingData={headingData}
         requestParams={requestParams}
+        requestType="historical"
       />
-      <RequestControls setParams={setParams} requestType="historical" />
+      <RequestControls
+        setParams={setParams}
+        requestType="historical"
+      />
     </div>
   )
 }

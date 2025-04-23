@@ -1,13 +1,4 @@
-import {
-  JSX,
-  Dispatch,
-  ReactNode,
-  createContext,
-  useReducer,
-  useEffect,
-  useRef,
-  RefObject,
-} from 'react'
+import { JSX, Dispatch, ReactNode, createContext, useReducer, useEffect, useRef, RefObject } from 'react'
 import DisplayService from '../services/display.service'
 
 export type MainStateType = {
@@ -81,7 +72,11 @@ const MainProvider = ({ children }: MainProviderProps): JSX.Element => {
 
   return (
     <MainContext.Provider value={{ mainState, mainDispatch }}>
-      <div ref={appRef} className="app-container" data-style="night">
+      <div
+        ref={appRef}
+        className="app-container"
+        data-style="night"
+      >
         {children}
       </div>
     </MainContext.Provider>

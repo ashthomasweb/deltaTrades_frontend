@@ -1,19 +1,11 @@
 export interface RequestParams {
+  type: string | null
   symbol: string | null
-  // beginDate: string | null
+  beginDate: string | null
   endDate: string | null
   interval: string | null
   savedData: string | null
   isCompact: boolean | null
-}
-
-export interface CandleStickProps {
-  messages: unknown[]
-  headingData: {
-    title: string
-    isConnected: boolean
-  }
-  requestParams: RequestParams | null
 }
 
 export interface AlphaVantageMetaDataType {
@@ -25,12 +17,20 @@ export interface AlphaVantageMetaDataType {
   '6. Time Zone': string
 }
 
+export interface TradierMetaDataType {
+  information: string
+  symbol: string
+  last_refreshed: string
+  interval: string
+  // '6. Time Zone': string
+}
+
 export interface ChartHeaderType {
   headingData: {
     title: string
     isConnected: boolean
   }
-  metaData: AlphaVantageMetaDataType | null
+  metaData: AlphaVantageMetaDataType | TradierMetaDataType | null
 }
 
 // export interface RequestType {

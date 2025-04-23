@@ -5,14 +5,12 @@
 // Font import paths must be relative to the primary 'styles.scss' file, not where they are declared
 @font-face {
   font-family: NotoSansReg;
-  src: url('../_assets/fonts/display/NotoSansDisplay-VariableFont.ttf')
-    format('truetype');
+  src: url('../_assets/fonts/display/NotoSansDisplay-VariableFont.ttf') format('truetype');
 }
 
 @font-face {
   font-family: NotoSansItal;
-  src: url('../_assets/fonts/display/NotoSansDisplay-Italic-VariableFont.ttf')
-    format('truetype');
+  src: url('../_assets/fonts/display/NotoSansDisplay-Italic-VariableFont.ttf') format('truetype');
 }
 
 @font-face {
@@ -22,8 +20,7 @@
 
 @font-face {
   font-family: OpenSansItal;
-  src: url('../_assets/fonts/copy/OpenSans-Italic-VariableFont.ttf')
-    format('truetype');
+  src: url('../_assets/fonts/copy/OpenSans-Italic-VariableFont.ttf') format('truetype');
 }
 
 /*** Normalize type across browsers ***/

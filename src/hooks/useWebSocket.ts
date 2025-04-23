@@ -3,10 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import DisplayService from '../services/display.service'
 import { RequestParams } from '../types/types'
 
-export const useWebSocket = (
-  url: string,
-  requestParams: RequestParams | null,
-) => {
+export const useWebSocket = (url: string, requestParams: Partial<RequestParams> | null) => {
   const socket = useRef<WebSocket | null>(null)
   const [isConnected, setIsConnected] = useState(false)
   const [messages, setMessages] = useState<any[]>([])
@@ -19,10 +16,12 @@ export const useWebSocket = (
       console.log('WebSocket connected')
     }
 
-    socket.current.onmessage = (event) => {
+    socket.current.onmessage = event => {
+      console.log('***\n%cTRACE: socket onMessage', 'color: green; font-weight: 900')
       try {
         const data = JSON.parse(event.data)
-        setMessages((prev) => [...prev, data])
+        console.log(data)
+        setMessages(prev => [...prev, data])
         DisplayService.setHistorical(messages, data)
       } catch (err) {
         console.error('WebSocket message parse error', err)
@@ -43,7 +42,7 @@ export const useWebSocket = (
     if (requestParams && requestParams?.symbol) {
       socket.current?.send(
         JSON.stringify({
-          type: 'getHistorical',
+          type: requestParams.type,
           symbol: requestParams.symbol,
           interval: requestParams.interval,
           beginDate: requestParams.beginDate,
