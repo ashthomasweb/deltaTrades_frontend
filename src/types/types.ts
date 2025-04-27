@@ -8,13 +8,25 @@ export interface RequestParams {
   isCompact: boolean | null
 }
 
+// export interface AlphaVantageMetaDataType { // RETIRE
+//   '1. Information': string
+//   '2. Symbol': string
+//   '3. Last Refreshed': string
+//   '4. Interval': string
+//   '5. Output Size': string
+//   '6. Time Zone': string
+// }
+
 export interface AlphaVantageMetaDataType {
-  '1. Information': string
-  '2. Symbol': string
-  '3. Last Refreshed': string
-  '4. Interval': string
-  '5. Output Size': string
-  '6. Time Zone': string
+  historicalMeta: {
+    beginDate: string
+    endDate: string
+    datasetSize: 'compact' | 'full'
+  }
+  inputSource: 'AlphaVantage' | 'Tradier'
+  inputType: 'historical' | 'real-time'
+  interval: string
+  tickerSymbol: string
 }
 
 export interface TradierMetaDataType {

@@ -19,6 +19,7 @@ export interface CandleStickProps {
 
 export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps) => {
   const [metaData, setMetaData] = useState<AlphaVantageMetaDataType | TradierMetaDataType | null>(null)
+  const [chartData, setChartData] = useState<any>(null)
   const [options, setOptions] = useState<EChartsOption | null>(null)
 
   useEffect(() => {
@@ -29,12 +30,16 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
       data: Record<string, unknown>
     }
 
-    if (!latestMessage?.data || !latestMessage.data['Meta Data']) return
+    if (!latestMessage?.data) return
+    console.log(props.messages)
 
-    const metaData = latestMessage.data['Meta Data'] as AlphaVantageMetaDataType
+    // TODO: parse prop rawData to local metaData
+    const metaData = latestMessage.data.metaData as AlphaVantageMetaDataType
     setMetaData(metaData)
 
-    const chartData = dataAdapter(latestMessage.data, props.requestParams?.interval as string)
+    const chartData = latestMessage.data.chartData
+    setChartData(chartData)
+    // const chartData = dataAdapter(latestMessage.data, props.requestParams?.interval as string)
     setOptions(buildOptions(chartData, metaData))
   }, [props.messages])
 

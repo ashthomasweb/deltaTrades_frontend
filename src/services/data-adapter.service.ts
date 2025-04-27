@@ -37,6 +37,7 @@ export const dataAdapter = (data: any, interval: string) => {
   }
 
   const result = splitData(formattedData)
+  console.log(result)
 
   return result
 }

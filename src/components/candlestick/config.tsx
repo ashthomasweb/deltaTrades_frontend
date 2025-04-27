@@ -8,7 +8,7 @@ export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType): any
     {
       bottom: 10,
       left: 'center',
-      data: [metaData ? Object?.entries(metaData)?.[1][1] : '', 'Volume'],
+      data: [metaData ? metaData?.tickerSymbol : '', 'Volume'],
     },
     // { // TODO: Find out where we can set the positioning of the 'Volume' chart legend ...
     //   bottom: 50,
@@ -48,7 +48,7 @@ export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType): any
     {
       data: data?.values,
       type: 'candlestick',
-      name: metaData ? Object?.entries(metaData)?.[1][1] : '',
+      name: metaData ? metaData?.tickerSymbol : '',
       itemStyle: {
         color: downColor,
         color0: upColor,
