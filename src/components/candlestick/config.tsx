@@ -1,9 +1,9 @@
-import { AlphaVantageMetaDataType } from '../../types/types'
+import { AlphaVantageMetaDataType, TradierMetaDataType } from '../../types/types'
 
 const upColor = '#ec0000'
 const downColor = '#00da3c'
 
-export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType): any => {
+export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType | TradierMetaDataType): any => {
   const legend = [
     {
       bottom: 10,
@@ -183,7 +183,7 @@ export const options = {
       type: 'inside',
       xAxisIndex: [0, 1],
       filterMode: 'weakFilter',
-      start: 94,
+      start: 0,
       end: 100,
     },
     {
@@ -192,7 +192,7 @@ export const options = {
       type: 'slider',
       filterMode: 'weakFilter',
       top: '85%',
-      start: 94,
+      start: 0,
       end: 100,
     },
   ],

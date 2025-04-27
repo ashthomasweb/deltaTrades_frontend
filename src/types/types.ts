@@ -8,17 +8,8 @@ export interface RequestParams {
   isCompact: boolean | null
 }
 
-// export interface AlphaVantageMetaDataType { // RETIRE
-//   '1. Information': string
-//   '2. Symbol': string
-//   '3. Last Refreshed': string
-//   '4. Interval': string
-//   '5. Output Size': string
-//   '6. Time Zone': string
-// }
-
 export interface AlphaVantageMetaDataType {
-  historicalMeta: {
+  historicalMeta?: {
     beginDate: string
     endDate: string
     datasetSize: 'compact' | 'full'
@@ -30,21 +21,12 @@ export interface AlphaVantageMetaDataType {
 }
 
 export interface TradierMetaDataType {
-  information: string
-  symbol: string
-  last_refreshed: string
-  interval: string
-  // '6. Time Zone': string
-}
-
-export interface ChartHeaderType {
-  headingData: {
-    title: string
-    isConnected: boolean
+  realTimeMeta?: {
+    beginDate: string
+    endDate: string
   }
-  metaData: AlphaVantageMetaDataType | TradierMetaDataType | null
+  inputSource: 'AlphaVantage' | 'Tradier'
+  inputType: 'historical' | 'real-time'
+  interval: string
+  tickerSymbol: string
 }
-
-// export interface RequestType {
-//     requestType: string
-// }

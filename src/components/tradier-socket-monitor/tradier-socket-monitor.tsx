@@ -1,16 +1,11 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { useWebSocket } from '../../hooks/useWebSocket'
-import { MainContext } from '../../_context/MainContext'
 import './tradier-socket-monitor.scss'
 import { Candlestick } from '../candlestick/candlestick'
 import { RequestControls } from '../request-controls/request-controls'
 import { RequestParams } from '../../types/types'
 
 export const TradierSocketMonitor = () => {
-  const {
-    mainState: {},
-  } = useContext(MainContext)
-
   const [requestParams, setRequestParams] = useState<Partial<RequestParams> | null>({
     symbol: null,
     beginDate: null,

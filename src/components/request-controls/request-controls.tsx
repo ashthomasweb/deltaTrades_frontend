@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import './request-controls.scss'
-// import { RequestType } from '../../types/types'
 import { MainContext } from '../../_context/MainContext'
 
 interface RequestControlsProps {

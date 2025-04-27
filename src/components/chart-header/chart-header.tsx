@@ -1,8 +1,16 @@
 import React from 'react'
 import './chart-header.scss'
-import { ChartHeaderType } from '../../types/types'
+import { AlphaVantageMetaDataType, TradierMetaDataType } from '../../types/types'
 
-export const ChartHeader: React.FC<ChartHeaderType> = props => {
+interface ChartHeaderProps {
+  headingData: {
+    title: string
+    isConnected: boolean
+  }
+  metaData: AlphaVantageMetaDataType | TradierMetaDataType | null
+}
+
+export const ChartHeader: React.FC<ChartHeaderProps> = props => {
   return (
     <div className="meta-data">
       <header>
@@ -12,8 +20,8 @@ export const ChartHeader: React.FC<ChartHeaderType> = props => {
           <span>{props.headingData?.isConnected ? '🟢 Connected' : '🔴 Disconnected'}</span>
         </h3>
       </header>
-      <span>Symbol: {props.metaData?.['2. Symbol']}</span>
-      <span>Interval: {props.metaData?.['4. Interval']}</span>
+      <span>Symbol: {props.metaData?.tickerSymbol}</span>
+      <span>Interval: {props.metaData?.interval}</span>
     </div>
   )
 }

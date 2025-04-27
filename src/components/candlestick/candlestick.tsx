@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ReactECharts from 'echarts-for-react'
 import './candlestick.scss'
-import { dataAdapter } from '../../services/data-adapter.service'
 import { buildOptions } from './config'
 import { ChartHeader } from '../chart-header/chart-header'
 import { AlphaVantageMetaDataType, RequestParams, TradierMetaDataType } from '../../types/types'
@@ -23,24 +22,35 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
   const [options, setOptions] = useState<EChartsOption | null>(null)
 
   useEffect(() => {
-    if (props.requestType === 'real-time') return
     if (!props.messages || props.messages.length === 0) return
 
-    const latestMessage = props.messages[props.messages.length - 1] as {
-      data: Record<string, unknown>
-    }
+    const latestMessage = props.messages[props.messages.length - 1] as any
 
     if (!latestMessage?.data) return
-    console.log(props.messages)
 
-    // TODO: parse prop rawData to local metaData
-    const metaData = latestMessage.data.metaData as AlphaVantageMetaDataType
-    setMetaData(metaData)
+    if (props.requestType === 'historical') {
+      const metaData = latestMessage.data.metaData as AlphaVantageMetaDataType
+      setMetaData(metaData)
 
-    const chartData = latestMessage.data.chartData
-    setChartData(chartData)
-    // const chartData = dataAdapter(latestMessage.data, props.requestParams?.interval as string)
-    setOptions(buildOptions(chartData, metaData))
+      const latestChartData = latestMessage.data.chartData
+      setChartData(latestChartData)
+
+      setOptions(buildOptions(latestChartData, metaData))
+    } else if (props.requestType === 'real-time') {
+      const metaData = latestMessage.data.metaData as TradierMetaDataType
+      setMetaData(metaData)
+
+      const latestChartData = (latestMessage.data.chartData as any) || { categoryData: [], values: [], volumes: [] }
+      let existingChartData = chartData || { categoryData: [], values: [], volumes: [] }
+      existingChartData = {
+        categoryData: [...existingChartData.categoryData, latestChartData.categoryData[0]],
+        values: [...existingChartData.values, latestChartData.values[0]],
+        volumes: [...existingChartData.volumes, latestChartData.volumes[0]],
+      }
+
+      setChartData(existingChartData)
+      setOptions(buildOptions(existingChartData, metaData))
+    }
   }, [props.messages])
 
   const styles = {

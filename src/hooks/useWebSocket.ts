@@ -1,6 +1,5 @@
 // src/hooks/useWebSocket.ts
 import { useEffect, useRef, useState } from 'react'
-import DisplayService from '../services/display.service'
 import { RequestParams } from '../types/types'
 
 export const useWebSocket = (url: string, requestParams: Partial<RequestParams> | null) => {
@@ -20,9 +19,8 @@ export const useWebSocket = (url: string, requestParams: Partial<RequestParams> 
       console.log('***\n%cTRACE: socket onMessage', 'color: green; font-weight: 900')
       try {
         const data = JSON.parse(event.data)
-        console.log(data)
+        console.log('received message:', data)
         setMessages(prev => [...prev, data])
-        DisplayService.setHistorical(messages, data)
       } catch (err) {
         console.error('WebSocket message parse error', err)
       }
