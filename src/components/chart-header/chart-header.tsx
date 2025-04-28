@@ -8,6 +8,7 @@ interface ChartHeaderProps {
     isConnected: boolean
   }
   metaData: AlphaVantageMetaDataType | TradierMetaDataType | null
+  handleConnect: () => void
 }
 
 export const ChartHeader: React.FC<ChartHeaderProps> = props => {
@@ -18,6 +19,11 @@ export const ChartHeader: React.FC<ChartHeaderProps> = props => {
         <h3 className={`status ${props.headingData.isConnected ? 'connected' : ''}`}>
           <span>Status: </span>
           <span>{props.headingData?.isConnected ? '🟢 Connected' : '🔴 Disconnected'}</span>
+          <br />
+          <button
+            type="button"
+            onClick={props.handleConnect}
+          >{`${props.headingData?.isConnected ? 'Disconnect' : 'Connect'}`}</button>
         </h3>
       </header>
       <span>Symbol: {props.metaData?.tickerSymbol}</span>

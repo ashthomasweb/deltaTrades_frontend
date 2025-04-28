@@ -10,29 +10,150 @@
 
   form {
     @include displayFlex();
+    @include flexDirection(column);
     flex-wrap: wrap;
     gap: 14px;
-  }
+    // width: 80%;
+    max-width: 970px;
 
-  input,
-  select {
-    width: 250px;
-    background: useTheme(greyScale5);
-    color: useTheme(contrastScale3);
-    border: 1px solid useTheme(greyScale2);
-    outline: none;
-  }
+    .global-controls {
+      @include displayFlex();
+      @include flexJustifyContent(space-between);
 
-  label {
-    width: 300px;
-    color: useTheme(contrastScale3);
-    background: useTheme(greyScale5);
-    border: 1px solid useTheme(greyScale2);
-    height: 22px;
-    display: inline-block;
+      button {
+        height: 30px;
+        width: 150px;
+        font-weight: 700;
+      }
 
-    input {
-      width: 30px;
+      .controls-title {
+        @include displayFlex();
+        @include flexAlignItems(center);
+        border: none;
+        font-size: 20px;
+        width: fit-content;
+        height: 30px;
+        font-weight: 700;
+        padding-left: 5px;
+        background-color: transparent;
+        color: useTheme(contrastScale3);
+
+        .hidden-title {
+          visibility: hidden;
+          pointer-events: none;
+          width: 0px;
+          height: 0px;
+          padding: 0;
+          border: none;
+        }
+      }
+    }
+
+    .params-container {
+      @include displayFlex();
+      @include flexDirection(row);
+      gap: 20px;
+      width: 100%;
+
+      .primary-controls,
+      .secondary-controls {
+        border: 1px solid blue;
+        padding: 15px;
+        @include displayFlex();
+        @include flexDirection(column);
+        gap: 12px;
+        width: 480px;
+
+        label {
+          color: useTheme(contrastScale3);
+          @include displayFlex();
+          @include flexJustifyContent(space-between);
+          @include flexAlignItems(center);
+
+          &.isDisabled {
+            pointer-events: none;
+            opacity: 0.3;
+          }
+
+          input {
+            margin-left: 8px;
+            height: 24px;
+          }
+
+          input[type='text'] {
+            width: 300px;
+            padding-left: 5px;
+          }
+
+          input[type='checkbox'] {
+            width: 16px;
+            height: 16px;
+            margin: 0 5px 0 0;
+          }
+        }
+
+        select {
+          width: 300px;
+          height: 24px;
+        }
+
+        fieldset {
+          width: 100%;
+          border: 1px solid useTheme(greyScale2);
+          height: 24px;
+          padding-left: 5px;
+          background-color: useTheme(greyScale5);
+          @include displayFlex();
+          @include flexJustifyContent(space-between);
+
+          label {
+            height: 22px;
+            width: fit-content;
+            cursor: pointer;
+            @include displayFlex();
+            @include flexJustifyContent(flex-start);
+
+            input {
+              display: inline-block;
+              width: 30px;
+              height: 14px;
+              margin: 0 0 0 8px;
+            }
+          }
+        }
+
+        .bordered-label {
+          border: 1px solid useTheme(greyScale2);
+          background-color: useTheme(greyScale5);
+          padding: 0 0 0 5px;
+          height: 24px;
+
+          input {
+          }
+        }
+      }
     }
   }
+
+  // input,
+  // select {
+  //   width: 250px;
+  //   background: useTheme(greyScale5);
+  //   color: useTheme(contrastScale3);
+  //   border: 1px solid useTheme(greyScale2);
+  //   outline: none;
+  // }
+
+  // label {
+  //   width: 300px;
+  //   color: useTheme(contrastScale3);
+  //   background: useTheme(greyScale5);
+  //   border: 1px solid useTheme(greyScale2);
+  //   height: 22px;
+  //   display: inline-block;
+
+  //   input {
+  //     width: 30px;
+  //   }
+  // }
 }
