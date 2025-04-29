@@ -7,6 +7,8 @@ export type MainStateType = {
   theme: 'day' | 'night'
   historicData: any
   savedData: string[]
+  realTimeConnectionStatus: any
+  historicalConnectionStatus: any
 }
 
 export type MainActionType = {
@@ -29,6 +31,8 @@ export const MainState: MainStateType = {
   theme: 'night',
   historicData: null,
   savedData: ['TSLA-compact-April', 'IBM-full-May', 'AAPL-compact-June'],
+  realTimeConnectionStatus: {},
+  historicalConnectionStatus: {},
 }
 
 export const MainContext = createContext<MainContextType>({

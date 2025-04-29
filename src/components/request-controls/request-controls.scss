@@ -47,6 +47,30 @@
           border: none;
         }
       }
+
+      .request-container {
+        @include displayFlex();
+        @include flexAlignItems(center);
+        gap: 15px;
+
+        .save-data {
+          border: 2px solid useTheme(greyScale5);
+          width: fit-content;
+          padding: 5px;
+          background-color: useTheme(greyScale5);
+          display: inline-flex;
+          @include flexJustifyContent(space-between);
+          @include flexAlignItems(center);
+          color: useTheme(contrastScale3);
+          font-size: 18px;
+          height: 32px;
+
+          input {
+            @include dimensions(18px, 18px);
+            margin-left: 10px;
+          }
+        }
+      }
     }
 
     .params-container {
@@ -128,8 +152,7 @@
           padding: 0 0 0 5px;
           height: 24px;
 
-          input {
-          }
+          input {}
         }
       }
     }

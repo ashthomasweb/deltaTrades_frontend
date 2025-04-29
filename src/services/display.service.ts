@@ -35,6 +35,28 @@ class displayService {
     }
   }
 
+  handleConnectionStatus(connectionType: string | null | undefined, statusObject: any) {
+    let payload
+    if (connectionType === 'historical') {
+      payload = {
+        historicalConnectionStatus: {
+          isConnected: statusObject.connected,
+          message: null,
+        },
+      }
+    } else if (connectionType === 'realTime') {
+      payload = {
+        realTimeConnectionStatus: {
+          isConnected: statusObject.connected,
+          message: null,
+        },
+      }
+    }
+    console.log(payload)
+    if (this.mainDispatch) {
+      this.mainDispatch({ payload })
+    }
+  }
   // toggleTheme() {
   //     this.theme = this.theme === 'dark' ? 'light' : 'dark'
   //     const payload: Partial<MainStateType> = {

@@ -13,7 +13,8 @@ export interface CandleStickProps {
     isConnected: boolean
   }
   requestParams: Partial<RequestParams> | null
-  requestType: 'historical' | 'real-time'
+  requestType: 'historical' | 'real-time',
+  socketControls: any
 }
 
 export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps) => {
@@ -62,6 +63,7 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
       <ChartHeader
         metaData={metaData}
         headingData={props.headingData}
+        socketControls={props.socketControls}
       />
       {options ? (
         <ReactECharts

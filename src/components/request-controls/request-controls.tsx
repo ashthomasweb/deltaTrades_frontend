@@ -4,7 +4,7 @@ import { MainContext } from '../../_context/MainContext'
 
 interface RequestControlsProps {
   setParams: (e: React.FormEvent<HTMLFormElement>) => void
-  requestType: string
+  requestType: string,
 }
 
 export const RequestControls = ({ setParams, requestType }: RequestControlsProps) => {
@@ -19,7 +19,6 @@ export const RequestControls = ({ setParams, requestType }: RequestControlsProps
   }
 
   const handleSavedDataChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value)
     setParamsDisabled(e.target.value !== 'none')
   }
 
@@ -36,7 +35,16 @@ export const RequestControls = ({ setParams, requestType }: RequestControlsProps
               className="hidden-title"
             ></input>
           </label>
-          <button type="submit">Request</button>
+          <div className="request-container">
+            <label className="save-data">
+              {`${requestType === 'historical' ? 'Save Data' : 'Save Data On Close'}`}
+              <input
+                name="storeData"
+                type="checkbox"
+              />
+            </label>
+            <button type="submit">Request</button>
+          </div>
         </section>
         <section className="params-container">
           <div className="primary-controls">
@@ -46,7 +54,6 @@ export const RequestControls = ({ setParams, requestType }: RequestControlsProps
                 name="symbol"
                 type="text"
                 placeholder="e.g. 'AAPL'"
-                disabled={paramsDisabled}
               />
             </label>
             {requestType === 'historical' ? (
@@ -64,10 +71,9 @@ export const RequestControls = ({ setParams, requestType }: RequestControlsProps
                 <label className={`${paramsDisabled ? 'isDisabled' : ''}`}>
                   Month:
                   <input
-                    name="endDate"
+                    name="month"
                     type="month"
                     placeholder="Month"
-                    disabled={paramsDisabled}
                   />
                 </label>
               </>
@@ -90,7 +96,7 @@ export const RequestControls = ({ setParams, requestType }: RequestControlsProps
                     <option value="10">10 Days</option>
                   </select>
                 </label>
-                <label className="bordered-label">
+                {/* <label className="bordered-label">
                   Previous Day
                   <input
                     name="getPrevious"
@@ -101,7 +107,7 @@ export const RequestControls = ({ setParams, requestType }: RequestControlsProps
                     type="datetime-local"
                     placeholder="Begin Date"
                   />
-                </label>
+                </label> */}
               </>
             ) : null}
           </div>
@@ -136,18 +142,18 @@ export const RequestControls = ({ setParams, requestType }: RequestControlsProps
                     Last 100 Ticks
                     <input
                       name="dataSize"
+                      value="last-100"
                       type="radio"
                       radioGroup="dataset-size"
-                      disabled={paramsDisabled}
                     />
                   </label>
                   <label className={`${paramsDisabled ? 'isDisabled' : ''}`}>
                     Full Month
                     <input
                       name="dataSize"
+                      value='full'
                       type="radio"
                       radioGroup="dataset-size"
-                      disabled={paramsDisabled}
                     />
                   </label>
                 </fieldset>
@@ -202,11 +208,11 @@ export const RequestControls = ({ setParams, requestType }: RequestControlsProps
  *
  * RealTime
  * -symbol
+ * -previous day => startDay menu
  *
  * -sendToQueue
  * -enableTrading
  *
  * -daysToBackfill => today + n menu
- * -isMock => startDay menu
  *
  */
