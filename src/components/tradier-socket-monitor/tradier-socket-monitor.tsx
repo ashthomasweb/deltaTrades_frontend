@@ -39,6 +39,8 @@ export const TradierSocketMonitor = () => {
       sendToQueue: formValues.sendToQueue?.toString() ?? null,
       algorithm: formValues.algorithm?.toString() ?? null,
       enableTrading: formValues.enableTrading?.toString() ?? null,
+      getPrevious: formValues.getPrevious?.toString() ?? null,
+      beginDate: formValues.beginDate?.toString() ?? null,
     }
     setRequestParams(params)
   }

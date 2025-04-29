@@ -76,6 +76,8 @@ export const useWebSocket = (url: string, requestParams: Partial<RequestParams> 
           algorithm: requestParams.algorithm,
           sendToQueue: requestParams.sendToQueue,
           enableTrading: requestParams.enableTrading,
+          getPrevious: requestParams.getPrevious,
+          beginDate: requestParams.beginDate,
         }),
       )
     }

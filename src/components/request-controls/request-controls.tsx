@@ -96,7 +96,7 @@ export const RequestControls = ({ setParams, requestType }: RequestControlsProps
                     <option value="10">10 Days</option>
                   </select>
                 </label>
-                {/* <label className="bordered-label">
+                <label className="bordered-label">
                   Previous Day
                   <input
                     name="getPrevious"
@@ -107,7 +107,7 @@ export const RequestControls = ({ setParams, requestType }: RequestControlsProps
                     type="datetime-local"
                     placeholder="Begin Date"
                   />
-                </label> */}
+                </label>
               </>
             ) : null}
           </div>
