@@ -6,8 +6,6 @@ import { RequestControls } from '../request-controls/request-controls'
 import { RequestParams } from '../../types/types'
 
 export const AlphaSocketMonitor: React.FC = () => {
-
-  
   const [requestParams, setRequestParams] = useState<Partial<RequestParams> | null>({
     type: null,
     storeData: null,

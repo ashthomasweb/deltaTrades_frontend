@@ -13,7 +13,7 @@ export interface CandleStickProps {
     isConnected: boolean
   }
   requestParams: Partial<RequestParams> | null
-  requestType: 'historical' | 'real-time',
+  requestType: 'historical' | 'real-time'
   socketControls: any
 }
 

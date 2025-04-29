@@ -4,7 +4,7 @@ import { MainContext } from '../../_context/MainContext'
 
 interface RequestControlsProps {
   setParams: (e: React.FormEvent<HTMLFormElement>) => void
-  requestType: string,
+  requestType: string
 }
 
 export const RequestControls = ({ setParams, requestType }: RequestControlsProps) => {
@@ -151,7 +151,7 @@ export const RequestControls = ({ setParams, requestType }: RequestControlsProps
                     Full Month
                     <input
                       name="dataSize"
-                      value='full'
+                      value="full"
                       type="radio"
                       radioGroup="dataset-size"
                     />

@@ -43,10 +43,12 @@ export const useWebSocket = (url: string, requestParams: Partial<RequestParams> 
       DisplayService.handleConnectionStatus(connectionType, { connected: false })
     }
 
-    socket.current.onerror = (event) => {
+    socket.current.onerror = event => {
       console.error('WebSocket error:', event)
       // NEW: You can set a dedicated error state here:
-      alert('Failed to connect to WebSocket. Is the server running?\n\nContact your local developer for a better error handling system!')
+      alert(
+        'Failed to connect to WebSocket. Is the server running?\n\nContact your local developer for a better error handling system!',
+      )
     }
   }, [url, connectionType])
 
@@ -93,7 +95,7 @@ export const useWebSocket = (url: string, requestParams: Partial<RequestParams> 
     if (isConnected && requestParams) {
       sendRequestParams()
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [requestParams])
 
   const socketControls = {

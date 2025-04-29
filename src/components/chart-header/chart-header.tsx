@@ -45,9 +45,15 @@ export const ChartHeader: React.FC<ChartHeaderProps> = props => {
           <button
             type="button"
             onClick={handleConnectionStatus}
-          >{`${props.headingData?.connectionType === 'historical' 
-            ? historicalConnectionStatus.isConnected ? 'Disconnect' : 'Connect'
-            : realTimeConnectionStatus.isConnected ? 'Disconnect' : 'Connect'}`}</button>
+          >{`${
+            props.headingData?.connectionType === 'historical'
+              ? historicalConnectionStatus.isConnected
+                ? 'Disconnect'
+                : 'Connect'
+              : realTimeConnectionStatus.isConnected
+                ? 'Disconnect'
+                : 'Connect'
+          }`}</button>
         </h3>
       </header>
       <span>Symbol: {props.metaData?.tickerSymbol}</span>
