@@ -1,5 +1,6 @@
 export interface RequestParams {
   type: string | null
+  dataSource: 'alpha-vantage' | 'tradier'
   symbol: string | null
   month: string | null
   interval: string | null
@@ -12,6 +13,7 @@ export interface RequestParams {
   enableTrading: string | null
   getPrevious: string | null // TODO: Possibly enable in the future for Tradier within 20 days...
   beginDate: string | null // TODO: Possibly enable in the future for Tradier within 20 days...
+  originator: string | null
 }
 
 export interface AlphaVantageMetaDataType {

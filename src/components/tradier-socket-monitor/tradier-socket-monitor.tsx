@@ -33,6 +33,7 @@ export const TradierSocketMonitor = () => {
     console.log(formValues)
     const params: Partial<RequestParams> = {
       type: formValues.type?.toString() ?? null,
+      dataSource: 'tradier',
       storeData: formValues.storeData?.toString() ?? null,
       symbol: formValues.symbol?.toString() ?? null,
       backfill: formValues.backfill?.toString() ?? null,

@@ -66,6 +66,9 @@ export const useWebSocket = (url: string, requestParams: Partial<RequestParams> 
       socket.current.send(
         JSON.stringify({
           type: requestParams.type,
+          originator: 'frontend',
+          returnToFE: true,
+          dataSource: requestParams.dataSource,
           symbol: requestParams.symbol,
           month: requestParams.month,
           interval: requestParams.interval,

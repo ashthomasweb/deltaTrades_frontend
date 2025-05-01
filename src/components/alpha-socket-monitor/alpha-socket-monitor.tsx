@@ -32,6 +32,7 @@ export const AlphaSocketMonitor: React.FC = () => {
     console.log(formValues)
     const params: Partial<RequestParams> = {
       type: formValues.type?.toString() ?? null,
+      dataSource: 'alpha-vantage',
       storeData: formValues.storeData?.toString() ?? null,
       symbol: formValues.symbol?.toString() ?? null,
       interval: formValues.interval?.toString() ?? null,
