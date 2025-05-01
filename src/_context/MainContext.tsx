@@ -30,7 +30,7 @@ export const MainState: MainStateType = {
   userObj: null,
   theme: 'night',
   historicData: null,
-  savedData: ['TSLA-compact-April', 'IBM-full-May', 'AAPL-compact-June'],
+  savedData: ['TSLA-1min-03-25-compact.json', 'TSLA-1min-03-25-full.json'],
   realTimeConnectionStatus: {},
   historicalConnectionStatus: {},
 }

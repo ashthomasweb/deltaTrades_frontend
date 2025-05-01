@@ -41,15 +41,19 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
       const metaData = latestMessage.data.metaData as TradierMetaDataType
       setMetaData(metaData)
 
+      console.log(props.requestParams)
+
       const latestChartData = (latestMessage.data.chartData as any) || { categoryData: [], values: [], volumes: [] }
       let existingChartData = chartData || { categoryData: [], values: [], volumes: [] }
       existingChartData = {
-        categoryData: [...existingChartData.categoryData, latestChartData.categoryData[0]],
-        values: [...existingChartData.values, latestChartData.values[0]],
-        volumes: [...existingChartData.volumes, latestChartData.volumes[0]],
+        categoryData: [...existingChartData.categoryData, ...latestChartData.categoryData],
+        values: [...existingChartData.values, ...latestChartData.values],
+        volumes: [...existingChartData.volumes, ...latestChartData.volumes],
       }
 
-      setChartData(existingChartData)
+      if (props.requestParams?.getPrevious === 'on') {
+        setChartData(existingChartData)
+      }
       setOptions(buildOptions(existingChartData, metaData))
     }
   }, [props.messages])

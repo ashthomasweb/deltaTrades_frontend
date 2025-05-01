@@ -36,3 +36,5 @@ export interface TradierMetaDataType {
   interval: string
   tickerSymbol: string
 }
+
+// export this!
