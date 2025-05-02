@@ -67,6 +67,7 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
       <ChartHeader
         metaData={metaData}
         headingData={props.headingData}
+        requestType={props.requestType}
         socketControls={props.socketControls}
       />
       {options ? (

@@ -1,17 +1,16 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import './chart-header.scss'
 import { AlphaVantageMetaDataType, TradierMetaDataType } from '../../types/types'
 import { MainContext } from '../../_context/MainContext'
-import DisplayService from '../../services/display.service'
 
 interface ChartHeaderProps {
   headingData: {
     title: string
     isConnected: boolean
-    connectionType: string
   }
   metaData: AlphaVantageMetaDataType | TradierMetaDataType | null
   socketControls: any
+  requestType: string
 }
 
 export const ChartHeader: React.FC<ChartHeaderProps> = props => {
@@ -19,19 +18,12 @@ export const ChartHeader: React.FC<ChartHeaderProps> = props => {
     mainState: { realTimeConnectionStatus, historicalConnectionStatus },
   } = useContext(MainContext)
 
-  console.log(props.headingData.connectionType)
-
   const handleConnectionStatus = () => {
     if (props.headingData?.isConnected) {
       props.socketControls.disconnect()
     } else if (!props.headingData.isConnected) {
       props.socketControls.connect()
     }
-    // if (props.headingData.connectionType === 'historical') {
-    //   DisplayService.handleConnectionStatus(props.headingData.connectionType, {connected: !historicalConnectionStatus.isConnected})
-    // } else if (props.headingData.connectionType === 'realTime') {
-    //   DisplayService.handleConnectionStatus(props.headingData.connectionType, {connected: !realTimeConnectionStatus.isConnected})
-    // }
   }
 
   return (
@@ -46,7 +38,7 @@ export const ChartHeader: React.FC<ChartHeaderProps> = props => {
             type="button"
             onClick={handleConnectionStatus}
           >{`${
-            props.headingData?.connectionType === 'historical'
+            props?.requestType === 'historical'
               ? historicalConnectionStatus.isConnected
                 ? 'Disconnect'
                 : 'Connect'

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useWebSocket } from '../../hooks/useWebSocket'
 import './tradier-socket-monitor.scss'
 import { Candlestick } from '../candlestick/candlestick'
@@ -7,16 +7,14 @@ import { RequestParams } from '../../types/types'
 
 export const TradierSocketMonitor = () => {
   const [requestParams, setRequestParams] = useState<Partial<RequestParams> | null>({
-    type: null,
-    storeData: null,
-    symbol: null,
-    backfill: null,
-    sendToQueue: null,
-    algorithm: null,
-    enableTrading: null,
+    type: undefined,
+    storeData: undefined,
+    symbol: undefined,
+    backfill: undefined,
+    sendToQueue: undefined,
+    algorithm: undefined,
+    enableTrading: undefined,
   })
-
-  // const [connectionControl, setConnectionControl] = useState<boolean>(false)
 
   const { isConnected, messages, socketControls } = useWebSocket('ws://localhost:8080', requestParams, 'realTime')
 
@@ -45,23 +43,6 @@ export const TradierSocketMonitor = () => {
     }
     setRequestParams(params)
   }
-
-  // const handleConnection = () => {
-  //   connectionControl()
-  //   // if (forceInput !== undefined) {
-  //   //   setConnectionControl(forceInput)
-  //   //   return
-  //   // }
-  //   // if (connectionControl === true && window.confirm('Are you sure you want to DISCONNECT?')) {
-  //   //   setConnectionControl(false)
-  //   // } else {
-  //   //   setConnectionControl(true)
-  //   // }
-  // }
-
-  // useEffect(() => {
-  //   setConnectionControl(isConnected)
-  // }, [isConnected])
 
   return (
     <div className="historical-container">

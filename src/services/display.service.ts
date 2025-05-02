@@ -52,11 +52,11 @@ class displayService {
         },
       }
     }
-    console.log(payload)
     if (this.mainDispatch) {
       this.mainDispatch({ payload })
     }
   }
+
   // toggleTheme() {
   //     this.theme = this.theme === 'dark' ? 'light' : 'dark'
   //     const payload: Partial<MainStateType> = {

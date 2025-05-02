@@ -1,19 +1,20 @@
 export interface RequestParams {
-  type: string | null
+  type: string | undefined
   dataSource: 'alpha-vantage' | 'tradier'
-  symbol: string | null
-  month: string | null
-  interval: string | null
-  savedData: string | null
-  storeData: string | null
-  backfill: string | null
-  dataSize: string | null
-  algorithm: string | null
-  sendToQueue: string | null
-  enableTrading: string | null
-  getPrevious: string | null // TODO: Possibly enable in the future for Tradier within 20 days...
-  beginDate: string | null // TODO: Possibly enable in the future for Tradier within 20 days...
-  originator: string | null
+  symbol: string | undefined
+  month: string | undefined
+  interval: string | undefined
+  savedData: string | undefined
+  storeData: string | undefined
+  backfill: string | undefined
+  dataSize: string | undefined
+  algorithm: string | undefined
+  sendToQueue: string | undefined
+  enableTrading: string | undefined
+  getPrevious: string | undefined
+  beginDate: string | undefined
+  originator: string | undefined
+  returnToFE: boolean | undefined
 }
 
 export interface AlphaVantageMetaDataType {
@@ -38,5 +39,3 @@ export interface TradierMetaDataType {
   interval: string
   tickerSymbol: string
 }
-
-// export this!

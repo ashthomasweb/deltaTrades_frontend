@@ -191,28 +191,3 @@ export const RequestControls = ({ setParams, requestType }: RequestControlsProps
     </div>
   )
 }
-
-/**
- *
- * Global
- * -connect
- *
- * Historical
- * -symbol
- * -interval
- * -sendToQueue
- * -month
- * -compact
- * -isSaved => saved menu
- *
- *
- * RealTime
- * -symbol
- * -previous day => startDay menu
- *
- * -sendToQueue
- * -enableTrading
- *
- * -daysToBackfill => today + n menu
- *
- */

@@ -1,13 +1,8 @@
-import { useContext, useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { RequestParams } from '../types/types'
-import { MainContext } from '../_context/MainContext'
 import DisplayService from '../services/display.service'
 
 export const useWebSocket = (url: string, requestParams: Partial<RequestParams> | null, connectionType: string) => {
-  const {
-    mainState: { realTimeConnectionStatus, historicalConnectionStatus },
-  } = useContext(MainContext)
-
   const socket = useRef<WebSocket | null>(null)
   const [isConnected, setIsConnected] = useState(false)
   const [messages, setMessages] = useState<any[]>([])
@@ -27,10 +22,8 @@ export const useWebSocket = (url: string, requestParams: Partial<RequestParams> 
     }
 
     socket.current.onmessage = event => {
-      console.log('***\n%cTRACE: socket onMessage', 'color: green; font-weight: 900')
       try {
         const data = JSON.parse(event.data)
-        console.log('received message:', data)
         setMessages(prev => [...prev, data])
       } catch (err) {
         console.error('WebSocket message parse error', err)
@@ -45,7 +38,6 @@ export const useWebSocket = (url: string, requestParams: Partial<RequestParams> 
 
     socket.current.onerror = event => {
       console.error('WebSocket error:', event)
-      // NEW: You can set a dedicated error state here:
       alert(
         'Failed to connect to WebSocket. Is the server running?\n\nContact your local developer for a better error handling system!',
       )
@@ -62,7 +54,6 @@ export const useWebSocket = (url: string, requestParams: Partial<RequestParams> 
 
   const sendRequestParams = useCallback(() => {
     if (socket.current && socket.current.readyState === WebSocket.OPEN && requestParams) {
-      console.log('Sending request params over WebSocket')
       socket.current.send(
         JSON.stringify({
           type: requestParams.type,
