@@ -4,7 +4,6 @@ const upColor = '#ec0000'
 const downColor = '#00da3c'
 
 export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType | TradierMetaDataType): any => {
-  console.log(data)
   const legend = [
     {
       bottom: 10,
@@ -81,7 +80,6 @@ export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType | Tra
     series,
   }
 
-  console.log(newOptions)
   return newOptions
 }
 

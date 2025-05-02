@@ -54,27 +54,17 @@ describe('useWebSocket', () => {
   })
 
   it('should fetch messages on WebSocket open', () => {
-    waitFor(() =>
-      expect(socket.send).toHaveBeenCalledWith(
-        JSON.stringify(socketSendPacket),
-      ),
-    )
+    waitFor(() => expect(socket.send).toHaveBeenCalledWith(JSON.stringify(socketSendPacket)))
   })
 
   it("should log 'WebSocket connected' on open", () => {
-    waitFor(() =>
-      expect(console.log).toHaveBeenCalledWith('WebSocket connected'),
-    )
+    waitFor(() => expect(console.log).toHaveBeenCalledWith('WebSocket connected'))
   })
 
   it('should have onopen event handler', () => {
     expect(socket.onopen).toBeDefined()
     socket.onopen?.(new Event('open'))
-    waitFor(() =>
-      expect(socket.send).toHaveBeenCalledWith(
-        JSON.stringify(socketSendPacket),
-      ),
-    )
+    waitFor(() => expect(socket.send).toHaveBeenCalledWith(JSON.stringify(socketSendPacket)))
   })
 
   it('should not call "send" when the socket ref is null', () => {
@@ -95,12 +85,7 @@ describe('useWebSocket', () => {
       data: JSON.stringify(socketReceivePacket),
     } as MessageEvent)
 
-    waitFor(() =>
-      expect(DisplayService.setHistorical).toHaveBeenCalledWith(
-        hook.messages,
-        socketReceivePacket.data,
-      ),
-    )
+    waitFor(() => expect(DisplayService.setHistorical).toHaveBeenCalledWith(hook.messages, socketReceivePacket.data))
 
     waitFor(() => expect(hook.messages).toEqual([socketReceivePacket]))
   })
@@ -109,19 +94,14 @@ describe('useWebSocket', () => {
     const badMessage = 'foobar'
     socket.onmessage?.({ data: badMessage } as MessageEvent)
 
-    expect(console.error).toHaveBeenCalledWith(
-      'WebSocket message parse error',
-      expect.any(SyntaxError),
-    )
+    expect(console.error).toHaveBeenCalledWith('WebSocket message parse error', expect.any(SyntaxError))
   })
 
   it('should close the WebSocket connection when the component unmounts', () => {
     render.unmount()
 
     expect(socket.close).toHaveBeenCalled()
-    waitFor(() =>
-      expect(console.log).toHaveBeenCalledWith('WebSocket disconnected'),
-    )
+    waitFor(() => expect(console.log).toHaveBeenCalledWith('WebSocket disconnected'))
     waitFor(() => expect(hook.isConnected).toBe(false))
   })
 })
