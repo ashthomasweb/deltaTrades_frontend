@@ -51,9 +51,9 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
         volumes: [...existingChartData.volumes, ...latestChartData.volumes],
       }
 
-      if (props.requestParams?.getPrevious === 'on') {
-        setChartData(existingChartData)
-      }
+      // if (props.requestParams?.getPrevious === 'on') {
+      setChartData(existingChartData)
+      // }
       setOptions(buildOptions(existingChartData, metaData))
     }
   }, [props.messages])
