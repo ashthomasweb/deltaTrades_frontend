@@ -101,6 +101,7 @@ describe('useWebSocket', () => {
         socketReceivePacket.data,
       ),
     )
+
     waitFor(() => expect(hook.messages).toEqual([socketReceivePacket]))
   })
 

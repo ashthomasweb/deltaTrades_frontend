@@ -1,22 +1,14 @@
-'use client'
-
-import {
-  JSX,
-  Dispatch,
-  ReactNode,
-  createContext,
-  useReducer,
-  useEffect,
-  useRef,
-  RefObject,
-} from 'react'
+import { JSX, Dispatch, ReactNode, createContext, useReducer, useEffect, useRef, RefObject } from 'react'
 import DisplayService from '../services/display.service'
 
 export type MainStateType = {
   userName: string | null
   userObj: unknown | null
-  theme: 'light' | 'dark'
+  theme: 'day' | 'night'
   historicData: any
+  savedData: string[]
+  realTimeConnectionStatus: any
+  historicalConnectionStatus: any
 }
 
 export type MainActionType = {
@@ -36,8 +28,11 @@ type MainProviderProps = {
 export const MainState: MainStateType = {
   userName: null,
   userObj: null,
-  theme: 'dark',
+  theme: 'night',
   historicData: null,
+  savedData: ['TSLA-1min-03-25-compact.json', 'TSLA-1min-03-25-full.json'],
+  realTimeConnectionStatus: {},
+  historicalConnectionStatus: {},
 }
 
 export const MainContext = createContext<MainContextType>({
@@ -48,8 +43,6 @@ export const MainContext = createContext<MainContextType>({
 const MainReducer = (state: MainStateType, action: MainActionType) => {
   try {
     // ContextValidator.validate(action.payload, initialMainState, 'MainContext')
-    // ShareService.gatherSharedDataForURL()
-    // StateSyncService.syncServiceClasses()
     return {
       ...state,
       ...action.payload,
@@ -77,14 +70,17 @@ const MainProvider = ({ children }: MainProviderProps): JSX.Element => {
   // FirebaseUpdateService.setLocalDispatch(mainDispatch)
   // FirebaseDeleteService.setLocalDispatch(mainDispatch)
 
-  useEffect(() => {
-    DisplayService.appRef = appRef
-    // ShareService.setURLBase64ToState()
-  }, [])
+  // useEffect(() => {
+  // DisplayService.appRef = appRef
+  // }, [])
 
   return (
     <MainContext.Provider value={{ mainState, mainDispatch }}>
-      <div ref={appRef} data-theme="dark">
+      <div
+        ref={appRef}
+        className="app-container"
+        data-style="night"
+      >
         {children}
       </div>
     </MainContext.Provider>

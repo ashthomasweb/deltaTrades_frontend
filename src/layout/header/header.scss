@@ -1,0 +1,16 @@
+@use '@/_styles/abstracts' as *;
+
+.header-container {
+  border: 4px solid useTheme(greyScale7);
+  background-color: useTheme(greyScale6);
+  position: fixed;
+  width: 100%;
+  height: $header-height;
+  top: 0;
+  left: 0;
+  @include displayFlex();
+  gap: 20px;
+  font-size: 20px;
+  align-items: center;
+  justify-content: center;
+}

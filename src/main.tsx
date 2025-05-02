@@ -1,41 +1,33 @@
-import React from 'react'
+// import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { App } from './App.tsx'
-import './index.css'
+import './_styles/main.scss'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { HelloWorld } from './HelloWorld.tsx'
-import { AlphaSocketMonitor } from './components/alpha-socket-monitor.tsx'
-import { TradierSocketMonitor } from './components/tradier-socket-monitor.tsx'
-import Candlestick from './components/candlestick.tsx'
 import MainProvider from './_context/MainContext.tsx'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
-  },
-  {
-    path: '/hello-world',
-    element: <HelloWorld />,
+    element: <App path="/" />,
   },
   {
     path: '/historic',
-    element: <AlphaSocketMonitor />,
+    element: <App path="/historic" />,
   },
   {
     path: '/real-time',
-    element: <TradierSocketMonitor />,
+    element: <App path="/real-time" />,
   },
-  // {
-  // 	path: "/candlestick",
-  // 	element: <Candlestick />,
-  // },
+  {
+    path: '/analysis',
+    element: <App path="/analysis" />,
+  },
 ])
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <MainProvider>
-      <RouterProvider router={router} />
-    </MainProvider>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <MainProvider>
+    <RouterProvider router={router} />
+  </MainProvider>,
+  // </React.StrictMode>,
 )
