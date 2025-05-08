@@ -183,7 +183,7 @@ export const options = {
       type: 'inside',
       xAxisIndex: [0, 1],
       filterMode: 'weakFilter',
-      start: 0,
+      start: 96,
       end: 100,
     },
     {
@@ -192,7 +192,7 @@ export const options = {
       type: 'slider',
       filterMode: 'weakFilter',
       top: '85%',
-      start: 0,
+      start: 96,
       end: 100,
     },
   ],

@@ -15,6 +15,7 @@ export interface RequestParams {
   beginDate: string | undefined
   originator: string | undefined
   returnToFE: boolean | undefined
+  chartId: number | null
 }
 
 export interface AlphaVantageMetaDataType {

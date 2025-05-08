@@ -11,6 +11,7 @@ interface ChartHeaderProps {
   metaData: AlphaVantageMetaDataType | TradierMetaDataType | null
   socketControls: any
   requestType: string
+  clearChart: () => void
 }
 
 export const ChartHeader: React.FC<ChartHeaderProps> = props => {
@@ -46,6 +47,12 @@ export const ChartHeader: React.FC<ChartHeaderProps> = props => {
                 ? 'Disconnect'
                 : 'Connect'
           }`}</button>
+          <button
+            type="button"
+            onClick={props.clearChart}
+          >
+            Clear Chart
+          </button>
         </h3>
       </header>
       <span>Symbol: {props.metaData?.tickerSymbol}</span>

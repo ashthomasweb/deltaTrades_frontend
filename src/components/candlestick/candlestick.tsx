@@ -51,15 +51,19 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
         volumes: [...existingChartData.volumes, ...latestChartData.volumes],
       }
 
-      // if (props.requestParams?.getPrevious === 'on') {
       setChartData(existingChartData)
-      // }
       setOptions(buildOptions(existingChartData, metaData))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.messages])
 
   const styles = {
     height: '90%',
+  }
+
+  const clearChart = () => {
+    setChartData(null)
+    setOptions(null)
   }
 
   return (
@@ -69,6 +73,7 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
         headingData={props.headingData}
         requestType={props.requestType}
         socketControls={props.socketControls}
+        clearChart={clearChart}
       />
       {options ? (
         <ReactECharts

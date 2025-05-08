@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useWebSocket } from '../../hooks/useWebSocket'
 import './tradier-socket-monitor.scss'
 import { Candlestick } from '../candlestick/candlestick'
@@ -15,6 +15,12 @@ export const TradierSocketMonitor = () => {
     algorithm: undefined,
     enableTrading: undefined,
   })
+
+  const [chartId, setChartId] = useState<number | null>(null)
+
+  useEffect(() => {
+    setChartId(Math.ceil(Math.random() * 10e20))
+  }, [])
 
   const { isConnected, messages, socketControls } = useWebSocket('ws://localhost:8080', requestParams, 'realTime')
 
@@ -40,6 +46,7 @@ export const TradierSocketMonitor = () => {
       enableTrading: formValues.enableTrading?.toString() ?? null,
       getPrevious: formValues.getPrevious?.toString() ?? null,
       beginDate: formValues.beginDate?.toString() ?? null,
+      chartId: chartId,
     }
     setRequestParams(params)
   }
