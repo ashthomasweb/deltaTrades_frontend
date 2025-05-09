@@ -21,6 +21,7 @@ export const AlphaSocketMonitor: React.FC = () => {
 
   const headingData = {
     title: 'Historical Data',
+    connectionType: 'historical',
     isConnected,
   }
 
@@ -28,7 +29,7 @@ export const AlphaSocketMonitor: React.FC = () => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
     const formValues = Object.fromEntries(formData.entries())
-    console.log(formValues)
+
     const params: Partial<RequestParams> = {
       type: formValues.type?.toString() ?? null,
       dataSource: 'alpha-vantage',

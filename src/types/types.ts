@@ -40,3 +40,10 @@ export interface TradierMetaDataType {
   interval: string
   tickerSymbol: string
 }
+
+export type ChartHeadingData = {
+  title: string
+  isConnected: boolean
+  connectionType: string
+  chartId?: number | null
+}

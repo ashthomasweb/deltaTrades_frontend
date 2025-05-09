@@ -3,15 +3,12 @@ import ReactECharts from 'echarts-for-react'
 import './candlestick.scss'
 import { buildOptions } from './config'
 import { ChartHeader } from '../chart-header/chart-header'
-import { AlphaVantageMetaDataType, RequestParams, TradierMetaDataType } from '../../types/types'
+import { AlphaVantageMetaDataType, ChartHeadingData, RequestParams, TradierMetaDataType } from '../../types/types'
 import { EChartsOption } from 'echarts'
 
 export interface CandleStickProps {
   messages: unknown[]
-  headingData: {
-    title: string
-    isConnected: boolean
-  }
+  headingData: ChartHeadingData
   requestParams: Partial<RequestParams> | null
   requestType: 'historical' | 'real-time'
   socketControls: any
@@ -29,19 +26,21 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
 
     if (!latestMessage?.data) return
 
+    // Check id returned from BE - early return in the event that multiple charts are active.
+    // This could be avoided if the EventBus was instanced to each websocket, or if the bus used
+    // separate channels with the chartId assigned to it. But checking here would still give redundant security
+    if (latestMessage.id !== props.headingData.chartId) return
+
     if (props.requestType === 'historical') {
       const metaData = latestMessage.data.metaData as AlphaVantageMetaDataType
       setMetaData(metaData)
 
       const latestChartData = latestMessage.data.chartData
       setChartData(latestChartData)
-
       setOptions(buildOptions(latestChartData, metaData))
     } else if (props.requestType === 'real-time') {
       const metaData = latestMessage.data.metaData as TradierMetaDataType
       setMetaData(metaData)
-
-      console.log(props.requestParams)
 
       const latestChartData = (latestMessage.data.chartData as any) || { categoryData: [], values: [], volumes: [] }
       let existingChartData = chartData || { categoryData: [], values: [], volumes: [] }
@@ -50,7 +49,6 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
         values: [...existingChartData.values, ...latestChartData.values],
         volumes: [...existingChartData.volumes, ...latestChartData.volumes],
       }
-
       setChartData(existingChartData)
       setOptions(buildOptions(existingChartData, metaData))
     }
