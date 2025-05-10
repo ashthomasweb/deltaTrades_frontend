@@ -6,6 +6,11 @@ export const useWebSocket = (url: string, requestParams: Partial<RequestParams> 
   const socket = useRef<WebSocket | null>(null)
   const [isConnected, setIsConnected] = useState(false)
   const [messages, setMessages] = useState<any[]>([])
+  const chartIdRef = useRef<string | undefined>(requestParams?.chartId?.toString())
+
+  useEffect(() => {
+    chartIdRef.current = requestParams?.chartId?.toString()
+  }, [requestParams?.chartId])
 
   const connect = useCallback(() => {
     if (socket.current) {
@@ -47,6 +52,12 @@ export const useWebSocket = (url: string, requestParams: Partial<RequestParams> 
   const disconnect = useCallback(() => {
     if (socket.current) {
       console.log('Closing WebSocket')
+      socket.current.send(
+        JSON.stringify({
+          type: 'closeRequest',
+          chartId: chartIdRef.current,
+        }),
+      )
       socket.current.close()
       socket.current = null
     }
@@ -72,6 +83,7 @@ export const useWebSocket = (url: string, requestParams: Partial<RequestParams> 
           enableTrading: requestParams.enableTrading,
           getPrevious: requestParams.getPrevious,
           beginDate: requestParams.beginDate,
+          chartId: requestParams.chartId,
         }),
       )
     }
