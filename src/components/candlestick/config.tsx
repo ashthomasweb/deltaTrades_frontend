@@ -15,15 +15,12 @@ export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType | Tra
           xAxis: data.analysis[entry].start,
         },
         {
-          xAxis: data.analysis[entry].end
-        }
+          xAxis: data.analysis[entry].end,
+        },
       ])
     }
     console.log(analysisPacket)
   }
-  
-
-
 
   const legend = [
     {
@@ -107,7 +104,7 @@ export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType | Tra
         itemStyle: {
           color: 'rgba(255, 173, 177, 0.4)',
         },
-        data: analysisPacket
+        data: analysisPacket,
       },
       symbolSize: 1,
       itemStyle: {
@@ -118,8 +115,6 @@ export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType | Tra
       },
     },
   ]
-
-  
 
   const newOptions = {
     ...options,

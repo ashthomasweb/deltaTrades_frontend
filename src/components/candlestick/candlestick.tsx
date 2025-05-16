@@ -22,7 +22,6 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
   const [options, setOptions] = useState<EChartsOption | null>(null)
 
   useEffect(() => {
-    
     if (!props.messages || props.messages.length === 0) return
 
     const latestMessage = props.messages[props.messages.length - 1] as any
@@ -34,7 +33,7 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
     // separate channels with the chartId assigned to it. But checking here would still give redundant security
     if (latestMessage.id !== props.headingData.chartId) return // Needs handling for historical data. Currently, no id is passed back, and no id is generated. They both === undefined and pass early return
 
-    if (latestMessage.type === 'historical') {
+    if (latestMessage.type.match(/historical|storedData/)) {
       const metaData = latestMessage.data.metaData as AlphaVantageMetaDataType
       setMetaData(metaData)
 
@@ -57,7 +56,7 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
     } else if (latestMessage.type === 'algo1Analysis') {
       console.log(latestMessage)
       setAnalysisData(latestMessage.data)
-      setOptions(buildOptions({...chartData, analysis: latestMessage.data}, metaData!))
+      setOptions(buildOptions({ ...chartData, analysis: latestMessage.data }, metaData!))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.messages])

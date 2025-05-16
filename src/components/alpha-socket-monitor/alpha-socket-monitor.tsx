@@ -31,8 +31,8 @@ export const AlphaSocketMonitor: React.FC = () => {
     const formValues = Object.fromEntries(formData.entries())
 
     const params: Partial<RequestParams> = {
-      type: formValues.type?.toString() ?? null,
-      dataSource: 'alpha-vantage',
+      type: formValues.savedData?.toString() !== 'none' ? 'storedData' : (formValues.type?.toString() ?? null),
+      dataSource: formValues.savedData?.toString() !== 'none' ? 'storedData' : 'alpha-vantage',
       storeData: formValues.storeData?.toString() ?? null,
       symbol: formValues.symbol?.toString() ?? null,
       interval: formValues.interval?.toString() ?? null,

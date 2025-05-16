@@ -1,6 +1,6 @@
 export interface RequestParams {
   type: string | undefined
-  dataSource: 'alpha-vantage' | 'tradier'
+  dataSource: 'alpha-vantage' | 'tradier' | 'storedData'
   symbol: string | undefined
   month: string | undefined
   interval: string | undefined
