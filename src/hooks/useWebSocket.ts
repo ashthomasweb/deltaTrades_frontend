@@ -29,6 +29,7 @@ export const useWebSocket = (url: string, requestParams: Partial<RequestParams> 
     socket.current.onmessage = event => {
       try {
         const data = JSON.parse(event.data)
+        // console.log(data)
         setMessages(prev => [...prev, data])
       } catch (err) {
         console.error('WebSocket message parse error', err)

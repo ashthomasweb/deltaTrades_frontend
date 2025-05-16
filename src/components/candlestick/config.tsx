@@ -4,6 +4,27 @@ const upColor = '#ec0000'
 const downColor = '#00da3c'
 
 export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType | TradierMetaDataType): any => {
+  let analysisPacket = []
+  if (data.analysis) {
+    // console.log(data.analysis)
+    for (const entry in data.analysis) {
+      // console.log(data.analysis[entry])
+      analysisPacket.push([
+        {
+          name: 'Single Direction',
+          xAxis: data.analysis[entry].start,
+        },
+        {
+          xAxis: data.analysis[entry].end
+        }
+      ])
+    }
+    console.log(analysisPacket)
+  }
+  
+
+
+
   const legend = [
     {
       bottom: 10,
@@ -71,7 +92,34 @@ export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType | Tra
       progressive: 200,
       progressiveThreshold: 400,
     },
+    {
+      type: 'scatter',
+      name: 'Signals',
+      data: [
+        {
+          value: ['2016-04-19', null], // y-value can be null or some high/low point
+          tooltip: {
+            formatter: () => '📍 Signal: Single Direction',
+          },
+        },
+      ],
+      markArea: {
+        itemStyle: {
+          color: 'rgba(255, 173, 177, 0.4)',
+        },
+        data: analysisPacket
+      },
+      symbolSize: 1,
+      itemStyle: {
+        opacity: 0, // fully invisible
+      },
+      tooltip: {
+        show: true,
+      },
+    },
   ]
+
+  
 
   const newOptions = {
     ...options,

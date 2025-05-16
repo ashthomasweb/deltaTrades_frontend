@@ -5,6 +5,7 @@ import { buildOptions } from './config'
 import { ChartHeader } from '../chart-header/chart-header'
 import { AlphaVantageMetaDataType, ChartHeadingData, RequestParams, TradierMetaDataType } from '../../types/types'
 import { EChartsOption } from 'echarts'
+import { build } from 'vite'
 
 export interface CandleStickProps {
   messages: unknown[]
@@ -17,9 +18,11 @@ export interface CandleStickProps {
 export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps) => {
   const [metaData, setMetaData] = useState<AlphaVantageMetaDataType | TradierMetaDataType | null>(null)
   const [chartData, setChartData] = useState<any>(null)
+  const [analysisData, setAnalysisData] = useState<any>(null)
   const [options, setOptions] = useState<EChartsOption | null>(null)
 
   useEffect(() => {
+    
     if (!props.messages || props.messages.length === 0) return
 
     const latestMessage = props.messages[props.messages.length - 1] as any
@@ -29,16 +32,16 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
     // Check id returned from BE - early return in the event that multiple charts are active.
     // This could be avoided if the EventBus was instanced to each websocket, or if the bus used
     // separate channels with the chartId assigned to it. But checking here would still give redundant security
-    if (latestMessage.id !== props.headingData.chartId) return
+    if (latestMessage.id !== props.headingData.chartId) return // Needs handling for historical data. Currently, no id is passed back, and no id is generated. They both === undefined and pass early return
 
-    if (props.requestType === 'historical') {
+    if (latestMessage.type === 'historical') {
       const metaData = latestMessage.data.metaData as AlphaVantageMetaDataType
       setMetaData(metaData)
 
       const latestChartData = latestMessage.data.chartData
       setChartData(latestChartData)
       setOptions(buildOptions(latestChartData, metaData))
-    } else if (props.requestType === 'real-time') {
+    } else if (latestMessage.type === 'real-time') {
       const metaData = latestMessage.data.metaData as TradierMetaDataType
       setMetaData(metaData)
 
@@ -51,6 +54,10 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
       }
       setChartData(existingChartData)
       setOptions(buildOptions(existingChartData, metaData))
+    } else if (latestMessage.type === 'algo1Analysis') {
+      console.log(latestMessage)
+      setAnalysisData(latestMessage.data)
+      setOptions(buildOptions({...chartData, analysis: latestMessage.data}, metaData!))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.messages])
