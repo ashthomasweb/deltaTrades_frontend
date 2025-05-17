@@ -22,8 +22,6 @@ export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType | Tra
     }
 
     analysisMA10 = data.analysis.MA10
-
-
   }
 
   const legend = [
@@ -118,7 +116,7 @@ export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType | Tra
         show: true,
       },
     },
-    analysisMA10
+    analysisMA10,
   ]
 
   const newOptions = {
