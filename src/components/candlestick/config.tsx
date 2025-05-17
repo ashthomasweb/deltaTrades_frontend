@@ -22,6 +22,8 @@ export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType | Tra
     }
 
     analysisMA10 = data.analysis.MA10
+
+
   }
 
   const legend = [
@@ -98,7 +100,7 @@ export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType | Tra
         {
           value: ['2016-04-19', null], // y-value can be null or some high/low point
           tooltip: {
-            formatter: () => '📍 Signal: Single Direction',
+            formatter: () => 'Signal: Single Direction',
           },
         },
       ],
@@ -110,13 +112,13 @@ export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType | Tra
       },
       symbolSize: 1,
       itemStyle: {
-        opacity: 0, // fully invisible
+        opacity: 0,
       },
       tooltip: {
         show: true,
       },
     },
-    analysisMA10,
+    analysisMA10
   ]
 
   const newOptions = {
