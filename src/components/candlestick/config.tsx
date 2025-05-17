@@ -4,22 +4,24 @@ const upColor = '#ec0000'
 const downColor = '#00da3c'
 
 export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType | TradierMetaDataType): any => {
-  let analysisPacket = []
+  const analysisSingleDirBlocks = []
+  let analysisMA10 = {}
   if (data.analysis) {
     // console.log(data.analysis)
-    for (const entry in data.analysis) {
+    for (const entry in data.analysis.singleDirBlocks) {
       // console.log(data.analysis[entry])
-      analysisPacket.push([
+      analysisSingleDirBlocks.push([
         {
           name: 'Single Direction',
-          xAxis: data.analysis[entry].start,
+          xAxis: data.analysis.singleDirBlocks[entry].start,
         },
         {
-          xAxis: data.analysis[entry].end,
+          xAxis: data.analysis.singleDirBlocks[entry].end,
         },
       ])
     }
-    console.log(analysisPacket)
+
+    analysisMA10 = data.analysis.MA10
   }
 
   const legend = [
@@ -104,7 +106,7 @@ export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType | Tra
         itemStyle: {
           color: 'rgba(255, 173, 177, 0.4)',
         },
-        data: analysisPacket,
+        data: analysisSingleDirBlocks,
       },
       symbolSize: 1,
       itemStyle: {
@@ -114,6 +116,7 @@ export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType | Tra
         show: true,
       },
     },
+    analysisMA10,
   ]
 
   const newOptions = {
