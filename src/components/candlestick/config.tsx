@@ -104,9 +104,17 @@ export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType | Tra
       ],
       markArea: {
         itemStyle: {
-          color: 'rgba(255, 173, 177, 0.4)',
+          color: 'rgba(255, 173, 177, 0.2)',
         },
         data: analysisSingleDirBlocks,
+      },
+      markLine: {
+        data: data?.analysis?.crossingSignal.map((entry: { xAxis: string }) => {
+          return { xAxis: entry }
+        }),
+        lineStyle: { color: 'white', width: 0.5, opacity: 0.8 },
+        symbol: 'none',
+        label: { show: false },
       },
       symbolSize: 1,
       itemStyle: {

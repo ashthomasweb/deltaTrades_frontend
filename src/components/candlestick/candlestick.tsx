@@ -5,7 +5,6 @@ import { buildOptions } from './config'
 import { ChartHeader } from '../chart-header/chart-header'
 import { AlphaVantageMetaDataType, ChartHeadingData, RequestParams, TradierMetaDataType } from '../../types/types'
 import { EChartsOption } from 'echarts'
-import { build } from 'vite'
 
 export interface CandleStickProps {
   messages: unknown[]
