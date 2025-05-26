@@ -5,6 +5,7 @@ const downColor = '#00da3c'
 
 export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType | TradierMetaDataType): any => {
   const analysisSingleDirBlocks = []
+  const analysisNoiseWindows = []
   let analysisMA10 = {}
   if (data.analysis) {
     // console.log(data.analysis)
@@ -12,11 +13,24 @@ export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType | Tra
       // console.log(data.analysis[entry])
       analysisSingleDirBlocks.push([
         {
-          name: 'Single Direction',
+          // name: 'Single Direction',
           xAxis: data.analysis.singleDirBlocks[entry].start,
         },
         {
           xAxis: data.analysis.singleDirBlocks[entry].end,
+        },
+      ])
+    }
+
+    for (const entry in data.analysis.noiseWindows) {
+      // console.log(data.analysis[entry])
+      analysisNoiseWindows.push([
+        {
+          // name: 'Single Direction',
+          xAxis: data.analysis.noiseWindows[entry].start,
+        },
+        {
+          xAxis: data.analysis.noiseWindows[entry].end,
         },
       ])
     }
@@ -28,7 +42,10 @@ export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType | Tra
     {
       bottom: 10,
       left: 'center',
-      data: [metaData ? metaData?.tickerSymbol : '', 'Volume'],
+      selected: {
+        'Single Direction': false,
+      },
+      data: [metaData ? metaData?.tickerSymbol : '', 'Volume', 'Single Direction', 'MA', 'Noise Windows'],
     },
     // { // TODO: Find out where we can set the positioning of the 'Volume' chart legend ...
     //   bottom: 50,
@@ -93,7 +110,7 @@ export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType | Tra
     },
     {
       type: 'scatter',
-      name: 'Signals',
+      name: 'Single Direction',
       data: [
         {
           value: ['2016-04-19', null], // y-value can be null or some high/low point
@@ -108,6 +125,50 @@ export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType | Tra
         },
         data: analysisSingleDirBlocks,
       },
+      symbolSize: 1,
+      itemStyle: {
+        opacity: 0,
+      },
+      tooltip: {
+        show: true,
+      },
+    },
+    {
+      type: 'scatter',
+      name: 'Noise Windows',
+      data: [
+        {
+          value: ['2016-04-19', null], // y-value can be null or some high/low point
+          tooltip: {
+            formatter: () => 'Noise Windows',
+          },
+        },
+      ],
+      markArea: {
+        itemStyle: {
+          color: 'rgba(155, 73, 177, 0.2)',
+        },
+        data: analysisNoiseWindows,
+      },
+      symbolSize: 1,
+      itemStyle: {
+        opacity: 0,
+      },
+      tooltip: {
+        show: true,
+      },
+    },
+    {
+      type: 'scatter',
+      name: 'Buy Signals',
+      data: [
+        {
+          value: ['2016-04-19', null], // y-value can be null or some high/low point
+          tooltip: {
+            formatter: () => 'Signal: Single Direction',
+          },
+        },
+      ],
       markLine: {
         data: data?.analysis?.crossingSignal.map((entry: { xAxis: string }) => {
           return { xAxis: entry }
@@ -124,7 +185,11 @@ export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType | Tra
         show: true,
       },
     },
-    analysisMA10,
+    {
+      name: 'MA',
+      symbolSize: 0,
+      ...analysisMA10,
+    },
   ]
 
   const newOptions = {
