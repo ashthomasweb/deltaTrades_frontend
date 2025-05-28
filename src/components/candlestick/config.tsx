@@ -3,7 +3,11 @@ import { AlphaVantageMetaDataType, TradierMetaDataType } from '../../types/types
 const upColor = '#ec0000'
 const downColor = '#00da3c'
 
-export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType | TradierMetaDataType): any => {
+export const buildOptions = (
+  data: any,
+  metaData: AlphaVantageMetaDataType | TradierMetaDataType,
+  ...args: any
+): any => {
   const analysisSingleDirBlocks = []
   const analysisNoiseWindows = []
   let analysisMA10 = {}
@@ -37,6 +41,8 @@ export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType | Tra
 
     analysisMA10 = data.analysis.MA10
   }
+
+  console.log(args)
 
   const legend = [
     {
@@ -170,7 +176,7 @@ export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType | Tra
         },
       ],
       markLine: {
-        data: data?.analysis?.crossingSignal.map((entry: { xAxis: string }) => {
+        data: data?.analysis?.crossingSignal?.map((entry: { xAxis: string }) => {
           return { xAxis: entry }
         }),
         lineStyle: { color: 'white', width: 0.5, opacity: 0.8 },
@@ -192,11 +198,23 @@ export const buildOptions = (data: any, metaData: AlphaVantageMetaDataType | Tra
     },
   ]
 
+  const dataZoom = [
+    {
+      ...options.dataZoom[0],
+      ...args[0].zoom.current,
+    },
+    {
+      ...options.dataZoom[1],
+      ...args[0].zoom.current,
+    },
+  ]
+
   const newOptions = {
     ...options,
     legend,
     xAxis,
     series,
+    dataZoom,
   }
 
   return newOptions
@@ -302,8 +320,8 @@ export const options = {
       type: 'inside',
       xAxisIndex: [0, 1],
       filterMode: 'weakFilter',
-      start: 96,
-      end: 100,
+      // start: 96,
+      // end: 100,
     },
     {
       show: true,
@@ -311,8 +329,8 @@ export const options = {
       type: 'slider',
       filterMode: 'weakFilter',
       top: '85%',
-      start: 96,
-      end: 100,
+      // start: 96,
+      // end: 100,
     },
   ],
 }

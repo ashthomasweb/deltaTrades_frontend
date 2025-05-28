@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import ReactECharts from 'echarts-for-react'
 import './candlestick.scss'
 import { buildOptions } from './config'
@@ -20,6 +20,16 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
   const [analysisData, setAnalysisData] = useState<any>(null)
   const [options, setOptions] = useState<EChartsOption | null>(null)
 
+  const zoomRef = useRef<any>(null)
+
+  const onDataZoom = (params: any) => {
+    // Buggy - stale value get passed to chart immediately on re-render, but then corrects itself. Works enough for basic analysis at this time. Needs to be fixed.
+    // const zoomEvent = params.batch?.[0]
+    if (params) {
+      zoomRef.current = { start: params.start, end: params.end }
+    }
+  }
+
   useEffect(() => {
     if (!props.messages || props.messages.length === 0) return
 
@@ -38,7 +48,7 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
 
       const latestChartData = latestMessage.data.chartData
       setChartData(latestChartData)
-      setOptions(buildOptions(latestChartData, metaData))
+      setOptions(buildOptions(latestChartData, metaData, { zoom: zoomRef }))
     } else if (latestMessage.type === 'real-time') {
       const metaData = latestMessage.data.metaData as TradierMetaDataType
       setMetaData(metaData)
@@ -55,7 +65,7 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
     } else if (latestMessage.type === 'algo1Analysis') {
       console.log(latestMessage)
       setAnalysisData(latestMessage.data)
-      setOptions(buildOptions({ ...chartData, analysis: latestMessage.data }, metaData!))
+      setOptions(buildOptions({ ...chartData, analysis: latestMessage.data }, metaData!, { zoom: zoomRef }))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.messages])
@@ -84,6 +94,7 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
           lazyUpdate={false}
           option={options}
           style={styles}
+          onEvents={{ datazoom: onDataZoom }}
         />
       ) : null}
     </div>
