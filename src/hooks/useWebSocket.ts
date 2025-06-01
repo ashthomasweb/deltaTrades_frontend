@@ -29,7 +29,6 @@ export const useWebSocket = (url: string, requestParams: Partial<RequestParams> 
     socket.current.onmessage = event => {
       try {
         const data = JSON.parse(event.data)
-        console.log(data)
         setMessages(prev => [...prev, data])
       } catch (err) {
         console.error('WebSocket message parse error', err)
@@ -45,7 +44,7 @@ export const useWebSocket = (url: string, requestParams: Partial<RequestParams> 
     socket.current.onerror = event => {
       console.error('WebSocket error:', event)
       alert(
-        'Failed to connect to WebSocket. Is the server running?\n\nContact your local developer for a better error handling system!',
+        'Failed to connect to WebSocket. Is the server even running Champ?\n\nContact your friendly neighborhood developer for a better error handling system!',
       )
     }
   }, [url, connectionType])

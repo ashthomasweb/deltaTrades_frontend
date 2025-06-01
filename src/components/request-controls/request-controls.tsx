@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import './request-controls.scss'
 import { MainContext } from '../../_context/MainContext'
+import { TickerSymbolInput } from '../requestParamInputs/ticker-symbol.component'
 
 interface RequestControlsProps {
   setParams: (e: React.FormEvent<HTMLFormElement>) => void
@@ -48,14 +49,15 @@ export const RequestControls = ({ setParams, requestType }: RequestControlsProps
         </section>
         <section className="params-container">
           <div className="primary-controls">
-            <label className={`${paramsDisabled ? 'isDisabled' : ''}`}>
+            <TickerSymbolInput paramsDisabled />
+            {/* <label className={`${paramsDisabled ? 'isDisabled' : ''}`}>
               Ticker:
               <input
                 name="symbol"
                 type="text"
                 placeholder="e.g. 'AAPL'"
               />
-            </label>
+            </label> */}
             {requestType === 'historical' ? (
               <>
                 <label className={`${paramsDisabled ? 'isDisabled' : ''}`}>

@@ -42,8 +42,6 @@ export const buildOptions = (
     analysisMA10 = data.analysis.MA10
   }
 
-  console.log(args)
-
   const legend = [
     {
       bottom: 10,

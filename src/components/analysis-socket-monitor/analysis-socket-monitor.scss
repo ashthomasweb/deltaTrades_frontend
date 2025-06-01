@@ -1,0 +1,10 @@
+@use '@/_styles/abstracts' as *;
+
+.analysis-container {
+  width: 96vw;
+  height: fit-content;
+  background: useTheme(greyScale7);
+  padding: 20px;
+  border-radius: 14px;
+  border: 2px solid useTheme(greyScale4);
+}
