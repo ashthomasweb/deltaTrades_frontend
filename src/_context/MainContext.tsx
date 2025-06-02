@@ -1,5 +1,6 @@
 import { JSX, Dispatch, ReactNode, createContext, useReducer, useEffect, useRef, RefObject } from 'react'
 import DisplayService from '../services/display.service'
+import storedDataPaths from '../config/stored-data-paths'
 
 export type MainStateType = {
   userName: string | null
@@ -30,7 +31,7 @@ export const MainState: MainStateType = {
   userObj: null,
   theme: 'night',
   historicData: null,
-  savedData: ['TSLA-1min-03-25-compact.json', 'TSLA-1min-03-25-full.json'],
+  savedData: storedDataPaths,
   realTimeConnectionStatus: {},
   historicalConnectionStatus: {},
 }

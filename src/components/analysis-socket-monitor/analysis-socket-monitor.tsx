@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { useWebSocket } from '../../hooks/useWebSocket'
 import { Candlestick } from '../candlestick/candlestick'
-import './alpha-socket-monitor.scss'
+import './analysis-socket-monitor.scss'
 import { RequestControls } from '../request-controls/request-controls'
 import { RequestParams } from '../../types/types'
 
-export const AlphaSocketMonitor: React.FC = () => {
+export const AnalysisSocketMonitor: React.FC = () => {
   const [requestParams, setRequestParams] = useState<Partial<RequestParams> | null>({
     type: undefined,
     storeData: undefined,
@@ -17,11 +17,11 @@ export const AlphaSocketMonitor: React.FC = () => {
     sendToQueue: undefined,
   })
 
-  const { isConnected, messages, socketControls } = useWebSocket('ws://localhost:8080', requestParams, 'historical')
+  const { isConnected, messages, socketControls } = useWebSocket('ws://localhost:8080', requestParams, 'analysis')
 
   const headingData = {
-    title: 'Historical Data',
-    connectionType: 'historical',
+    title: 'Analysis',
+    connectionType: 'analysis',
     isConnected,
   }
 
@@ -32,7 +32,7 @@ export const AlphaSocketMonitor: React.FC = () => {
 
     const params: Partial<RequestParams> = {
       type: formValues.savedData?.toString() !== 'none' ? 'storedData' : (formValues.type?.toString() ?? null),
-      dataSource: formValues.savedData?.toString() !== 'none' ? 'storedData' : 'alpha-vantage',
+      dataSource: formValues.savedData?.toString() !== 'none' ? 'storedData' : 'alpha-vantage', // TODO
       storeData: formValues.storeData?.toString() ?? null,
       symbol: formValues.symbol?.toString() ?? null,
       interval: formValues.interval?.toString() ?? null,
@@ -45,17 +45,17 @@ export const AlphaSocketMonitor: React.FC = () => {
   }
 
   return (
-    <div className="historical-container">
+    <div className="analysis-container">
       <Candlestick
         messages={messages}
         headingData={headingData}
         requestParams={requestParams}
-        requestType="historical"
+        requestType="analysis"
         socketControls={socketControls}
       />
       <RequestControls
         setParams={setParams}
-        requestType="historical"
+        requestType="analysis"
       />
     </div>
   )

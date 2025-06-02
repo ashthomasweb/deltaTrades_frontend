@@ -1,0 +1,5 @@
+class CandleStickService {
+  constructor() {}
+
+  handleHistoricalOrStoredData() {}
+}
