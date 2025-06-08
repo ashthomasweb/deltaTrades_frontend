@@ -23,6 +23,7 @@ export default tseslint.config(
       '@typescript-eslint/no-explicit-any': ['warn'],
       'prefer-const': ['warn'],
       'no-empty-pattern': ['warn'],
+      'no-debugger': 'off',
     },
   },
 )

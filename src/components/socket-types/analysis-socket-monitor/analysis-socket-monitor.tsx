@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { useWebSocket } from '../../hooks/useWebSocket'
-import { Candlestick } from '../candlestick/candlestick'
+import { useWebSocket } from '../../../hooks/useWebSocket'
+import { Candlestick } from '../../candlestick/candlestick.component.tsx'
 import './analysis-socket-monitor.scss'
-import { RequestControls } from '../request-controls/request-controls'
-import { RequestParams } from '../../types/types'
+import { RequestControls } from '../../request/request-controls/request-controls'
+import { RequestParams } from '../../../types/types'
 
 export const AnalysisSocketMonitor: React.FC = () => {
   const [requestParams, setRequestParams] = useState<Partial<RequestParams> | null>({
@@ -29,10 +29,11 @@ export const AnalysisSocketMonitor: React.FC = () => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
     const formValues = Object.fromEntries(formData.entries())
+    // console.log(formValues)
 
     const params: Partial<RequestParams> = {
-      type: formValues.savedData?.toString() !== 'none' ? 'storedData' : (formValues.type?.toString() ?? null),
-      dataSource: formValues.savedData?.toString() !== 'none' ? 'storedData' : 'alpha-vantage', // TODO
+      type: formValues.type.toString(),
+      dataSource: 'storedData',
       storeData: formValues.storeData?.toString() ?? null,
       symbol: formValues.symbol?.toString() ?? null,
       interval: formValues.interval?.toString() ?? null,
@@ -40,6 +41,19 @@ export const AnalysisSocketMonitor: React.FC = () => {
       savedData: formValues.savedData?.toString() ?? null,
       dataSize: formValues.dataSize?.toString() ?? null,
       sendToQueue: formValues.sendToQueue?.toString() ?? null,
+      algoParams: {
+        algorithm: formValues.algorithm?.toString() ?? null,
+        altThreshold: formValues.altThreshold?.toString() ?? null,
+        atrMultiplier: formValues.atrMultiplier?.toString() ?? null,
+        avgPeriod: formValues.avgPeriod?.toString() ?? null,
+        enableTrading: formValues.enableTrading?.toString() ?? null,
+        hugRatio: formValues.hugRatio?.toString() ?? null,
+        maAvgType: formValues.maAvgType?.toString() ?? null,
+        minCandleBodyDist: formValues.minCandleBodyDist?.toString() ?? null,
+        noiseWindow: formValues.noiseWindow?.toString() ?? null,
+        oppThreshold: formValues.oppThreshold?.toString() ?? null,
+        singleDirMin: formValues.singleDirMin?.toString() ?? null,
+      },
     }
     setRequestParams(params)
   }

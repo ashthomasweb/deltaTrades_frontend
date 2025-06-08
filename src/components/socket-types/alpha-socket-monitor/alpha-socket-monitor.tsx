@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { useWebSocket } from '../../hooks/useWebSocket'
-import { Candlestick } from '../candlestick/candlestick'
+import { useWebSocket } from '../../../hooks/useWebSocket'
+import { Candlestick } from '../../candlestick/candlestick.component.tsx'
 import './alpha-socket-monitor.scss'
-import { RequestControls } from '../request-controls/request-controls'
-import { RequestParams } from '../../types/types'
+import { RequestControls } from '../../request/request-controls/request-controls'
+import { RequestParams } from '../../../types/types'
 
 export const AlphaSocketMonitor: React.FC = () => {
   const [requestParams, setRequestParams] = useState<Partial<RequestParams> | null>({

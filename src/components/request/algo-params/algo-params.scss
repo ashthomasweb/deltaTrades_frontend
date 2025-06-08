@@ -1,0 +1,23 @@
+@use '@/_styles/abstracts' as *;
+
+.param-section-wrapper {
+  border: 1px solid useTheme(greyScale2);
+  @include borderRadius(4px);
+  padding: 5px;
+
+  h3 {
+    font-size: 18px;
+  }
+
+  label {
+    input {
+      width: 60%;
+      margin: 2px 0;
+    }
+
+    select {
+      width: 60% !important;
+      margin: 2px 0;
+    }
+  }
+}
