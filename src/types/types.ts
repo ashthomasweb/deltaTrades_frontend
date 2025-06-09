@@ -16,6 +16,7 @@ export interface RequestParams {
   originator: string | undefined
   returnToFE: boolean | undefined
   chartId: number | null
+  algoParams: any
 }
 
 export interface AlphaVantageMetaDataType {

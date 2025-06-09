@@ -84,6 +84,7 @@ export const useWebSocket = (url: string, requestParams: Partial<RequestParams> 
           getPrevious: requestParams.getPrevious,
           beginDate: requestParams.beginDate,
           chartId: requestParams.chartId,
+          algoParams: requestParams.algoParams,
         }),
       )
     }

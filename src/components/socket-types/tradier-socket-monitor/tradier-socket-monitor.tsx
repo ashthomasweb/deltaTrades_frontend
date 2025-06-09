@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import { useWebSocket } from '../../hooks/useWebSocket'
+import { useWebSocket } from '../../../hooks/useWebSocket'
 import './tradier-socket-monitor.scss'
-import { Candlestick } from '../candlestick/candlestick'
-import { RequestControls } from '../request-controls/request-controls'
-import { ChartHeadingData, RequestParams } from '../../types/types'
+import { Candlestick } from '../../candlestick/candlestick.component.tsx'
+import { RequestControls } from '../../request/request-controls/request-controls'
+import { ChartHeadingData, RequestParams } from '../../../types/types'
 
 export const TradierSocketMonitor = () => {
   const [requestParams, setRequestParams] = useState<Partial<RequestParams> | null>({

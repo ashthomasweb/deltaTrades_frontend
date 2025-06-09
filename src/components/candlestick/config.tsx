@@ -11,6 +11,7 @@ export const buildOptions = (
   const analysisSingleDirBlocks = []
   const analysisNoiseWindows = []
   let analysisMA10 = {}
+  // console.log(args[1]?.legend.current?.selected.Volume)
   if (data.analysis) {
     // console.log(data.analysis)
     for (const entry in data.analysis.singleDirBlocks) {
@@ -46,10 +47,16 @@ export const buildOptions = (
     {
       bottom: 10,
       left: 'center',
-      selected: {
-        'Single Direction': false,
+      selected: args[1] ? args[1].legend.current?.selected : { 'Single Direction': false },
+      data: [metaData 
+        ? metaData?.tickerSymbol 
+        : '', 'Volume', 'Single Direction', 'MA', 'Noise Windows', {name: 'Buy Signals'}],
+      backgroundColor: '#333',
+      textStyle: {
+        color: 'blue',
+        padding: 5
       },
-      data: [metaData ? metaData?.tickerSymbol : '', 'Volume', 'Single Direction', 'MA', 'Noise Windows'],
+      itemGap: 20
     },
     // { // TODO: Find out where we can set the positioning of the 'Volume' chart legend ...
     //   bottom: 50,
@@ -57,6 +64,8 @@ export const buildOptions = (
     //   data: [metaData ? Object?.entries(metaData)?.[1][1] : '', 'Volume'],
     // },
   ]
+
+  // legend[0].selected[metaData.tickerSymbol] =args[1].selected
 
   const xAxis = [
     {
@@ -181,9 +190,10 @@ export const buildOptions = (
         symbol: 'none',
         label: { show: false },
       },
-      symbolSize: 1,
+      symbolSize: 5,
+      symbol: 'circle',
       itemStyle: {
-        opacity: 0,
+        opacity: 1,
       },
       tooltip: {
         show: true,
