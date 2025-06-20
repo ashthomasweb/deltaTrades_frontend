@@ -1,10 +1,12 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import './header.scss'
+import deltaLogo from '../../_assets/icons/delta-logo.png'
 
 export const HeaderView: React.FC = () => {
   return (
     <div className="header-container">
+      <img src={deltaLogo} />
       <NavLink
         to="/"
         end

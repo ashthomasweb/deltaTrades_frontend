@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
-import { RequestParams } from '../types/types'
+import { MessageType, RequestParams } from '../types/types'
 import DisplayService from '../services/display.service'
 
-export const useWebSocket = (url: string, requestParams: Partial<RequestParams> | null, connectionType: string) => {
+export const useWebSocket = (url: string, requestParams: Partial<RequestParams>, connectionType: string) => {
   const socket = useRef<WebSocket | null>(null)
   const [isConnected, setIsConnected] = useState(false)
-  const [messages, setMessages] = useState<any[]>([])
+  const [messages, setMessages] = useState<Partial<MessageType>[]>([])
   const chartIdRef = useRef<string | undefined>(requestParams?.chartId?.toString())
 
   useEffect(() => {

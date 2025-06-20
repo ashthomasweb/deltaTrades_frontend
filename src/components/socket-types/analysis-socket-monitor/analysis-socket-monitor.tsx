@@ -4,9 +4,10 @@ import { Candlestick } from '../../candlestick/candlestick.component.tsx'
 import './analysis-socket-monitor.scss'
 import { RequestControls } from '../../request/request-controls/request-controls'
 import { RequestParams } from '../../../types/types'
+import { AlgoParams } from '../../request/algo-params/algo-params.tsx'
 
 export const AnalysisSocketMonitor: React.FC = () => {
-  const [requestParams, setRequestParams] = useState<Partial<RequestParams> | null>({
+  const [requestParams, setRequestParams] = useState<Partial<RequestParams>>({
     type: undefined,
     storeData: undefined,
     symbol: undefined,
@@ -29,7 +30,6 @@ export const AnalysisSocketMonitor: React.FC = () => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
     const formValues = Object.fromEntries(formData.entries())
-    // console.log(formValues)
 
     const params: Partial<RequestParams> = {
       type: formValues.type.toString(),
@@ -59,18 +59,20 @@ export const AnalysisSocketMonitor: React.FC = () => {
   }
 
   return (
-    <div className="analysis-container">
-      <Candlestick
-        messages={messages}
-        headingData={headingData}
-        requestParams={requestParams}
-        requestType="analysis"
-        socketControls={socketControls}
-      />
-      <RequestControls
-        setParams={setParams}
-        requestType="analysis"
-      />
-    </div>
+    <form onSubmit={setParams}>
+      <div className="analysis-container">
+        <div className="upper-container">
+          <Candlestick
+            messages={messages}
+            headingData={headingData}
+            requestParams={requestParams}
+            requestType="analysis"
+            socketControls={socketControls}
+          />
+          <AlgoParams />
+        </div>
+        <RequestControls requestType="analysis" />
+      </div>
+    </form>
   )
 }

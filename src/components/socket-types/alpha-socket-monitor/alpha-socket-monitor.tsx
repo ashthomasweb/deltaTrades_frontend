@@ -6,7 +6,7 @@ import { RequestControls } from '../../request/request-controls/request-controls
 import { RequestParams } from '../../../types/types'
 
 export const AlphaSocketMonitor: React.FC = () => {
-  const [requestParams, setRequestParams] = useState<Partial<RequestParams> | null>({
+  const [requestParams, setRequestParams] = useState<Partial<RequestParams>>({
     type: undefined,
     storeData: undefined,
     symbol: undefined,
@@ -45,18 +45,17 @@ export const AlphaSocketMonitor: React.FC = () => {
   }
 
   return (
-    <div className="historical-container">
-      <Candlestick
-        messages={messages}
-        headingData={headingData}
-        requestParams={requestParams}
-        requestType="historical"
-        socketControls={socketControls}
-      />
-      <RequestControls
-        setParams={setParams}
-        requestType="historical"
-      />
-    </div>
+    <form onSubmit={setParams}>
+      <div className="historical-container">
+        <Candlestick
+          messages={messages}
+          headingData={headingData}
+          requestParams={requestParams}
+          requestType="historical"
+          socketControls={socketControls}
+        />
+        <RequestControls requestType="historical" />
+      </div>
+    </form>
   )
 }

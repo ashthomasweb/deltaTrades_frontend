@@ -1,22 +1,53 @@
 @use '@/_styles/abstracts' as *;
 
+.algo-param-container {
+  min-width: 500px;
+  border: 2px solid useTheme(greyScale4);
+  padding: 20px;
+  border-radius: 12px;
+  gap: 10px;
+  @include displayFlex();
+  @include flexDirection(column);
+}
+
 .param-section-wrapper {
   border: 1px solid useTheme(greyScale2);
   @include borderRadius(4px);
-  padding: 5px;
+  padding: 20px;
 
   h3 {
     font-size: 18px;
   }
 
   label {
+    color: useTheme(contrastScale3);
+    @include displayFlex();
+    @include flexJustifyContent(space-between);
+    @include flexAlignItems(center);
+
+    &.isDisabled {
+      pointer-events: none;
+      opacity: 0.3;
+    }
+
     input {
-      width: 60%;
+      width: 30%;
       margin: 2px 0;
     }
 
+    input[type='text'] {
+      width: 30%;
+      padding-left: 5px;
+    }
+
+    input[type='checkbox'] {
+      width: 16px;
+      height: 16px;
+      margin: 0 5px 0 0;
+    }
+
     select {
-      width: 60% !important;
+      width: 30% !important;
       margin: 2px 0;
     }
   }
