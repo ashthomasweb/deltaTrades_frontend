@@ -20,41 +20,41 @@
  * This pattern avoids flickers and ensures smooth, correct zoom transitions.
  */
 
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useCallback } from 'react'
 import ReactECharts from 'echarts-for-react'
 import './candlestick.scss'
-import { buildOptions } from './config'
+import { buildOptions } from './candlestick-service'
 import { ChartHeader } from '../chart-header/chart-header'
-import { AlphaVantageMetaDataType, ChartHeadingData, RequestParams, TradierMetaDataType } from '../../types/types'
-import { EChartsOption } from 'echarts'
+import {
+  AlphaVantageMetaDataType,
+  AnalysisDataPacket,
+  ChartData,
+  ChartHeadingData,
+  RequestParams,
+  RequestType,
+  MessageType,
+  SocketControls,
+  TradierMetaDataType,
+} from '../../types/types'
 
 export interface CandleStickProps {
   messages: unknown[]
   headingData: ChartHeadingData
   requestParams: Partial<RequestParams> | null
-  requestType: 'historical' | 'real-time' | 'analysis'
-  socketControls: any
-}
-
-export type MessageType = {
-  type: string
-  data?: Record<string, any>
-  chartData?: Record<string, any>
-  algoResults?: Record<string, any>
-  id?: string
+  requestType: RequestType
+  socketControls: SocketControls
 }
 
 export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps) => {
   const [metaData, setMetaData] = useState<AlphaVantageMetaDataType | TradierMetaDataType | null>(null)
-  const [chartData, setChartData] = useState<any>(null)
-  const [analysisData, setAnalysisData] = useState<any>(null)
-  const [options, setOptions] = useState<EChartsOption | null>(null)
-  const zoomRef = useRef<any>(null)
-  const legendRef = useRef<any>(null)
-
+  const [chartData, setChartData] = useState<ChartData | null>(null)
+  const [analysisData, setAnalysisData] = useState<AnalysisDataPacket | null | undefined>(null)
+  const [options, setOptions] = useState<unknown | null>(null)
+  const zoomRef = useRef<Partial<echarts.DataZoomComponentOption> | null>(null)
+  const legendRef = useRef<Partial<echarts.LegendComponentOption> | null>(null)
   const zoomTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-  const onDataZoom = (params: any) => {
+  const onDataZoom = (params: echarts.DataZoomComponentOption) => {
     if (zoomTimeoutRef.current) {
       clearTimeout(zoomTimeoutRef.current)
     }
@@ -62,22 +62,38 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
     zoomTimeoutRef.current = setTimeout(() => {
       if (params) {
         zoomRef.current = { start: params.start, end: params.end }
-        setOptions(
-          buildOptions({ ...chartData, analysis: analysisData }, metaData!, { zoom: zoomRef }, { legend: legendRef }),
-        ) // The Fix!
+        setOptions(buildOptions(getOptionsArgs(chartData, metaData, analysisData)))
       }
-    }, 250)
+    }, 500)
   }
 
-  const onLegendSelectChanged = (params: { name: string; selected: Record<string, boolean>; type: string }) => {
-    // console.log(params)
-
+  const onLegendSelectChanged = (params: echarts.LegendComponentOption) => {
     if (params) {
       legendRef.current = { selected: params.selected }
-      setOptions(
-        buildOptions({ ...chartData, analysis: analysisData }, metaData!, { zoom: zoomRef }, { legend: legendRef }),
-      ) // The Fix!
+      setOptions(buildOptions(getOptionsArgs(chartData, metaData, analysisData)))
     }
+  }
+
+  const getOptionsArgs = useCallback(
+    (
+      chartData: ChartData | null,
+      metaData: AlphaVantageMetaDataType | TradierMetaDataType | null,
+      analysisData: AnalysisDataPacket | null | undefined,
+    ) => {
+      return {
+        chartData: chartData,
+        metaData: metaData,
+        analysisData: analysisData,
+        zoomData: zoomRef,
+        legendData: legendRef,
+      }
+    },
+    [],
+  )
+
+  const clearChart = () => {
+    setChartData(null)
+    setOptions(null)
   }
 
   useEffect(() => {
@@ -86,12 +102,12 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
     if (!latestMessage?.data) return // TODO: Shouldn't this handle the possible 'undefined' that is currently requiring a non-null assertion below???
 
     const historicalOrStoredDataHandler = () => {
-      const metaData = latestMessage.data!.metaData as AlphaVantageMetaDataType
+      const latestMetaData = latestMessage.data!.metaData as AlphaVantageMetaDataType
       const latestChartData = latestMessage.data!.chartData
 
-      setMetaData(metaData)
+      setMetaData(latestMetaData)
       setChartData(latestChartData)
-      setOptions(buildOptions(latestChartData, metaData, { zoom: zoomRef }))
+      setOptions(buildOptions(getOptionsArgs(latestChartData, latestMetaData, null)))
     }
 
     const realTimeHandler = () => {
@@ -100,8 +116,8 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
       // separate channels with the chartId assigned to it. But checking here would still give redundant security
       if (latestMessage.id !== props.headingData.chartId) return // Needs handling for historical data. Currently, no id is passed back, and no id is generated. They both === undefined and pass early return
 
-      const metaData = latestMessage.data!.metaData as TradierMetaDataType
-      const latestChartData = (latestMessage.data!.chartData as any) || { categoryData: [], values: [], volumes: [] }
+      const latestMetaData = latestMessage.data!.metaData as TradierMetaDataType
+      const latestChartData = latestMessage.data!.chartData || { categoryData: [], values: [], volumes: [] }
       let existingChartData = chartData || { categoryData: [], values: [], volumes: [] }
       existingChartData = {
         categoryData: [...existingChartData.categoryData, ...latestChartData.categoryData],
@@ -109,62 +125,31 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
         volumes: [...existingChartData.volumes, ...latestChartData.volumes],
       }
 
-      setMetaData(metaData)
+      setMetaData(latestMetaData)
       setChartData(existingChartData)
-      setOptions(buildOptions(existingChartData, metaData))
-    }
-
-    const algo1AnalysisHandler = () => {
-      // TODO: RETIRE??
-      setAnalysisData(latestMessage.data)
-      setOptions(
-        buildOptions(
-          { ...chartData, analysis: latestMessage.data },
-          metaData!,
-          { zoom: zoomRef },
-          { legend: legendRef },
-        ),
-      )
+      setOptions(buildOptions(getOptionsArgs(existingChartData, latestMetaData, null)))
     }
 
     const analysisHandler = () => {
-      const metaData = latestMessage.data!.metaData as AlphaVantageMetaDataType
+      const latestMetaData = latestMessage.data!.metaData as AlphaVantageMetaDataType
       const latestChartData = latestMessage.data!.chartData
 
-      setMetaData(metaData)
+      setMetaData(latestMetaData)
       setChartData(latestChartData)
       setAnalysisData(latestMessage.algoResults)
-      setOptions(
-        buildOptions(
-          { ...latestChartData, analysis: latestMessage.algoResults },
-          metaData,
-          { zoom: zoomRef },
-          { legend: legendRef },
-        ),
-      )
+      setOptions(buildOptions(getOptionsArgs(latestChartData, latestMetaData, latestMessage.algoResults)))
     }
 
     if (latestMessage.type.match(/historical|storedData/)) {
       // TODO: Refactor to switch case once historic/storedData is refactored
       historicalOrStoredDataHandler()
-    } else if (latestMessage.type === 'real-time') {
+    } else if (latestMessage.type === 'realTime') {
       realTimeHandler()
-    } else if (latestMessage.type === 'algo1Analysis') {
-      algo1AnalysisHandler()
     } else if (latestMessage.type === 'analysis') {
       analysisHandler()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.messages])
-
-  const styles = {
-    height: '90%',
-  }
-
-  const clearChart = () => {
-    setChartData(null)
-    setOptions(null)
-  }
 
   return (
     <div className="candlestick-container">
@@ -180,7 +165,9 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
           notMerge={true}
           lazyUpdate={false}
           option={options}
-          style={styles}
+          style={{
+            height: '90%',
+          }}
           onEvents={{
             datazoom: onDataZoom,
             legendselectchanged: onLegendSelectChanged,

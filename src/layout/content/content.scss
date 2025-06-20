@@ -11,7 +11,7 @@
   }
 
   .content-pane {
-    border: 3px solid green;
+    border: 2px solid $cPrimaryBlue;
     padding: 20px;
     flex: 1;
     @include flexCenter();

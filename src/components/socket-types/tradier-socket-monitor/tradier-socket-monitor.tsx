@@ -6,7 +6,7 @@ import { RequestControls } from '../../request/request-controls/request-controls
 import { ChartHeadingData, RequestParams } from '../../../types/types'
 
 export const TradierSocketMonitor = () => {
-  const [requestParams, setRequestParams] = useState<Partial<RequestParams> | null>({
+  const [requestParams, setRequestParams] = useState<Partial<RequestParams>>({
     type: undefined,
     storeData: undefined,
     symbol: undefined,
@@ -53,18 +53,17 @@ export const TradierSocketMonitor = () => {
   }
 
   return (
-    <div className="historical-container">
-      <Candlestick
-        messages={messages}
-        headingData={headingData}
-        requestParams={requestParams}
-        requestType="real-time"
-        socketControls={socketControls}
-      />
-      <RequestControls
-        setParams={setParams}
-        requestType="real-time"
-      />
-    </div>
+    <form onSubmit={setParams}>
+      <div className="historical-container">
+        <Candlestick
+          messages={messages}
+          headingData={headingData}
+          requestParams={requestParams}
+          requestType="real-time"
+          socketControls={socketControls}
+        />
+        <RequestControls requestType="real-time" />
+      </div>
+    </form>
   )
 }

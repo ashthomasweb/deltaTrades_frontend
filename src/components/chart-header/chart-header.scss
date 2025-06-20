@@ -1,19 +1,41 @@
 @use '@/_styles/abstracts' as *;
 
-.request-controls-container {
-  border: 2px solid useTheme(greyScale4);
-  padding: 20px;
-  margin-top: 10px;
-  border-radius: 12px;
+.meta-data {
   @include displayFlex();
-  @include flexJustifyContent(space-around);
+  @include flexDirection(column);
+  gap: 4px;
+  border: 1px solid useTheme(greyScale4);
+  border-radius: 6px;
+  padding: 5px 10px;
+  margin-bottom: 8px;
 
-  input,
-  select {
-    width: 300px;
-    background: useTheme(greyScale5);
-    color: useTheme(contrastScale3);
-    border: 1px solid useTheme(greyScale2);
-    outline: none;
+  header {
+    @include displayFlex();
+    @include flexJustifyContent(space-between);
+    position: relative;
+  }
+
+  h2 {
+    font-size: 18px;
+    display: inline-block;
+    margin-bottom: 0px;
+  }
+
+  h3 {
+    font-size: 16px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+
+    &.connected {
+      :last-child {
+        animation: statusCycle 3s infinite;
+      }
+    }
+
+    button {
+      margin-right: 5px;
+      margin-top: 4px;
+    }
   }
 }

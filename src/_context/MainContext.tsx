@@ -1,15 +1,15 @@
-import { JSX, Dispatch, ReactNode, createContext, useReducer, useEffect, useRef, RefObject } from 'react'
+import { JSX, Dispatch, ReactNode, createContext, useReducer, useRef } from 'react'
 import DisplayService from '../services/display.service'
 import storedDataPaths from '../config/stored-data-paths'
+import { ConnectionStatus } from '../types/types'
 
 export type MainStateType = {
   userName: string | null
   userObj: unknown | null
   theme: 'day' | 'night'
-  historicData: any
   savedData: string[]
-  realTimeConnectionStatus: any
-  historicalConnectionStatus: any
+  realTimeConnectionStatus: ConnectionStatus | undefined
+  historicalConnectionStatus: ConnectionStatus | undefined
 }
 
 export type MainActionType = {
@@ -30,10 +30,9 @@ export const MainState: MainStateType = {
   userName: null,
   userObj: null,
   theme: 'night',
-  historicData: null,
   savedData: storedDataPaths,
-  realTimeConnectionStatus: {},
-  historicalConnectionStatus: {},
+  realTimeConnectionStatus: undefined,
+  historicalConnectionStatus: undefined,
 }
 
 export const MainContext = createContext<MainContextType>({
@@ -65,15 +64,6 @@ const MainProvider = ({ children }: MainProviderProps): JSX.Element => {
   DisplayService.setLocalDispatch(mainDispatch)
   // APIService.setLocalDispatch(mainDispatch)
   // DebugService.setLocalDispatch(mainDispatch)
-
-  // FirebaseAuthService.setLocalDispatch(mainDispatch)
-  // FirebaseReadService.setLocalDispatch(mainDispatch)
-  // FirebaseUpdateService.setLocalDispatch(mainDispatch)
-  // FirebaseDeleteService.setLocalDispatch(mainDispatch)
-
-  // useEffect(() => {
-  // DisplayService.appRef = appRef
-  // }, [])
 
   return (
     <MainContext.Provider value={{ mainState, mainDispatch }}>

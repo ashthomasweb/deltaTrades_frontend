@@ -7,37 +7,6 @@
   border-radius: 14px;
   border: 2px solid useTheme(greyScale4);
   color: useTheme(contrastScale1);
-
-  .meta-data {
-    @include displayFlex();
-    @include flexDirection(column);
-    gap: 4px;
-    border: 1px solid useTheme(greyScale4);
-    border-radius: 6px;
-    padding: 5px 10px;
-    margin-bottom: 8px;
-
-    header {
-      @include displayFlex();
-      @include flexJustifyContent(space-between);
-    }
-
-    h2 {
-      font-size: 18px;
-      display: inline-block;
-    }
-
-    h3 {
-      font-size: 16px;
-      display: inline-block;
-
-      &.connected {
-        :last-child {
-          animation: statusCycle 3s infinite;
-        }
-      }
-    }
-  }
 }
 
 @keyframes statusCycle {

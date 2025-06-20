@@ -9,8 +9,31 @@
   top: 0;
   left: 0;
   @include displayFlex();
-  gap: 20px;
-  font-size: 20px;
+  gap: 30px;
+  font-size: 18px;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-left: 16px;
+
+  img {
+    height: 36px;
+    background: #006c80;
+    border-radius: 100%;
+    border: 1px solid #006c80;
+    box-shadow: inset 0 0 10px 3px #000021;
+  }
+
+  a {
+    color: #00729b;
+    font-family: NotoSansReg, serif;
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 2px solid $cPrimaryBlue;
+    padding-bottom: 4px;
+    transition: none;
+
+    &:hover {
+      border-bottom: 3px solid $cPrimaryBlue;
+    }
+  }
 }
