@@ -7,4 +7,9 @@
   padding: 20px;
   border-radius: 14px;
   border: 2px solid useTheme(greyScale4);
+
+  .upper-container {
+    @include displayFlex();
+    gap: 20px;
+  }
 }

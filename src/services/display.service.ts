@@ -26,15 +26,6 @@ class displayService {
     }
   }
 
-  setHistorical(prevData: any, data: any) {
-    const payload = {
-      historicData: data,
-    }
-    if (this.mainDispatch) {
-      this.mainDispatch({ payload })
-    }
-  }
-
   handleConnectionStatus(connectionType: string | null | undefined, statusObject: any) {
     let payload
     if (connectionType === 'historical') {

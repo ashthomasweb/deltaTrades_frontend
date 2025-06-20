@@ -3,7 +3,7 @@ import './algo-params.scss'
 import { LabeledNumberInput } from '../generic-inputs/number-input'
 
 export const AlgoParams: React.FC = () => (
-  <>
+  <div className="algo-param-container">
     <div className="param-section-wrapper noise-window">
       <h3>Noise Window</h3>
       <label>
@@ -148,5 +148,5 @@ export const AlgoParams: React.FC = () => (
         />
       </label>
     </div>
-  </>
+  </div>
 )

@@ -11,20 +11,13 @@ import { SendToQueueInput } from '../requestParamInputs/send-to-queue.component'
 import { AlgoSelectInput } from '../requestParamInputs/algo-select.component'
 import { EnableTradingInput } from '../requestParamInputs/enable-trading.component'
 import { StoreDataSelectorInput } from '../requestParamInputs/store-data-selector.component'
-import { AlgoParams } from '../algo-params/algo-params'
 
 interface RequestControlsProps {
-  setParams: (e: React.FormEvent<HTMLFormElement>) => void
   requestType: string
 }
 
-export const RequestControls = ({ setParams, requestType }: RequestControlsProps) => {
+export const RequestControls = ({ requestType }: RequestControlsProps) => {
   const [paramsDisabled, setParamsDisabled] = useState<boolean>(false)
-
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    // debugger
-    setParams(e)
-  }
 
   const handleSavedDataChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setParamsDisabled(e.target.value !== 'none')
@@ -32,7 +25,7 @@ export const RequestControls = ({ setParams, requestType }: RequestControlsProps
 
   return (
     <div className="request-controls-container">
-      <form onSubmit={handleFormSubmit}>
+      <div className="inner-container">
         <section className="global-controls">
           <label className="controls-title">
             {`${requestType.substring(0, 1).toUpperCase()}${requestType.substring(1)} Controls`}
@@ -45,7 +38,12 @@ export const RequestControls = ({ setParams, requestType }: RequestControlsProps
             ></input>
           </label>
           <div className="submit-container">
-            {requestType.match(/historical|real-time/) ? <StoreDataSelectorInput requestType={requestType} /> : null}
+            {requestType.match(/historical|real-time/) ? (
+              <StoreDataSelectorInput
+                requestType={requestType}
+                paramsDisabled={paramsDisabled}
+              />
+            ) : null}
             <button type="submit">Request</button>
           </div>
         </section>
@@ -81,7 +79,6 @@ export const RequestControls = ({ setParams, requestType }: RequestControlsProps
               <>
                 <SavedDatasetsInput handleSavedDataChange={handleSavedDataChange} />
                 <LastFullRadio paramsDisabled={paramsDisabled} />
-                <SendToQueueInput />
               </>
             ) : null}
 
@@ -94,13 +91,11 @@ export const RequestControls = ({ setParams, requestType }: RequestControlsProps
             ) : null}
 
             {requestType === 'analysis' ? (
-              <>
-                <AlgoParams />
-              </>
+              <>{/* <AlgoParams /> // This has been moved next to Candlestick Chart */}</>
             ) : null}
           </div>
         </section>
-      </form>
+      </div>
     </div>
   )
 }

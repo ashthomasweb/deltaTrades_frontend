@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
 import './chart-header.scss'
-import { AlphaVantageMetaDataType, ChartHeadingData, TradierMetaDataType } from '../../types/types'
+import { AlphaVantageMetaDataType, ChartHeadingData, SocketControls, TradierMetaDataType } from '../../types/types'
 import { MainContext } from '../../_context/MainContext'
 
 interface ChartHeaderProps {
   headingData: ChartHeadingData
   metaData: AlphaVantageMetaDataType | TradierMetaDataType | null
-  socketControls: any
+  socketControls: SocketControls
   requestType: string
   clearChart: () => void
 }
@@ -40,10 +40,10 @@ export const ChartHeader: React.FC<ChartHeaderProps> = props => {
             onClick={handleConnectionStatus}
           >{`${
             props?.requestType === 'historical'
-              ? historicalConnectionStatus.isConnected
+              ? historicalConnectionStatus?.isConnected
                 ? 'Disconnect'
                 : 'Connect'
-              : realTimeConnectionStatus.isConnected
+              : realTimeConnectionStatus?.isConnected
                 ? 'Disconnect'
                 : 'Connect'
           }`}</button>
