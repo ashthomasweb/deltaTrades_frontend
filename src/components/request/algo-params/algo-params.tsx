@@ -16,6 +16,15 @@ export const AlgoParams: React.FC = () => (
         </select>
       </label>
       <LabeledNumberInput
+        label="Window Length"
+        name="noiseWindowLength"
+        min={1}
+        max={100}
+        step={1}
+        defaultValue={7}
+        title={''}
+      />
+      <LabeledNumberInput
         label="Atr Mult."
         name="atrMultiplier"
         min={0}
@@ -76,9 +85,9 @@ export const AlgoParams: React.FC = () => (
         <select name="maAvgType">
           <option
             title={'Uses the closing price'}
-            value={'close'}
+            value={'default'}
           >
-            Close
+            Close (Default)
           </option>
           <option
             title={'Needs description'}
