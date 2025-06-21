@@ -51,6 +51,7 @@ export const AnalysisSocketMonitor: React.FC = () => {
         maAvgType: formValues.maAvgType?.toString() ?? null,
         minCandleBodyDist: formValues.minCandleBodyDist?.toString() ?? null,
         noiseWindow: formValues.noiseWindow?.toString() ?? null,
+        noiseWindowLength: formValues.noiseWindowLength?.toString() ?? null,
         oppThreshold: formValues.oppThreshold?.toString() ?? null,
         singleDirMin: formValues.singleDirMin?.toString() ?? null,
       },
