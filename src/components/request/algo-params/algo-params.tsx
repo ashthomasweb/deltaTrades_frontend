@@ -13,6 +13,8 @@ export const AlgoParams: React.FC = () => (
           <option value="NW2">NW2</option>
           <option value="NW3">NW3</option>
           <option value="NW4">NW4</option>
+          <option value="NW5">NW5</option>
+          <option value="NW6">NW6</option>
         </select>
       </label>
       <LabeledNumberInput
@@ -22,7 +24,9 @@ export const AlgoParams: React.FC = () => (
         max={100}
         step={1}
         defaultValue={7}
-        title={''}
+        title={
+          'Higher values are more strict.\n\nNumber of candles used in each analysis window when checking for noise/chop behavior.\n\nEach window is scored using the selected Noise Window logic.'
+        }
       />
       <LabeledNumberInput
         label="Atr Mult."
@@ -42,7 +46,9 @@ export const AlgoParams: React.FC = () => (
         max={1}
         step={0.01}
         defaultValue={0.6}
-        title={''}
+        title={
+          'Lower values are more strict.\n\nMeasures how often candle direction alternates between green/red within the noise window.\n\nHigher values catch more back-and-forth movement.\nExample: 0.6 means ~60% of the candles must alternate direction.'
+        }
       />
       <LabeledNumberInput
         label="Hugging Ratio"
@@ -51,7 +57,31 @@ export const AlgoParams: React.FC = () => (
         max={1}
         step={0.01}
         defaultValue={0.7}
-        title={''}
+        title={
+          'Higher values are more strict.\n\nRatio of candles within the window that are "hugging" the moving average line.\n\nA candle is considered hugging if its body center or wick intersects a threshold band around the MA.\n\nHigher values mean more candles must be tightly clustered near the average.'
+        }
+      />
+      <LabeledNumberInput
+        label="Compression Body Multiplier"
+        name="compBodyMult"
+        min={0}
+        max={1}
+        step={0.01}
+        defaultValue={0.25}
+        title={
+          'Lower values are more strict.\n\nControls how small a candle body must be (relative to ATR) to be considered compressed.\n\nThis multiplier is applied to the average true range to define the threshold.\nExample: 0.25 means the body must be smaller than 25% of ATR.'
+        }
+      />
+      <LabeledNumberInput
+        label="Compression Fullness Threshold"
+        name="compFullThresh"
+        min={0}
+        max={100}
+        step={1}
+        defaultValue={15}
+        title={
+          'Lower values are more strict.\n\nMeasures how much of the candle is body vs wick.\n\nExpressed as a percentage: lower values indicate long wicks and small bodies (e.g. doji-like candles).\n\nExample: 15 means the body is only 15% or less of the total candle size.'
+        }
       />
     </div>
 
