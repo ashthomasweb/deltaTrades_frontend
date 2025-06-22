@@ -9,6 +9,7 @@ type LabeledNumberInputProps = {
   max: number
   step: number
   title: string | undefined
+  disabled?: boolean | undefined
 }
 
 export const LabeledNumberInput: React.FC<Partial<LabeledNumberInputProps>> = ({
@@ -19,6 +20,7 @@ export const LabeledNumberInput: React.FC<Partial<LabeledNumberInputProps>> = ({
   max,
   step,
   title,
+  disabled,
 }) => (
   <label title={title}>
     {label}
@@ -29,6 +31,7 @@ export const LabeledNumberInput: React.FC<Partial<LabeledNumberInputProps>> = ({
       max={max}
       step={step}
       defaultValue={defaultValue}
+      disabled={disabled}
     />
   </label>
 )
