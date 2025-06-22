@@ -46,7 +46,6 @@ export const AnalysisSocketMonitor: React.FC = () => {
         altThreshold: formValues.altThreshold?.toString() ?? null,
         atrMultiplier: formValues.atrMultiplier?.toString() ?? null,
         avgPeriod: formValues.avgPeriod?.toString() ?? null,
-        enableTrading: formValues.enableTrading?.toString() ?? null,
         hugRatio: formValues.hugRatio?.toString() ?? null,
         maAvgType: formValues.maAvgType?.toString() ?? null,
         minCandleBodyDist: formValues.minCandleBodyDist?.toString() ?? null,
