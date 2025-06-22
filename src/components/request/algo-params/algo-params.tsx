@@ -149,13 +149,6 @@ export const AlgoParams: React.FC = () => (
         defaultValue={15}
         title={'Minimum statistical distribution 0 - 100 of candlestick body value.'}
       />
-      <label>
-        Enable - Will use NoiseWindow settings
-        <input
-          name="enableTrading"
-          type="checkbox"
-        />
-      </label>
     </div>
   </div>
 )
