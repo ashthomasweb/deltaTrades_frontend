@@ -53,6 +53,8 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
   const zoomRef = useRef<Partial<echarts.DataZoomComponentOption> | null>(null)
   const legendRef = useRef<Partial<echarts.LegendComponentOption> | null>(null)
   const zoomTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const extendedTickDataRef = useRef<any>(null)
+  const extendedTickDataHovered = useRef<any>(null)
 
   const onDataZoom = (params: echarts.DataZoomComponentOption) => {
     if (zoomTimeoutRef.current) {
@@ -137,6 +139,8 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
       setMetaData(latestMetaData)
       setChartData(latestChartData)
       setAnalysisData(latestMessage.algoResults)
+      extendedTickDataRef.current = latestMessage.algoResults?.extTickData
+      // console.log(latestMessage.algoResults.extTick)
       setOptions(buildOptions(getOptionsArgs(latestChartData, latestMetaData, latestMessage.algoResults)))
     }
 
@@ -151,6 +155,11 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.messages])
 
+  const onHover = params => {
+    // console.log(extendedTickDataRef.current[params.dataIndex])
+    // extendedTickDataHovered.current = extendedTickDataRef.current[params.dataIndex]
+  }
+
   return (
     <div className="candlestick-container">
       <ChartHeader
@@ -160,6 +169,21 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
         socketControls={props.socketControls}
         clearChart={clearChart}
       />
+      {extendedTickDataRef ? (
+        <div
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            height: 200,
+            width: 200,
+          }}
+        >
+          <span>{extendedTickDataHovered?.current?.percentChange}</span>
+          <br />
+          <span>{extendedTickDataHovered?.current?.isWickCrossing}</span>
+        </div>
+      ) : null}
+
       {options ? (
         <ReactECharts
           notMerge={true}
@@ -171,6 +195,7 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
           onEvents={{
             datazoom: onDataZoom,
             legendselectchanged: onLegendSelectChanged,
+            updateAxisPointer: onHover,
           }}
         />
       ) : null}
