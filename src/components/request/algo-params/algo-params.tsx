@@ -108,14 +108,25 @@ export const AlgoParams: React.FC = () => {
       <div className="param-section-wrapper moving-avg">
         <h3>Moving Average</h3>
         <LabeledNumberInput
-          label="Averaging Period"
-          name="avgPeriod"
+          label="Simple Averaging Period"
+          name="simpleAvgPeriod"
           min={3}
           max={100}
           step={1}
           defaultValue={7}
           title={
             'The number of ticks used to find average price.\n\nNOTE: Averages per tick, not per minute. Contingent on the interval the dataset is built in.'
+          }
+        />
+        <LabeledNumberInput
+          label="Exponential Averaging Period"
+          name="emaAvgPeriod"
+          min={3}
+          max={100}
+          step={1}
+          defaultValue={20}
+          title={
+            'The number of ticks used to find exponential average price.\n\nNOTE: Averages per tick, not per minute. Contingent on the interval the dataset is built in.'
           }
         />
         <label>

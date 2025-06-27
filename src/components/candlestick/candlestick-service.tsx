@@ -5,31 +5,36 @@ export const buildOptions = (dataOptions: BuildOptionsArgsType): unknown => {
   const analysisSingleDirBlocks = []
   const analysisNoiseWindows = []
   let analysisMA10 = {}
+  let analysisBollinger = []
+  let extendedTickDataIndexArray = []
+  console.log(dataOptions)
 
-  if (dataOptions.analysisData) {
-    for (const entry in dataOptions.analysisData.singleDirBlocks) {
+  if (dataOptions.analysisData.analysis) {
+    for (const entry in dataOptions.analysisData.analysis.singleDirBlocks) {
       analysisSingleDirBlocks.push([
         {
-          xAxis: dataOptions.analysisData.singleDirBlocks[entry].start,
+          xAxis: dataOptions.analysisData.analysis.singleDirBlocks[entry].start,
         },
         {
-          xAxis: dataOptions.analysisData.singleDirBlocks[entry].end,
+          xAxis: dataOptions.analysisData.analysis.singleDirBlocks[entry].end,
         },
       ])
     }
 
-    for (const entry in dataOptions.analysisData.noiseWindows) {
+    for (const entry in dataOptions.analysisData.analysis.noiseWindows) {
       analysisNoiseWindows.push([
         {
-          xAxis: dataOptions.analysisData.noiseWindows[entry].start,
+          xAxis: dataOptions.analysisData.analysis.noiseWindows[entry].start,
         },
         {
-          xAxis: dataOptions.analysisData.noiseWindows[entry].end,
+          xAxis: dataOptions.analysisData.analysis.noiseWindows[entry].end,
         },
       ])
     }
 
-    analysisMA10 = dataOptions.analysisData?.MA
+    analysisMA10 = dataOptions.analysisData.analysis?.MA
+    analysisBollinger = dataOptions.analysisData.analysis?.bollingerBands
+    extendedTickDataIndexArray = dataOptions.chartData?.categoryData.map(timestamp => [timestamp, null])
   }
 
   const legend = [
@@ -58,7 +63,7 @@ export const buildOptions = (dataOptions: BuildOptionsArgsType): unknown => {
     },
   ]
 
-  if (dataOptions.analysisData) {
+  if (dataOptions.analysisData.analysis) {
     legend[0].data.push(
       {
         name: 'Single Direction',
@@ -66,6 +71,14 @@ export const buildOptions = (dataOptions: BuildOptionsArgsType): unknown => {
       },
       {
         name: 'MA',
+        // icon: '',
+      },
+      {
+        name: 'EMA',
+        // icon: '',
+      },
+      {
+        name: 'Bollinger Band',
         // icon: '',
       },
       {
@@ -108,7 +121,7 @@ export const buildOptions = (dataOptions: BuildOptionsArgsType): unknown => {
     },
   ]
 
-  if (dataOptions.analysisData && Array.isArray(series)) {
+  if (dataOptions.analysisData.analysis && Array.isArray(series)) {
     series.push(
       {
         type: 'scatter',
@@ -170,7 +183,7 @@ export const buildOptions = (dataOptions: BuildOptionsArgsType): unknown => {
           },
         ],
         markLine: {
-          data: dataOptions.analysisData?.crossingSignal?.map((entry: { xAxis: string }) => {
+          data: dataOptions.analysisData.analysis?.crossingSignal?.map((entry: { xAxis: string }) => {
             return { xAxis: entry }
           }),
           lineStyle: { color: '#00729b', width: 1, opacity: 0.8 },
@@ -193,6 +206,24 @@ export const buildOptions = (dataOptions: BuildOptionsArgsType): unknown => {
         itemStyle: {
           color: '#a6a254',
         },
+      },
+      {
+        name: 'EMA',
+        symbolSize: 1,
+        ...dataOptions.analysisData.analysis.EMA,
+        itemStyle: {
+          color: 'white',
+        },
+      },
+      ...analysisBollinger,
+      {
+        type: 'scatter',
+        name: 'Extended Tick Data',
+        data: dataOptions.analysisData.extTickData,
+        symbolSize: 0.1,
+        itemStyle: { opacity: 0 },
+        tooltip: { show: true },
+        z: -999, // keep way behind
       },
     )
   }
