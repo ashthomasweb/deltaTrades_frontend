@@ -21,6 +21,29 @@ export const options = {
       obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 30
       return obj
     },
+    formatter: params => {
+      const candle = params.find(p => p.seriesType === 'candlestick')
+      const extended = params.find(p => p.seriesName === 'Extended Tick Data')
+      console.log(params)
+
+      const [timestamp, open, close, low, high] = candle.data
+
+      return `
+      <strong>${timestamp}</strong><br/>
+      Open: ${open}<br/>
+      Close: ${close}<br/>
+      Low: ${low}<br/>
+      High: ${high}<br/>
+      ${
+        extended?.data
+          ? `
+        <hr/>
+        isWickCrossing: ${extended.data.isWickCrossing}<br/>
+      `
+          : ''
+      }
+    `
+    },
   },
   axisPointer: {
     link: [
