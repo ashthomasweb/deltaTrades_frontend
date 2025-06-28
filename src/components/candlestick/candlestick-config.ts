@@ -24,21 +24,28 @@ export const options = {
     formatter: params => {
       const candle = params.find(p => p.seriesType === 'candlestick')
       const extended = params.find(p => p.seriesName === 'Extended Tick Data')
-      console.log(params)
+      // console.log(params)
 
-      const [timestamp, open, close, low, high] = candle.data
+      const [open, close, low, high] = candle.data
+      const timestamp = candle.name
 
       return `
-      <strong>${timestamp}</strong><br/>
+      <strong>${timestamp.substring(0, 10)}</strong><br/>
+      <strong>${timestamp.substring(11)}</strong><br/>
       Open: ${open}<br/>
       Close: ${close}<br/>
-      Low: ${low}<br/>
+      <hr/>
       High: ${high}<br/>
+      Low: ${low}<br/>
       ${
         extended?.data
           ? `
         <hr/>
         isWickCrossing: ${extended.data.isWickCrossing}<br/>
+        slope: ${extended.data.slope}<br/>
+        percentChange: ${extended.data.percentChange}<br/>
+
+
       `
           : ''
       }
