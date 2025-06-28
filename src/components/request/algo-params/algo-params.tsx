@@ -199,6 +199,19 @@ export const AlgoParams: React.FC = () => {
           title={'Minimum statistical distribution 0 - 100 of candlestick body value.'}
         />
       </div>
+
+      <div className="param-section-wrapper ma-crossing-algo">
+        <h3>Trend Detection</h3>
+        <LabeledNumberInput
+          label="Slope Period"
+          name="slopePeriod"
+          min={1}
+          max={100}
+          step={1}
+          defaultValue={7}
+          title={''}
+        />
+      </div>
     </div>
   )
 }

@@ -6,7 +6,7 @@ export const buildOptions = (dataOptions: BuildOptionsArgsType): unknown => {
   const analysisNoiseWindows = []
   let analysisMA10 = {}
   let analysisBollinger = []
-  let extendedTickDataIndexArray = []
+  // let extendedTickDataIndexArray = []
   console.log(dataOptions)
 
   if (dataOptions.analysisData.analysis) {
@@ -34,7 +34,7 @@ export const buildOptions = (dataOptions: BuildOptionsArgsType): unknown => {
 
     analysisMA10 = dataOptions.analysisData.analysis?.MA
     analysisBollinger = dataOptions.analysisData.analysis?.bollingerBands
-    extendedTickDataIndexArray = dataOptions.chartData?.categoryData.map(timestamp => [timestamp, null])
+    // extendedTickDataIndexArray = dataOptions.chartData?.categoryData.map(timestamp => [timestamp, null])
   }
 
   const legend = [
