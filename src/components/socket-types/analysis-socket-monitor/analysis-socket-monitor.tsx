@@ -54,7 +54,9 @@ export const AnalysisSocketMonitor: React.FC = () => {
         noiseWindowLength: formValues.noiseWindowLength?.toString() ?? null,
         oppThreshold: formValues.oppThreshold?.toString() ?? null,
         singleDirMin: formValues.singleDirMin?.toString() ?? null,
-        slopePeriod: formValues.slopePeriod?.toString() ?? null,
+        slopePeriodRawPrice: formValues.slopePeriodRawPrice?.toString() ?? null,
+        slopePeriodSMA: formValues.slopePeriodSMA?.toString() ?? null,
+        slopePeriodEMA: formValues.slopePeriodEMA?.toString() ?? null,
       },
     }
     setRequestParams(params)
