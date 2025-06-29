@@ -42,8 +42,10 @@ export const options = {
           ? `
         <hr/>
         isWickCrossing: ${extended.data.isWickCrossing}<br/>
-        slope: ${extended.data.slope}<br/>
-        percentChange: ${extended.data.percentChange}<br/>
+        percSlopeByPeriod: ${extended.data.percSlopeByPeriod}<br/>
+        priceSlopeByPeriod: ${extended.data.priceSlopeByPeriod}<br/>
+        smaPercentSlopeByPeriod: ${extended.data.smaSlopeByPeriod}<br/>
+        emaPercentSlopeByPeriod: ${extended.data.emaSlopeByPeriod}<br/>
 
 
       `
