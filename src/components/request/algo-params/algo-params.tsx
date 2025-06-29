@@ -204,11 +204,29 @@ export const AlgoParams: React.FC = () => {
         <h3>Trend Detection</h3>
         <LabeledNumberInput
           label="Slope Period"
-          name="slopePeriod"
+          name="slopePeriodRawPrice"
           min={1}
           max={100}
           step={1}
-          defaultValue={7}
+          defaultValue={5}
+          title={''}
+        />
+        <LabeledNumberInput
+          label="Slope Period"
+          name="slopePeriodSMA"
+          min={1}
+          max={100}
+          step={1}
+          defaultValue={20}
+          title={''}
+        />
+        <LabeledNumberInput
+          label="Slope Period"
+          name="slopePeriodEMA"
+          min={1}
+          max={100}
+          step={1}
+          defaultValue={12}
           title={''}
         />
       </div>
