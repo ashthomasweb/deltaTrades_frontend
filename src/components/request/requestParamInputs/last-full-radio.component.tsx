@@ -9,7 +9,7 @@ export const LastFullRadio: React.FC<RequestParamInputProps> = ({ paramsDisabled
     <label className={`${paramsDisabled ? 'isDisabled' : ''}`}>
       Last 100 Ticks
       <input
-        name="dataSize"
+        name="primaryParam_dataSize"
         value="last-100"
         type="radio"
         radioGroup="dataset-size"
@@ -18,7 +18,7 @@ export const LastFullRadio: React.FC<RequestParamInputProps> = ({ paramsDisabled
     <label className={`${paramsDisabled ? 'isDisabled' : ''}`}>
       Full Month
       <input
-        name="dataSize"
+        name="primaryParam_dataSize"
         value="full"
         type="radio"
         radioGroup="dataset-size"

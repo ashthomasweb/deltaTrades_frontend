@@ -3,7 +3,7 @@ import React from 'react'
 export const BackFillInput: React.FC = () => (
   <label>
     Backfill:
-    <select name="backfill">
+    <select name="primaryParam_backfill">
       <option value="today">Today</option>
       <option value="1">1 Day</option>
       <option value="2">2 Days</option>

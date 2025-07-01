@@ -133,6 +133,7 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
     }
 
     const analysisHandler = () => {
+      console.log('trace: analysisHandler')
       const latestMetaData = latestMessage.data!.metaData as AlphaVantageMetaDataType
       const latestChartData = latestMessage.data!.chartData
 

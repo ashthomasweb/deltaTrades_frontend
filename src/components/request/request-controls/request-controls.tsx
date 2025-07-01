@@ -31,7 +31,7 @@ export const RequestControls = ({ requestType }: RequestControlsProps) => {
             {`${requestType.substring(0, 1).toUpperCase()}${requestType.substring(1)} Controls`}
             {/* This input is hidden - it contains the requestType to be destructured from the form values */}
             <input
-              name="type"
+              name="primaryParam_type"
               value={requestType}
               readOnly
               className="hidden-title"

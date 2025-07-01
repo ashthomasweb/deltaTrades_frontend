@@ -29,36 +29,21 @@ export const AnalysisSocketMonitor: React.FC = () => {
   const setParams = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
-    const formValues = Object.fromEntries(formData.entries())
 
     const params: Partial<RequestParams> = {
-      type: formValues.type.toString(),
       dataSource: 'storedData',
-      storeData: formValues.storeData?.toString() ?? null,
-      symbol: formValues.symbol?.toString() ?? null,
-      interval: formValues.interval?.toString() ?? null,
-      month: formValues.month?.toString() ?? null,
-      savedData: formValues.savedData?.toString() ?? null,
-      dataSize: formValues.dataSize?.toString() ?? null,
-      sendToQueue: formValues.sendToQueue?.toString() ?? null,
-      algoParams: {
-        algorithm: formValues.algorithm?.toString() ?? null,
-        altThreshold: formValues.altThreshold?.toString() ?? null,
-        atrMultiplier: formValues.atrMultiplier?.toString() ?? null,
-        simpleAvgPeriod: formValues.simpleAvgPeriod?.toString() ?? null,
-        emaAvgPeriod: formValues.emaAvgPeriod?.toString() ?? null,
-        hugRatio: formValues.hugRatio?.toString() ?? null,
-        maAvgType: formValues.maAvgType?.toString() ?? null,
-        minCandleBodyDist: formValues.minCandleBodyDist?.toString() ?? null,
-        noiseWindow: formValues.noiseWindow?.toString() ?? null,
-        noiseWindowLength: formValues.noiseWindowLength?.toString() ?? null,
-        oppThreshold: formValues.oppThreshold?.toString() ?? null,
-        singleDirMin: formValues.singleDirMin?.toString() ?? null,
-        slopePeriodRawPrice: formValues.slopePeriodRawPrice?.toString() ?? null,
-        slopePeriodSMA: formValues.slopePeriodSMA?.toString() ?? null,
-        slopePeriodEMA: formValues.slopePeriodEMA?.toString() ?? null,
-      },
+      algoParams: {},
     }
+
+    for (const [key, value] of formData.entries()) {
+      if (key.includes('primaryParam_')) {
+        params[key.replace('primaryParam_', '') as keyof RequestParams] = value?.toString() ?? null
+      }
+      if (key.includes('algoParam_')) {
+        params.algoParams[key.replace('algoParam_', '') as keyof RequestParams] = value?.toString() ?? null
+      }
+    }
+
     setRequestParams(params)
   }
 

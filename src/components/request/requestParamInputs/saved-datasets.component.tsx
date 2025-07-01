@@ -14,7 +14,7 @@ export const SavedDatasetsInput: React.FC<SavedDatasetProps> = ({ handleSavedDat
     <label>
       Saved Datasets
       <select
-        name="savedData"
+        name="primaryParam_savedData"
         onChange={handleSavedDataChange}
       >
         <option

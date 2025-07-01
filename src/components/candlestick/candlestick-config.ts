@@ -24,11 +24,15 @@ export const options = {
     formatter: params => {
       const candle = params.find(p => p.seriesType === 'candlestick')
       const extended = params.find(p => p.seriesName === 'Extended Tick Data')
+      const ADX = params.find(p => p.seriesName === 'ADX')
+      // console.log(ADX)
+
       // console.log(params)
 
       const [open, close, low, high] = candle.data
       const timestamp = candle.name
 
+      /* ATTENTION! Params in the extended data block must match key in ExtTick type in BE */
       return `
       <strong>${timestamp.substring(0, 10)}</strong><br/>
       <strong>${timestamp.substring(11)}</strong><br/>
@@ -37,6 +41,10 @@ export const options = {
       <hr/>
       High: ${high}<br/>
       Low: ${low}<br/>
+      <hr />
+      Short SMA: ${extended.data.movingAvg}<br/>
+      Short EMA: ${extended.data.shortEmaAvg}<br/>
+      Long EMA: ${extended.data.longEmaAvg}<br/>
       ${
         extended?.data
           ? `
@@ -46,6 +54,8 @@ export const options = {
         priceSlopeByPeriod: ${extended.data.priceSlopeByPeriod}<br/>
         smaPercentSlopeByPeriod: ${extended.data.smaSlopeByPeriod}<br/>
         emaPercentSlopeByPeriod: ${extended.data.emaSlopeByPeriod}<br/>
+        ADX: ${ADX.data}<br/>
+
 
 
       `
@@ -103,13 +113,19 @@ export const options = {
     {
       left: '10%',
       right: '8%',
-      height: '50%',
+      height: '40%',
     },
     {
       left: '10%',
       right: '8%',
-      top: '63%',
-      height: '16%',
+      top: '53%',
+      height: '12%',
+    },
+    {
+      left: '10%',
+      right: '8%',
+      top: '70%',
+      height: '10%',
     },
   ],
   yAxis: [
@@ -128,6 +144,15 @@ export const options = {
       axisTick: { show: false },
       splitLine: { show: false },
     },
+    {
+      scale: true,
+      gridIndex: 2,
+      splitNumber: 2,
+      axisLabel: { show: false },
+      axisLine: { show: false },
+      axisTick: { show: false },
+      splitLine: { show: false },
+    },
   ],
   dataZoom: [
     {
@@ -137,10 +162,17 @@ export const options = {
     },
     {
       show: true,
-      xAxisIndex: [0, 1],
+      xAxisIndex: [0, 1, 2],
       type: 'slider',
       filterMode: 'weakFilter',
       top: '85%',
     },
+    // {
+    //   show: true,
+    //   xAxisIndex: [0, 1, 2],
+    //   type: 'slider',
+    //   filterMode: 'weakFilter',
+    //   top: '85%',
+    // },
   ],
 }

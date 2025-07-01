@@ -4,11 +4,11 @@ export const GetPreviousInput: React.FC = () => (
   <label className="bordered-label">
     Previous Day
     <input
-      name="getPrevious"
+      name="primaryParam_getPrevious"
       type="checkbox"
     />
     <input
-      name="beginDate"
+      name="primaryParam_beginDate"
       type="datetime-local"
       placeholder="Begin Date"
     />

@@ -12,7 +12,7 @@ export const AlgoParams: React.FC = () => {
         <label>
           Window Function:
           <select
-            name="noiseWindow"
+            name="algoParam_noiseWindow"
             onChange={e => setCurrentNoiseFunction(e.target.value)}
           >
             <option value="NW1">NW1</option>
@@ -25,7 +25,7 @@ export const AlgoParams: React.FC = () => {
         </label>
         <LabeledNumberInput
           label="Window Length"
-          name="noiseWindowLength"
+          name="algoParam_noiseWindowLength"
           min={1}
           max={100}
           step={1}
@@ -36,7 +36,7 @@ export const AlgoParams: React.FC = () => {
         />
         <LabeledNumberInput
           label="Atr Mult."
-          name="atrMultiplier"
+          name="algoParam_atrMultiplier"
           min={0}
           max={1}
           step={0.01}
@@ -47,7 +47,7 @@ export const AlgoParams: React.FC = () => {
         />
         <LabeledNumberInput
           label="Alternation Threshold"
-          name="altThreshold"
+          name="algoParam_altThreshold"
           min={0}
           max={1}
           step={0.01}
@@ -58,7 +58,7 @@ export const AlgoParams: React.FC = () => {
         />
         <LabeledNumberInput
           label="Hugging Ratio"
-          name="hugRatio"
+          name="algoParam_hugRatio"
           min={0}
           max={1}
           step={0.01}
@@ -69,7 +69,7 @@ export const AlgoParams: React.FC = () => {
         />
         <LabeledNumberInput
           label="Compression Body Multiplier"
-          name="compBodyMult"
+          name="algoParam_compBodyMult"
           min={0}
           max={1}
           step={0.01}
@@ -81,7 +81,7 @@ export const AlgoParams: React.FC = () => {
         />
         <LabeledNumberInput
           label="Compression Fullness Threshold"
-          name="compFullThresh"
+          name="algoParam_compFullThresh"
           min={0}
           max={100}
           step={1}
@@ -108,8 +108,8 @@ export const AlgoParams: React.FC = () => {
       <div className="param-section-wrapper moving-avg">
         <h3>Moving Average</h3>
         <LabeledNumberInput
-          label="Simple Averaging Period"
-          name="simpleAvgPeriod"
+          label="Simple Averaging Period 1"
+          name="algoParam_simpleAvgPeriod1"
           min={3}
           max={100}
           step={1}
@@ -119,19 +119,41 @@ export const AlgoParams: React.FC = () => {
           }
         />
         <LabeledNumberInput
-          label="Exponential Averaging Period"
-          name="emaAvgPeriod"
+          label="Simple Averaging Period 2"
+          name="algoParam_simpleAvgPeriod2"
           min={3}
           max={100}
           step={1}
-          defaultValue={20}
+          defaultValue={7}
+          title={
+            'The number of ticks used to find average price.\n\nNOTE: Averages per tick, not per minute. Contingent on the interval the dataset is built in.'
+          }
+        />
+        <LabeledNumberInput
+          label="Exponential Averaging Period 1"
+          name="algoParam_emaAvgPeriod1"
+          min={3}
+          max={100}
+          step={1}
+          defaultValue={9}
+          title={
+            'The number of ticks used to find exponential average price.\n\nNOTE: Averages per tick, not per minute. Contingent on the interval the dataset is built in.'
+          }
+        />
+        <LabeledNumberInput
+          label="Exponential Averaging Period 2"
+          name="algoParam_emaAvgPeriod2"
+          min={3}
+          max={100}
+          step={1}
+          defaultValue={21}
           title={
             'The number of ticks used to find exponential average price.\n\nNOTE: Averages per tick, not per minute. Contingent on the interval the dataset is built in.'
           }
         />
         <label>
           Avg. Type
-          <select name="maAvgType">
+          <select name="algoParam_maAvgType">
             <option
               title={'Uses the closing price'}
               value={'default'}
@@ -164,7 +186,7 @@ export const AlgoParams: React.FC = () => {
         <h3>Find Single Direction</h3>
         <LabeledNumberInput
           label="Sequence Min"
-          name="singleDirMin"
+          name="algoParam_singleDirMin"
           min={3}
           max={10}
           step={1}
@@ -173,7 +195,7 @@ export const AlgoParams: React.FC = () => {
         />
         <LabeledNumberInput
           label="Opposing threshold"
-          name="oppThreshold"
+          name="algoParam_oppThreshold"
           min={0}
           max={1}
           step={0.01}
@@ -191,7 +213,7 @@ export const AlgoParams: React.FC = () => {
         <h3>MA Crossing</h3>
         <LabeledNumberInput
           label="Candle Body Distribution Min Threshold"
-          name="minCandleBodyDist"
+          name="algoParam_minCandleBodyDist"
           min={0}
           max={100}
           step={1}
@@ -203,8 +225,8 @@ export const AlgoParams: React.FC = () => {
       <div className="param-section-wrapper ma-crossing-algo">
         <h3>Trend Detection</h3>
         <LabeledNumberInput
-          label="Slope Period"
-          name="slopePeriodRawPrice"
+          label="Slope Period Raw Price"
+          name="algoParam_slopePeriodRawPrice"
           min={1}
           max={100}
           step={1}
@@ -212,8 +234,8 @@ export const AlgoParams: React.FC = () => {
           title={''}
         />
         <LabeledNumberInput
-          label="Slope Period"
-          name="slopePeriodSMA"
+          label="Slope Period SMA"
+          name="algoParam_slopePeriodSMA"
           min={1}
           max={100}
           step={1}
@@ -221,12 +243,21 @@ export const AlgoParams: React.FC = () => {
           title={''}
         />
         <LabeledNumberInput
-          label="Slope Period"
-          name="slopePeriodEMA"
+          label="Slope Period EMA"
+          name="algoParam_slopePeriodEMA"
           min={1}
           max={100}
           step={1}
           defaultValue={12}
+          title={''}
+        />
+        <LabeledNumberInput
+          label="ADX Period"
+          name="algoParam_adxPeriod"
+          min={1}
+          max={100}
+          step={1}
+          defaultValue={14}
           title={''}
         />
       </div>
