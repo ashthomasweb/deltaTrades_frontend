@@ -7,7 +7,7 @@ type RequestParamInputProps = {
 export const IntervalInput: React.FC<RequestParamInputProps> = ({ paramsDisabled }) => (
   <label className={`${paramsDisabled ? 'isDisabled' : ''}`}>
     Interval:
-    <select name="interval">
+    <select name="primaryParam_interval">
       <option value="1min">1min</option>
       <option value="5min">5min</option>
       <option value="15min">15min</option>

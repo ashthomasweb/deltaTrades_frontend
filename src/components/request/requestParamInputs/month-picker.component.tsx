@@ -8,7 +8,7 @@ export const MonthPickerInput: React.FC<RequestParamInputProps> = ({ paramsDisab
   <label className={`${paramsDisabled ? 'isDisabled' : ''}`}>
     Month:
     <input
-      name="month"
+      name="primaryParam_month"
       type="month"
       placeholder="Month"
     />

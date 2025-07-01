@@ -32,7 +32,7 @@ export const buildOptions = (dataOptions: BuildOptionsArgsType): unknown => {
       ])
     }
 
-    analysisMA10 = dataOptions.analysisData.analysis?.MA
+    analysisMA10 = dataOptions.analysisData.analysis?.SMA1
     analysisBollinger = dataOptions.analysisData.analysis?.bollingerBands
     // extendedTickDataIndexArray = dataOptions.chartData?.categoryData.map(timestamp => [timestamp, null])
   }
@@ -70,11 +70,15 @@ export const buildOptions = (dataOptions: BuildOptionsArgsType): unknown => {
         // icon: 'rect',
       },
       {
-        name: 'MA',
+        name: 'SMA',
         // icon: '',
       },
       {
-        name: 'EMA',
+        name: 'Short EMA',
+        // icon: '',
+      },
+      {
+        name: 'Long EMA',
         // icon: '',
       },
       {
@@ -200,7 +204,7 @@ export const buildOptions = (dataOptions: BuildOptionsArgsType): unknown => {
         },
       },
       {
-        name: 'MA',
+        name: 'SMA',
         symbolSize: 1,
         ...analysisMA10,
         itemStyle: {
@@ -208,9 +212,17 @@ export const buildOptions = (dataOptions: BuildOptionsArgsType): unknown => {
         },
       },
       {
-        name: 'EMA',
+        name: 'Short EMA',
         symbolSize: 1,
-        ...dataOptions.analysisData.analysis.EMA,
+        ...dataOptions.analysisData.analysis.EMA1,
+        itemStyle: {
+          color: 'white',
+        },
+      },
+      {
+        name: 'Long EMA',
+        symbolSize: 1,
+        ...dataOptions.analysisData.analysis.EMA2,
         itemStyle: {
           color: 'white',
         },
@@ -224,6 +236,18 @@ export const buildOptions = (dataOptions: BuildOptionsArgsType): unknown => {
         itemStyle: { opacity: 0 },
         tooltip: { show: true },
         z: -999, // keep way behind
+      },
+      {
+        name: 'ADX',
+        symbolSize: 1,
+        xAxisIndex: 2,
+        yAxisIndex: 2,
+        data: dataOptions.analysisData.analysis.ADX,
+        type: 'line',
+        smooth: true,
+        itemStyle: {
+          color: '#a6a254',
+        },
       },
     )
   }
@@ -244,6 +268,18 @@ export const buildOptions = (dataOptions: BuildOptionsArgsType): unknown => {
     {
       type: 'category',
       gridIndex: 1,
+      data: dataOptions.chartData?.categoryData,
+      boundaryGap: false,
+      axisLine: { onZero: false },
+      axisTick: { show: false },
+      splitLine: { show: false },
+      axisLabel: { show: false },
+      min: 'dataMin',
+      max: 'dataMax',
+    },
+    {
+      type: 'category',
+      gridIndex: 2,
       data: dataOptions.chartData?.categoryData,
       boundaryGap: false,
       axisLine: { onZero: false },

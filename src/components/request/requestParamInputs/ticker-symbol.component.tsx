@@ -8,7 +8,7 @@ export const TickerSymbolInput: React.FC<RequestParamInputProps> = ({ paramsDisa
   <label className={`${paramsDisabled ? 'isDisabled' : ''}`}>
     Ticker:
     <input
-      name="symbol"
+      name="primaryParam_symbol"
       type="text"
       placeholder="e.g. 'AAPL'"
     />
