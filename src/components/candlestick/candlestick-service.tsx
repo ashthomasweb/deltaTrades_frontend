@@ -249,6 +249,18 @@ export const buildOptions = (dataOptions: BuildOptionsArgsType): unknown => {
           color: '#a6a254',
         },
       },
+      {
+        name: 'RSI',
+        symbolSize: 1,
+        xAxisIndex: 2,
+        yAxisIndex: 2,
+        data: dataOptions.analysisData.analysis.RSI,
+        type: 'line',
+        smooth: true,
+        itemStyle: {
+          color: 'green',
+        },
+      },
     )
   }
 

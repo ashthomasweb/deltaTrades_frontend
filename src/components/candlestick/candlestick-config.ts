@@ -21,10 +21,12 @@ export const options = {
       obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 30
       return obj
     },
-    formatter: params => {
+    formatter: (params: any[]) => {
       const candle = params.find(p => p.seriesType === 'candlestick')
       const extended = params.find(p => p.seriesName === 'Extended Tick Data')
       const ADX = params.find(p => p.seriesName === 'ADX')
+      const RSI = params.find(p => p.seriesName === 'RSI')
+
       // console.log(ADX)
 
       // console.log(params)
@@ -55,6 +57,7 @@ export const options = {
         smaPercentSlopeByPeriod: ${extended.data.smaSlopeByPeriod}<br/>
         emaPercentSlopeByPeriod: ${extended.data.emaSlopeByPeriod}<br/>
         ADX: ${ADX.data}<br/>
+        RSI: ${RSI.data}<br/>
         emaCrossing: ${extended.data.emaCrossing.crossing}<br/>
         emaCrossingDirection: ${extended.data.emaCrossing.direction}<br/>
         bollingerBreakout: ${extended.data.bollingerBreakout}<br/>

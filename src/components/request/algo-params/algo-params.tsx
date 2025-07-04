@@ -204,6 +204,19 @@ export const AlgoParams: React.FC = () => {
         />
       </div>
 
+      <div className="param-section-wrapper single-dir">
+        <h3>Confirmation Indicators</h3>
+        <LabeledNumberInput
+          label="RSI Period"
+          name="algoParam_rsiPeriod"
+          min={0}
+          max={100}
+          step={1}
+          defaultValue={14}
+          title={''}
+        />
+      </div>
+
       {
         // Crossing algo
         // candleBodyDistribution
