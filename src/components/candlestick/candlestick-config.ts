@@ -55,9 +55,9 @@ export const options = {
         smaPercentSlopeByPeriod: ${extended.data.smaSlopeByPeriod}<br/>
         emaPercentSlopeByPeriod: ${extended.data.emaSlopeByPeriod}<br/>
         ADX: ${ADX.data}<br/>
-
-
-
+        emaCrossing: ${extended.data.emaCrossing.crossing}<br/>
+        emaCrossingDirection: ${extended.data.emaCrossing.direction}<br/>
+        bollingerBreakout: ${extended.data.bollingerBreakout}<br/>
       `
           : ''
       }
