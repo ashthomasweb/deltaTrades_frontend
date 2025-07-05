@@ -39,8 +39,9 @@ export const buildOptions = (dataOptions: BuildOptionsArgsType): unknown => {
 
   const legend = [
     {
-      bottom: 10,
-      left: 'center',
+      top: '50px',
+      width: '110px',
+      left: 0,
       selected: dataOptions.legendData ? dataOptions.legendData.current?.selected : { 'Single Direction': false },
       data: [
         {
@@ -52,7 +53,7 @@ export const buildOptions = (dataOptions: BuildOptionsArgsType): unknown => {
           // icon: '',
         },
       ],
-      backgroundColor: '#222',
+      // backgroundColor: '#222',
       textStyle: {
         color: '#00729b',
         padding: 0,
@@ -261,6 +262,52 @@ export const buildOptions = (dataOptions: BuildOptionsArgsType): unknown => {
           color: 'green',
         },
       },
+      {
+        name: 'MACD',
+        symbolSize: 1,
+        xAxisIndex: 3,
+        yAxisIndex: 3,
+        data: dataOptions.analysisData.analysis.MACD.macdLine,
+        type: 'line',
+        smooth: true,
+        itemStyle: {
+          color: 'green',
+        },
+      },
+      {
+        name: 'MACD Signal',
+        symbolSize: 1,
+        xAxisIndex: 3,
+        yAxisIndex: 3,
+        data: dataOptions.analysisData.analysis.MACD.signalLine,
+        type: 'line',
+        smooth: true,
+        itemStyle: {
+          color: 'yellow',
+        },
+        lineStyle: {
+          type: 'dashed',
+        },
+      },
+      {
+        name: 'MACD Histogram',
+        type: 'bar',
+        xAxisIndex: 3,
+        yAxisIndex: 3,
+        data: dataOptions.analysisData.analysis.MACD.histogram,
+        itemStyle: {
+          color: (params: any) => (params.value >= 0 ? '#4ade80' : '#f87171'), // green/red
+        },
+        markLine: {
+          silent: true,
+          data: [{ yAxis: 0 }],
+          lineStyle: {
+            color: '#888',
+            type: 'dashed',
+            width: 1,
+          },
+        },
+      },
     )
   }
 
@@ -292,6 +339,18 @@ export const buildOptions = (dataOptions: BuildOptionsArgsType): unknown => {
     {
       type: 'category',
       gridIndex: 2,
+      data: dataOptions.chartData?.categoryData,
+      boundaryGap: false,
+      axisLine: { onZero: false },
+      axisTick: { show: false },
+      splitLine: { show: false },
+      axisLabel: { show: false },
+      min: 'dataMin',
+      max: 'dataMax',
+    },
+    {
+      type: 'category',
+      gridIndex: 3,
       data: dataOptions.chartData?.categoryData,
       boundaryGap: false,
       axisLine: { onZero: false },

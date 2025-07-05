@@ -54,7 +54,7 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
   const legendRef = useRef<Partial<echarts.LegendComponentOption> | null>(null)
   const zoomTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const extendedTickDataRef = useRef<any>(null)
-  const extendedTickDataHovered = useRef<any>(null)
+  // const extendedTickDataHovered = useRef<any>(null)
 
   const onDataZoom = (params: echarts.DataZoomComponentOption) => {
     if (zoomTimeoutRef.current) {
@@ -170,7 +170,7 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
         socketControls={props.socketControls}
         clearChart={clearChart}
       />
-      {extendedTickDataRef ? (
+      {/* {extendedTickDataRef ? (
         <div
           style={{
             position: 'absolute',
@@ -183,7 +183,7 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
           <br />
           <span>{extendedTickDataHovered?.current?.isWickCrossing}</span>
         </div>
-      ) : null}
+      ) : null} */}
 
       {options ? (
         <ReactECharts

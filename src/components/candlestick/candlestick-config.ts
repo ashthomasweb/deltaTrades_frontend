@@ -78,9 +78,10 @@ export const options = {
     },
   },
   toolbox: {
+    show: false,
     feature: {
       dataZoom: {
-        yAxisIndex: false,
+        yAxisIndex: true,
       },
       brush: {
         type: ['lineX', 'clear'],
@@ -98,7 +99,12 @@ export const options = {
     show: true,
     seriesIndex: 1,
     dimension: 2,
-    bottom: '23%',
+    top: '0%',
+    left: '4px',
+    textStyle: {
+      color: '#00729b',
+      padding: 0,
+    },
     pieces: [
       {
         value: -1,
@@ -114,21 +120,32 @@ export const options = {
   },
   grid: [
     {
-      left: '10%',
-      right: '8%',
-      height: '40%',
+      // Candlestick
+      top: '1%',
+      left: '200px',
+      right: '15px',
+      height: '60%',
     },
     {
-      left: '10%',
-      right: '8%',
-      top: '53%',
-      height: '12%',
+      // Volume
+      left: '200px',
+      right: '15px',
+      top: '41%',
+      height: '20%',
     },
     {
-      left: '10%',
-      right: '8%',
-      top: '70%',
+      // ADX, RSI
+      left: '200px',
+      right: '15px',
+      top: '65%',
       height: '10%',
+    },
+    {
+      // MACD
+      left: '200px',
+      right: '15px',
+      top: '75%',
+      height: '20%',
     },
   ],
   yAxis: [
@@ -137,6 +154,7 @@ export const options = {
       splitArea: {
         show: true,
       },
+      boundaryGap: ['25%', '4%'],
     },
     {
       scale: true,
@@ -156,6 +174,15 @@ export const options = {
       axisTick: { show: false },
       splitLine: { show: false },
     },
+    {
+      scale: true,
+      gridIndex: 3,
+      splitNumber: 2,
+      axisLabel: { show: false },
+      axisLine: { show: false },
+      axisTick: { show: false },
+      splitLine: { show: false },
+    },
   ],
   dataZoom: [
     {
@@ -165,17 +192,12 @@ export const options = {
     },
     {
       show: true,
-      xAxisIndex: [0, 1, 2],
+      xAxisIndex: [0, 1, 2, 3],
       type: 'slider',
       filterMode: 'weakFilter',
-      top: '85%',
+      top: '96.5%',
+      height: '20px',
+      left: '197px',
     },
-    // {
-    //   show: true,
-    //   xAxisIndex: [0, 1, 2],
-    //   type: 'slider',
-    //   filterMode: 'weakFilter',
-    //   top: '85%',
-    // },
   ],
 }
