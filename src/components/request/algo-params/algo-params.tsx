@@ -204,6 +204,19 @@ export const AlgoParams: React.FC = () => {
         />
       </div>
 
+      <div className="param-section-wrapper single-dir">
+        <h3>Confirmation Indicators</h3>
+        <LabeledNumberInput
+          label="RSI Period"
+          name="algoParam_rsiPeriod"
+          min={0}
+          max={100}
+          step={1}
+          defaultValue={14}
+          title={''}
+        />
+      </div>
+
       {
         // Crossing algo
         // candleBodyDistribution
@@ -258,6 +271,37 @@ export const AlgoParams: React.FC = () => {
           max={100}
           step={1}
           defaultValue={14}
+          title={''}
+        />
+      </div>
+
+      <div className="param-section-wrapper macd">
+        <h3>MACD Periods</h3>
+        <LabeledNumberInput
+          label="MACD Short Period"
+          name="algoParam_macdShortPeriod"
+          min={1}
+          max={100}
+          step={1}
+          defaultValue={12}
+          title={''}
+        />
+        <LabeledNumberInput
+          label="MACD Long Period"
+          name="algoParam_macdLongPeriod"
+          min={1}
+          max={100}
+          step={1}
+          defaultValue={26}
+          title={''}
+        />
+        <LabeledNumberInput
+          label="MACD Signal Period"
+          name="algoParam_macdSignalPeriod"
+          min={1}
+          max={100}
+          step={1}
+          defaultValue={9}
           title={''}
         />
       </div>
