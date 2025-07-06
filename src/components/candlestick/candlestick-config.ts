@@ -61,6 +61,9 @@ export const options = {
         emaCrossing: ${extended.data.emaCrossing.crossing}<br/>
         emaCrossingDirection: ${extended.data.emaCrossing.direction}<br/>
         bollingerBreakout: ${extended.data.bollingerBreakout}<br/>
+        volumeTrendIncreasing: ${extended.data.volumeTrendIncreasing}<br/>
+        bearishEngulfScore: ${extended.data.bearishEngulfingScore}<br/>
+        bullishExhaustion: ${extended.data.isBullishExhaustion}<br/>
       `
           : ''
       }
