@@ -41,6 +41,6 @@ This mirror exists to:
 ## 🔗 Related Skills
 
 - **Frontend**: React, ECharts, SCSS
-- **Backend**: Node.js, WebSocket, REST API's
+- **Backend**: Node.js, WebSocket, REST APIs
 - **Tooling**: Vite, Git, GitHub Actions, ESLint
 - **Testing**: Vitest, Jest, React Testing Library
