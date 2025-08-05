@@ -50,6 +50,7 @@ export const AnalysisSocketMonitor: React.FC = () => {
   return (
     <form onSubmit={setParams}>
       <div className="analysis-container">
+          <RequestControls requestType="analysis" />
         <div className="upper-container">
           <Candlestick
             messages={messages}
@@ -60,7 +61,6 @@ export const AnalysisSocketMonitor: React.FC = () => {
           />
           <AlgoParams />
         </div>
-        <RequestControls requestType="analysis" />
       </div>
     </form>
   )

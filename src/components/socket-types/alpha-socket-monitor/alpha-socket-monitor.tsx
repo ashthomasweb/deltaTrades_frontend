@@ -28,19 +28,20 @@ export const AlphaSocketMonitor: React.FC = () => {
   const setParams = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
-    const formValues = Object.fromEntries(formData.entries())
-
+    
     const params: Partial<RequestParams> = {
-      type: formValues.savedData?.toString() !== 'none' ? 'storedData' : (formValues.type?.toString() ?? null),
-      dataSource: formValues.savedData?.toString() !== 'none' ? 'storedData' : 'alpha-vantage',
-      storeData: formValues.storeData?.toString() ?? null,
-      symbol: formValues.symbol?.toString() ?? null,
-      interval: formValues.interval?.toString() ?? null,
-      month: formValues.month?.toString() ?? null,
-      savedData: formValues.savedData?.toString() ?? null,
-      dataSize: formValues.dataSize?.toString() ?? null,
-      sendToQueue: formValues.sendToQueue?.toString() ?? null,
+      dataSource: 'alpha-vantage',
     }
+
+    for (const [key, value] of formData.entries()) {
+      if (key.includes('primaryParam_')) {
+        params[key.replace('primaryParam_', '') as keyof RequestParams] = value?.toString() ?? null
+      }
+      if (key.includes('algoParam_')) {
+        params.algoParams[key.replace('algoParam_', '') as keyof RequestParams] = value?.toString() ?? null
+      }
+    }
+
     setRequestParams(params)
   }
 

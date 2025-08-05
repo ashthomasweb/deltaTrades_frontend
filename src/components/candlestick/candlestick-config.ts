@@ -26,14 +26,12 @@ export const options = {
       const extended = params.find(p => p.seriesName === 'Extended Tick Data')
       const ADX = params.find(p => p.seriesName === 'ADX')
       const RSI = params.find(p => p.seriesName === 'RSI')
-
       // console.log(ADX)
 
       // console.log(params)
 
-      const [open, close, low, high] = candle.data
+      const [_, open, close, low, high, volume] = candle.data
       const timestamp = candle.name
-
       /* ATTENTION! Params in the extended data block must match key in ExtTick type in BE */
       return `
       <strong>${timestamp.substring(0, 10)}</strong><br/>
@@ -44,25 +42,28 @@ export const options = {
       High: ${high}<br/>
       Low: ${low}<br/>
       <hr />
-      Short SMA: ${extended.data.movingAvg}<br/>
-      Short EMA: ${extended.data.shortEmaAvg}<br/>
-      Long EMA: ${extended.data.longEmaAvg}<br/>
+      Volume: ${volume}<br/>
+      VWAP: ${extended.data.vwap.toFixed(3)}<br/>
+      <hr />
+      Short SMA: ${extended.data.movingAvg.toFixed(3)}<br/>
+      Short EMA: ${extended.data.shortEmaAvg.toFixed(3)}<br/>
+      Long EMA: ${extended.data.longEmaAvg.toFixed(3)}<br/>
       ${
         extended?.data
           ? `
         <hr/>
         isWickCrossing: ${extended.data.isWickCrossing}<br/>
-        percSlopeByPeriod: ${extended.data.percSlopeByPeriod}<br/>
-        priceSlopeByPeriod: ${extended.data.priceSlopeByPeriod}<br/>
-        smaPercentSlopeByPeriod: ${extended.data.smaSlopeByPeriod}<br/>
-        emaPercentSlopeByPeriod: ${extended.data.emaSlopeByPeriod}<br/>
-        ADX: ${ADX.data}<br/>
-        RSI: ${RSI.data}<br/>
+        percSlopeByPeriod: ${extended.data.percSlopeByPeriod.toFixed(3)}<br/>
+        priceSlopeByPeriod: ${extended.data.priceSlopeByPeriod.toFixed(3)}<br/>
+        smaPercentSlopeByPeriod: ${extended.data.smaSlopeByPeriod.toFixed(3)}<br/>
+        emaPercentSlopeByPeriod: ${extended.data.emaSlopeByPeriod.toFixed(3)}<br/>
+        ADX: ${ADX.data.toFixed(3)}<br/>
+        RSI: ${RSI.data.toFixed(3)}<br/>
         emaCrossing: ${extended.data.emaCrossing.crossing}<br/>
         emaCrossingDirection: ${extended.data.emaCrossing.direction}<br/>
         bollingerBreakout: ${extended.data.bollingerBreakout}<br/>
-        volumeTrendIncreasing: ${extended.data.volumeTrendIncreasing}<br/>
-        bearishEngulfScore: ${extended.data.bearishEngulfingScore}<br/>
+        volumeTrendIncreasing: ${extended.data.volumeTrendIncreasing.toFixed(3)}<br/>
+        bearishEngulfScore: ${extended.data.bearishEngulfingScore.toFixed(3)}<br/>
         bullishExhaustion: ${extended.data.isBullishExhaustion}<br/>
       `
           : ''
