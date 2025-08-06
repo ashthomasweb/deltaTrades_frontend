@@ -7,7 +7,6 @@ export const buildOptions = (dataOptions: BuildOptionsArgsType): unknown => {
   let analysisMA10 = {}
   let analysisBollinger = []
   // let extendedTickDataIndexArray = []
-  console.log(dataOptions)
 
   if (dataOptions?.analysisData?.analysis) {
     for (const entry in dataOptions.analysisData.analysis.singleDirBlocks) {

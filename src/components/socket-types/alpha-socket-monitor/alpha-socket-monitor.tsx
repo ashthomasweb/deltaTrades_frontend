@@ -28,10 +28,8 @@ export const AlphaSocketMonitor: React.FC = () => {
   const setParams = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
-    
-    const params: Partial<RequestParams> = {
-      dataSource: 'alpha-vantage',
-    }
+
+    const params: Partial<RequestParams> = {}
 
     for (const [key, value] of formData.entries()) {
       if (key.includes('primaryParam_')) {
@@ -42,6 +40,11 @@ export const AlphaSocketMonitor: React.FC = () => {
       }
     }
 
+    params.dataSource = 'alpha-vantage'
+    if (params.savedData !== 'none') {
+      params.type = 'storedData' // TODO: Check on need for this duplicated k:v - interacts in backend /data-adapter
+      params.dataSource = 'storedData' // TODO: Check on need for this duplicated k:v - interacts in backend /data-adapter
+    }
     setRequestParams(params)
   }
 

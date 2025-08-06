@@ -22,6 +22,11 @@ export const options = {
       return obj
     },
     formatter: (params: any[]) => {
+      if (!params.find(p => p.seriesName === 'Extended Tick Data')) return null
+
+      // TODO: Create conditional blocks based on what type of data is being requested
+      // Currently, only analysis data is being handled.
+
       const candle = params.find(p => p.seriesType === 'candlestick')
       const extended = params.find(p => p.seriesName === 'Extended Tick Data')
       const ADX = params.find(p => p.seriesName === 'ADX')

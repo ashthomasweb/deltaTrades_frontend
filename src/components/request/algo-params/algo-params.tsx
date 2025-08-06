@@ -108,8 +108,8 @@ export const AlgoParams: React.FC = () => {
       <div className="param-section-wrapper moving-avg">
         <h3>Moving Average</h3>
         <LabeledNumberInput
-          label="Simple Averaging Period 1"
-          name="algoParam_simpleAvgPeriod1"
+          label="Simple Moving Average Period 1"
+          name="algoParam_sma1Period"
           min={3}
           max={100}
           step={1}
@@ -119,8 +119,8 @@ export const AlgoParams: React.FC = () => {
           }
         />
         <LabeledNumberInput
-          label="Simple Averaging Period 2"
-          name="algoParam_simpleAvgPeriod2"
+          label="Simple Moving Average Period 2"
+          name="algoParam_sma2Period"
           min={3}
           max={100}
           step={1}
@@ -130,8 +130,8 @@ export const AlgoParams: React.FC = () => {
           }
         />
         <LabeledNumberInput
-          label="Exponential Averaging Period 1"
-          name="algoParam_emaAvgPeriod1"
+          label="Exponential Moving Average Period 1"
+          name="algoParam_ema1Period"
           min={3}
           max={100}
           step={1}
@@ -141,8 +141,8 @@ export const AlgoParams: React.FC = () => {
           }
         />
         <LabeledNumberInput
-          label="Exponential Averaging Period 2"
-          name="algoParam_emaAvgPeriod2"
+          label="Exponential Moving Average Period 2"
+          name="algoParam_ema2Period"
           min={3}
           max={100}
           step={1}
@@ -239,7 +239,7 @@ export const AlgoParams: React.FC = () => {
         <h3>Trend Detection</h3>
         <LabeledNumberInput
           label="Slope Period Raw Price"
-          name="algoParam_slopePeriodRawPrice"
+          name="algoParam_slopePeriodByRawPrice"
           min={1}
           max={100}
           step={1}
@@ -248,7 +248,7 @@ export const AlgoParams: React.FC = () => {
         />
         <LabeledNumberInput
           label="Slope Period SMA"
-          name="algoParam_slopePeriodSMA"
+          name="algoParam_slopePeriodBySMA"
           min={1}
           max={100}
           step={1}
@@ -257,7 +257,7 @@ export const AlgoParams: React.FC = () => {
         />
         <LabeledNumberInput
           label="Slope Period EMA"
-          name="algoParam_slopePeriodEMA"
+          name="algoParam_slopePeriodByEMA"
           min={1}
           max={100}
           step={1}

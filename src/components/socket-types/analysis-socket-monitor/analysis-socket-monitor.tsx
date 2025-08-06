@@ -44,13 +44,14 @@ export const AnalysisSocketMonitor: React.FC = () => {
       }
     }
 
+    
     setRequestParams(params)
   }
 
   return (
     <form onSubmit={setParams}>
       <div className="analysis-container">
-          <RequestControls requestType="analysis" />
+        <RequestControls requestType="analysis" />
         <div className="upper-container">
           <Candlestick
             messages={messages}
