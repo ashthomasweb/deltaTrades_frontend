@@ -31,8 +31,8 @@ export const RequestControls = ({ requestType }: RequestControlsProps) => {
             {`${requestType.substring(0, 1).toUpperCase()}${requestType.substring(1)} Controls`}
             {/* This input is hidden - it contains the requestType to be destructured from the form values */}
             <input
-              name="primaryParam_type"
-              value={requestType}
+              name="primaryParam_requestType" // TODO: Standardize?
+              value={requestType} // TODO: Standardize?
               readOnly
               className="hidden-title"
             ></input>
@@ -61,6 +61,7 @@ export const RequestControls = ({ requestType }: RequestControlsProps) => {
             {requestType === 'real-time' ? (
               <>
                 <TickerSymbolInput paramsDisabled={paramsDisabled} />
+                <IntervalInput paramsDisabled={paramsDisabled} />
                 <BackFillInput />
                 <GetPreviousInput />
               </>

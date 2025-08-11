@@ -66,9 +66,9 @@ export const useWebSocket = (url: string, requestParams: Partial<RequestParams>,
   const sendRequestParams = useCallback(() => {
     if (socket.current && socket.current.readyState === WebSocket.OPEN && requestParams) {
       socket.current.send(
-        JSON.stringify({
-          type: requestParams.type,
-          originator: 'frontend',
+        JSON.stringify({ // TODO: Does this need to be stringified? If the below hard-coded values are generated dynamically, couldn't the whole object be stringified at once?
+          requestType: requestParams.requestType,
+          requestOriginator: 'frontend',
           returnToFE: true,
           dataSource: requestParams.dataSource,
           symbol: requestParams.symbol,

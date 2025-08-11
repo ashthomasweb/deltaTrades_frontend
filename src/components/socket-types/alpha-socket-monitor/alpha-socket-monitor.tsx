@@ -7,7 +7,7 @@ import { RequestParams } from '../../../types/types'
 
 export const AlphaSocketMonitor: React.FC = () => {
   const [requestParams, setRequestParams] = useState<Partial<RequestParams>>({
-    type: undefined,
+    requestType: undefined,
     storeData: undefined,
     symbol: undefined,
     interval: undefined,
@@ -42,7 +42,7 @@ export const AlphaSocketMonitor: React.FC = () => {
 
     params.dataSource = 'alpha-vantage'
     if (params.savedData !== 'none') {
-      params.type = 'storedData' // TODO: Check on need for this duplicated k:v - interacts in backend /data-adapter
+      params.requestType = 'storedData' // TODO: Check on need for this duplicated k:v - interacts in backend /data-adapter
       params.dataSource = 'storedData' // TODO: Check on need for this duplicated k:v - interacts in backend /data-adapter
     }
     setRequestParams(params)

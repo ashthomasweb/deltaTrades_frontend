@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 export interface RequestParams {
-  type: string | undefined
+  requestType: RequestType
   dataSource: DataSource
   symbol: string | undefined
   month: string | undefined
@@ -15,35 +15,36 @@ export interface RequestParams {
   enableTrading: string | undefined
   getPrevious: string | undefined
   beginDate: string | undefined
-  originator: string | undefined
+  requestOriginator: RequestOriginator
   returnToFE: boolean | undefined
   chartId: number | null
   algoParams: any
 }
 
-export type DataSource = 'alpha-vantage' | 'tradier' | 'storedData'
+export type RequestType = 'historical' | 'real-time' | 'closeRequest' | 'storedData' | 'analysis' | undefined
+export type DataSource = 'alpha-vantage' | 'tradier' | 'storedData' | undefined
+export type RequestOriginator = 'frontend' | 'backend' | 'emergency'
 
-export type RequestType = 'historical' | 'real-time' | 'analysis'
 
-export interface AlphaVantageMetaDataType {
+export interface AlphaVantageMetaDataType { // TODO: These types should have 'Response' in the name
   historicalMeta?: {
     beginDate: string
     endDate: string
     datasetSize: 'compact' | 'full'
   }
-  inputSource: 'AlphaVantage' | 'Tradier'
-  inputType: 'historical' | 'real-time'
+  dataSource: DataSource
+  requestType: RequestType
   interval: string
   tickerSymbol: string
 }
 
-export interface TradierMetaDataType {
+export interface TradierMetaDataType { // TODO: These types should have 'Response' in the name
   realTimeMeta?: {
     beginDate: string
     endDate: string
   }
-  inputSource: 'AlphaVantage' | 'Tradier'
-  inputType: 'historical' | 'real-time'
+  dataSource: DataSource
+  requestType: RequestType
   interval: string
   tickerSymbol: string
 }

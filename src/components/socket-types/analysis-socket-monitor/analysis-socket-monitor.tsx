@@ -8,7 +8,7 @@ import { AlgoParams } from '../../request/algo-params/algo-params.tsx'
 
 export const AnalysisSocketMonitor: React.FC = () => {
   const [requestParams, setRequestParams] = useState<Partial<RequestParams>>({
-    type: undefined,
+    requestType: undefined,
     storeData: undefined,
     symbol: undefined,
     interval: undefined,
@@ -43,8 +43,8 @@ export const AnalysisSocketMonitor: React.FC = () => {
         params.algoParams[key.replace('algoParam_', '') as keyof RequestParams] = value?.toString() ?? null
       }
     }
+    console.log(params)
 
-    
     setRequestParams(params)
   }
 

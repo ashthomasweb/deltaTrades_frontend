@@ -7,7 +7,7 @@ import { ChartHeadingData, RequestParams } from '../../../types/types'
 
 export const TradierSocketMonitor = () => {
   const [requestParams, setRequestParams] = useState<Partial<RequestParams>>({
-    type: undefined,
+    requestType: undefined,
     storeData: undefined,
     symbol: undefined,
     backfill: undefined,

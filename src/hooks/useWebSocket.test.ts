@@ -198,7 +198,7 @@ describe('useWebSocket', () => {
     const initialParams: Partial<RequestParams> = { type: undefined }
     const mockParams: Partial<RequestParams> = {
       type: 'historical',
-      originator: 'frontend',
+      requestOriginator: 'frontend',
       returnToFE: true,
     }
 
