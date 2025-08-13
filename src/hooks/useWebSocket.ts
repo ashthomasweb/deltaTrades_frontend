@@ -6,10 +6,10 @@ export const useWebSocket = (url: string, requestParams: Partial<RequestParams>,
   const socket = useRef<WebSocket | null>(null)
   const [isConnected, setIsConnected] = useState(false)
   const [messages, setMessages] = useState<Partial<MessageType>[]>([])
-  const chartIdRef = useRef<string | undefined>(requestParams?.chartId?.toString())
+  const chartIdRef = useRef<unknown>(requestParams?.chartId)
 
   useEffect(() => {
-    chartIdRef.current = requestParams?.chartId?.toString()
+    chartIdRef.current = requestParams?.chartId
   }, [requestParams?.chartId])
 
   const connect = useCallback(() => {
@@ -54,7 +54,7 @@ export const useWebSocket = (url: string, requestParams: Partial<RequestParams>,
       console.log('Closing WebSocket')
       socket.current.send(
         JSON.stringify({
-          type: 'closeRequest',
+          requestType: 'closeRequest',
           chartId: chartIdRef.current,
         }),
       )
@@ -66,7 +66,8 @@ export const useWebSocket = (url: string, requestParams: Partial<RequestParams>,
   const sendRequestParams = useCallback(() => {
     if (socket.current && socket.current.readyState === WebSocket.OPEN && requestParams) {
       socket.current.send(
-        JSON.stringify({ // TODO: Does this need to be stringified? If the below hard-coded values are generated dynamically, couldn't the whole object be stringified at once?
+        JSON.stringify({
+          // TODO: Does this need to be stringified? If the below hard-coded values are generated dynamically, couldn't the whole object be stringified at once?
           requestType: requestParams.requestType,
           requestOriginator: 'frontend',
           returnToFE: true,
@@ -81,7 +82,7 @@ export const useWebSocket = (url: string, requestParams: Partial<RequestParams>,
           algorithm: requestParams.algorithm,
           sendToQueue: requestParams.sendToQueue,
           enableTrading: requestParams.enableTrading,
-          getPrevious: requestParams.getPrevious,
+          getPreviousDay: requestParams.getPreviousDay,
           beginDate: requestParams.beginDate,
           chartId: requestParams.chartId,
           algoParams: requestParams.algoParams,

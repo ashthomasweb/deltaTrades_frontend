@@ -15,7 +15,7 @@ export function App({ path }: AppProps) {
       <ContentView>
         {path === '/' ? <p>Hello Delta!</p> : null}
         {path === '/historic' ? <AlphaSocketMonitor /> : null}
-        {path === '/real-time' ? <TradierSocketMonitor /> : null}
+        {path === '/realTime' ? <TradierSocketMonitor /> : null}
         {path === '/analysis' ? <AnalysisSocketMonitor /> : null}
       </ContentView>
     </>

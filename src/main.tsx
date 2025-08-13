@@ -15,8 +15,8 @@ const router = createBrowserRouter([
     element: <App path="/historic" />,
   },
   {
-    path: '/real-time',
-    element: <App path="/real-time" />,
+    path: '/realTime',
+    element: <App path="/realTime" />,
   },
   {
     path: '/analysis',

@@ -38,7 +38,7 @@ export const RequestControls = ({ requestType }: RequestControlsProps) => {
             ></input>
           </label>
           <div className="submit-container">
-            {requestType.match(/historical|real-time/) ? (
+            {requestType.match(/historical|realTime/) ? (
               <StoreDataSelectorInput
                 requestType={requestType}
                 paramsDisabled={paramsDisabled}
@@ -58,7 +58,7 @@ export const RequestControls = ({ requestType }: RequestControlsProps) => {
                 <MonthPickerInput paramsDisabled={paramsDisabled} />
               </>
             ) : null}
-            {requestType === 'real-time' ? (
+            {requestType === 'realTime' ? (
               <>
                 <TickerSymbolInput paramsDisabled={paramsDisabled} />
                 <IntervalInput paramsDisabled={paramsDisabled} />
@@ -83,7 +83,7 @@ export const RequestControls = ({ requestType }: RequestControlsProps) => {
               </>
             ) : null}
 
-            {requestType === 'real-time' ? (
+            {requestType === 'realTime' ? (
               <>
                 <AlgoSelectInput />
                 <SendToQueueInput />

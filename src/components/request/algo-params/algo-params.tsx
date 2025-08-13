@@ -94,7 +94,7 @@ export const AlgoParams: React.FC = () => {
       </div>
 
       {
-        // Time range // RETHINKING - If an algo is working on very specific days, it's inherently unstable over real-time trading. I was thinking the purpose of having this input was to ease the analysis flow... but the persistent timescale acheives that. I believe this should be RETIRED
+        // Time range // RETHINKING - If an algo is working on very specific days, it's inherently unstable over realTime trading. I was thinking the purpose of having this input was to ease the analysis flow... but the persistent timescale acheives that. I believe this should be RETIRED
         // backfill
         // Day group?
       }

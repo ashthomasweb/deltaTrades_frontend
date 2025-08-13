@@ -13,20 +13,20 @@ export interface RequestParams {
   algorithm: string | undefined
   sendToQueue: string | undefined
   enableTrading: string | undefined
-  getPrevious: string | undefined
+  getPreviousDay: string | undefined
   beginDate: string | undefined
   requestOriginator: RequestOriginator
   returnToFE: boolean | undefined
-  chartId: number | null
+  chartId: string | null
   algoParams: any
 }
 
-export type RequestType = 'historical' | 'real-time' | 'closeRequest' | 'storedData' | 'analysis' | undefined
+export type RequestType = 'historical' | 'realTime' | 'closeRequest' | 'storedData' | 'analysis' | undefined
 export type DataSource = 'alpha-vantage' | 'tradier' | 'storedData' | undefined
 export type RequestOriginator = 'frontend' | 'backend' | 'emergency'
 
-
-export interface AlphaVantageMetaDataType { // TODO: These types should have 'Response' in the name
+export interface AlphaVantageMetaDataType {
+  // TODO: These types should have 'Response' in the name
   historicalMeta?: {
     beginDate: string
     endDate: string
@@ -38,7 +38,8 @@ export interface AlphaVantageMetaDataType { // TODO: These types should have 'Re
   tickerSymbol: string
 }
 
-export interface TradierMetaDataType { // TODO: These types should have 'Response' in the name
+export interface TradierMetaDataType {
+  // TODO: These types should have 'Response' in the name
   realTimeMeta?: {
     beginDate: string
     endDate: string
@@ -53,7 +54,7 @@ export type ChartHeadingData = {
   title: string
   isConnected: boolean
   connectionType: string
-  chartId?: number | null
+  chartId?: string | null
 }
 
 export type ConnectionStatus = {

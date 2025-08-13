@@ -22,7 +22,7 @@ export const HeaderView: React.FC = () => {
         Historic
       </NavLink>
       <NavLink
-        to="/real-time"
+        to="/realTime"
         end
         className={({ isActive }) => (isActive ? 'active' : '')}
       >

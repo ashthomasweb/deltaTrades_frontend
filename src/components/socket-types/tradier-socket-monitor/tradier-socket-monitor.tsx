@@ -16,10 +16,10 @@ export const TradierSocketMonitor = () => {
     enableTrading: undefined,
   })
 
-  const [chartId, setChartId] = useState<number | null>(null)
+  const [chartId, setChartId] = useState<string | null>(null)
 
   useEffect(() => {
-    setChartId(Math.ceil(Math.random() * 10e20))
+    setChartId(Math.ceil(Math.random() * 10e20).toString())
   }, [])
 
   const { isConnected, messages, socketControls } = useWebSocket('ws://localhost:8080', requestParams, 'realTime')
@@ -37,6 +37,7 @@ export const TradierSocketMonitor = () => {
 
     const params: Partial<RequestParams> = {
       dataSource: 'tradier',
+      chartId
     }
 
     for (const [key, value] of formData.entries()) {
@@ -57,10 +58,10 @@ export const TradierSocketMonitor = () => {
           messages={messages}
           headingData={headingData}
           requestParams={requestParams}
-          requestType="real-time"
+          requestType="realTime"
           socketControls={socketControls}
         />
-        <RequestControls requestType="real-time" />
+        <RequestControls requestType="realTime" />
       </div>
     </form>
   )
