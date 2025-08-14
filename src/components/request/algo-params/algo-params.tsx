@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
+import { LabeledNumberInput } from '@components/request/generic-inputs/number-input'
 import './algo-params.scss'
-import { LabeledNumberInput } from '../generic-inputs/number-input'
 
 export const AlgoParams: React.FC = () => {
   const [currentNoiseFunction, setCurrentNoiseFunction] = useState<string>('NW1') // TODO: Create literal type...

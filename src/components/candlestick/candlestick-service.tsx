@@ -1,4 +1,4 @@
-import { BuildOptionsArgsType } from '../../types/types'
+import { BuildOptionsArgsType } from '../../_types/types'
 import { downColor, options, upColor } from './candlestick-config'
 
 export const buildOptions = (dataOptions: BuildOptionsArgsType): unknown => {

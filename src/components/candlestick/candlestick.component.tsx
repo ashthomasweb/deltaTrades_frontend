@@ -22,11 +22,10 @@
 
 import React, { useEffect, useState, useRef, useCallback } from 'react'
 import ReactECharts from 'echarts-for-react'
-import './candlestick.scss'
 import { buildOptions } from './candlestick-service'
-import { ChartHeader } from '../chart-header/chart-header'
+import { ChartHeader } from '@components/chart-header/chart-header'
 import {
-  AlphaVantageMetaDataType,
+  AlphaVantageResponseMetaData,
   AnalysisDataPacket,
   ChartData,
   ChartHeadingData,
@@ -34,8 +33,9 @@ import {
   RequestType,
   MessageType,
   SocketControls,
-  TradierMetaDataType,
-} from '../../types/types'
+  TradierResponseMetaData,
+} from '@dt-types'
+import './candlestick.scss'
 
 export interface CandleStickProps {
   messages: unknown[]
@@ -46,7 +46,7 @@ export interface CandleStickProps {
 }
 
 export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps) => {
-  const [metaData, setMetaData] = useState<AlphaVantageMetaDataType | TradierMetaDataType | null>(null)
+  const [metaData, setMetaData] = useState<AlphaVantageResponseMetaData | TradierResponseMetaData | null>(null)
   const [chartData, setChartData] = useState<ChartData | null>(null)
   const [analysisData, setAnalysisData] = useState<AnalysisDataPacket | null | undefined>(null)
   const [options, setOptions] = useState<unknown | null>(null)
@@ -79,7 +79,7 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
   const getOptionsArgs = useCallback(
     (
       chartData: ChartData | null,
-      metaData: AlphaVantageMetaDataType | TradierMetaDataType | null,
+      metaData: AlphaVantageResponseMetaData | TradierResponseMetaData | null,
       analysisData: AnalysisDataPacket | null | undefined,
     ) => {
       return {
@@ -104,7 +104,7 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
     if (!latestMessage?.data) return // TODO: Shouldn't this handle the possible 'undefined' that is currently requiring a non-null assertion below???
 
     const historicalOrStoredDataHandler = () => {
-      const latestMetaData = latestMessage.data!.metaData as AlphaVantageMetaDataType
+      const latestMetaData = latestMessage.data!.metaData as AlphaVantageResponseMetaData
       const latestChartData = latestMessage.data!.chartData
 
       setMetaData(latestMetaData)
@@ -118,7 +118,7 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
       // separate channels with the chartId assigned to it. But checking here would still give redundant security
       if (latestMessage.id !== props.headingData.chartId) return // Needs handling for historical data. Currently, no id is passed back, and no id is generated. They both === undefined and pass early return
 
-      const latestMetaData = latestMessage.data!.metaData as TradierMetaDataType
+      const latestMetaData = latestMessage.data!.metaData as TradierResponseMetaData
       const latestChartData = latestMessage.data!.chartData || { categoryData: [], values: [], volumes: [] }
       let existingChartData = chartData || { categoryData: [], values: [], volumes: [] }
       existingChartData = {
@@ -134,7 +134,7 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
 
     const analysisHandler = () => {
       console.log('trace: analysisHandler')
-      const latestMetaData = latestMessage.data!.metaData as AlphaVantageMetaDataType
+      const latestMetaData = latestMessage.data!.metaData as AlphaVantageResponseMetaData
       const latestChartData = latestMessage.data!.chartData
 
       setMetaData(latestMetaData)

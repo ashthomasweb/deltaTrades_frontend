@@ -25,8 +25,7 @@ export type RequestType = 'historical' | 'realTime' | 'closeRequest' | 'storedDa
 export type DataSource = 'alpha-vantage' | 'tradier' | 'storedData' | undefined
 export type RequestOriginator = 'frontend' | 'backend' | 'emergency'
 
-export interface AlphaVantageMetaDataType {
-  // TODO: These types should have 'Response' in the name
+export interface AlphaVantageResponseMetaData { // This 'Response' is coming from backend, after normalization and parsing. It is NOT directly from the provider.
   historicalMeta?: {
     beginDate: string
     endDate: string
@@ -38,8 +37,7 @@ export interface AlphaVantageMetaDataType {
   tickerSymbol: string
 }
 
-export interface TradierMetaDataType {
-  // TODO: These types should have 'Response' in the name
+export interface TradierResponseMetaData { // This 'Response' is coming from backend, after normalization and parsing. It is NOT directly from the provider.
   realTimeMeta?: {
     beginDate: string
     endDate: string
@@ -133,7 +131,7 @@ export type CreationMeta = {
 
 export type BuildOptionsArgsType = {
   chartData: ChartData | null
-  metaData: AlphaVantageMetaDataType | TradierMetaDataType | null
+  metaData: AlphaVantageResponseMetaData | TradierResponseMetaData | null
   analysisData: any | null
   zoomData: any
   legendData: any | null
@@ -143,7 +141,7 @@ export type MessageType = {
   type: string
   data?: {
     chartData: ChartData
-    metaData: AlphaVantageMetaDataType | TradierMetaDataType
+    metaData: AlphaVantageResponseMetaData | TradierResponseMetaData
     id: number
     creationMeta: CreationMeta
   }

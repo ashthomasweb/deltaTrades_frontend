@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
-import { MessageType, RequestParams } from '../types/types'
-import DisplayService from '../services/display.service'
+import { MessageType, RequestParams } from '@dt-types'
+import DisplayService from '@services/display.service'
 
 export const useWebSocket = (url: string, requestParams: Partial<RequestParams>, connectionType: string) => {
   const socket = useRef<WebSocket | null>(null)

@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 import './request-controls.scss'
-import { TickerSymbolInput } from '../requestParamInputs/ticker-symbol.component'
-import { IntervalInput } from '../requestParamInputs/interval.component'
-import { MonthPickerInput } from '../requestParamInputs/month-picker.component'
-import { GetPreviousInput } from '../requestParamInputs/get-previous.component'
-import { BackFillInput } from '../requestParamInputs/backfill.component'
-import { SavedDatasetsInput } from '../requestParamInputs/saved-datasets.component'
-import { LastFullRadio } from '../requestParamInputs/last-full-radio.component'
-import { SendToQueueInput } from '../requestParamInputs/send-to-queue.component'
-import { AlgoSelectInput } from '../requestParamInputs/algo-select.component'
-import { EnableTradingInput } from '../requestParamInputs/enable-trading.component'
-import { StoreDataSelectorInput } from '../requestParamInputs/store-data-selector.component'
+import { TickerSymbolInput } from '@components/request/requestParamInputs/ticker-symbol.component'
+import { IntervalInput } from '@components/request/requestParamInputs/interval.component'
+import { MonthPickerInput } from '@components/request/requestParamInputs/month-picker.component'
+import { GetPreviousInput } from '@components/request/requestParamInputs/get-previous.component'
+import { BackFillInput } from '@components/request/requestParamInputs/backfill.component'
+import { SavedDatasetsInput } from '@components/request/requestParamInputs/saved-datasets.component'
+import { LastFullRadio } from '@components/request/requestParamInputs/last-full-radio.component'
+import { SendToQueueInput } from '@components/request/requestParamInputs/send-to-queue.component'
+import { AlgoSelectInput } from '@components/request/requestParamInputs/algo-select.component'
+import { EnableTradingInput } from '@components/request/requestParamInputs/enable-trading.component'
+import { StoreDataSelectorInput } from '@components/request/requestParamInputs/store-data-selector.component'
 
 interface RequestControlsProps {
   requestType: string
@@ -31,8 +31,8 @@ export const RequestControls = ({ requestType }: RequestControlsProps) => {
             {`${requestType.substring(0, 1).toUpperCase()}${requestType.substring(1)} Controls`}
             {/* This input is hidden - it contains the requestType to be destructured from the form values */}
             <input
-              name="primaryParam_requestType" // TODO: Standardize?
-              value={requestType} // TODO: Standardize?
+              name="primaryParam_requestType"
+              value={requestType}
               readOnly
               className="hidden-title"
             ></input>

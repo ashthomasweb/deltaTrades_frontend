@@ -2,7 +2,7 @@ import { renderHook, waitFor } from '@testing-library/react'
 import { act } from 'react'
 import { useWebSocket } from './useWebSocket'
 import { vi } from 'vitest'
-import { RequestParams } from '../types/types'
+import { RequestParams } from '../_types/types'
 
 class MockWebSocket {
   static latest: MockWebSocket

@@ -1,7 +1,7 @@
 import { JSX, Dispatch, ReactNode, createContext, useReducer, useRef } from 'react'
-import DisplayService from '../services/display.service'
-import storedDataPaths from '../config/stored-data-paths'
-import { ConnectionStatus } from '../types/types'
+import DisplayService from '@services/display.service'
+import storedDataPaths from '@config/stored-data-paths'
+import { ConnectionStatus } from '@dt-types'
 
 export type MainStateType = {
   userName: string | null

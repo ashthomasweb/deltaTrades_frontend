@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { useWebSocket } from '../../../hooks/useWebSocket'
-import { Candlestick } from '../../candlestick/candlestick.component.tsx'
+import { useWebSocket } from '@hooks/useWebSocket'
+import { Candlestick } from '@components/candlestick/candlestick.component.tsx'
+import { RequestControls } from '@components/request/request-controls/request-controls'
+import { RequestParams } from '@dt-types'
+import { AlgoParams } from '@components/request/algo-params/algo-params.tsx'
 import './analysis-socket-monitor.scss'
-import { RequestControls } from '../../request/request-controls/request-controls'
-import { RequestParams } from '../../../types/types'
-import { AlgoParams } from '../../request/algo-params/algo-params.tsx'
 
 export const AnalysisSocketMonitor: React.FC = () => {
   const [requestParams, setRequestParams] = useState<Partial<RequestParams>>({

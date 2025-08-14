@@ -1,9 +1,9 @@
 // import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { App } from './App.tsx'
-import './_styles/main.scss'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import MainProvider from './_context/MainContext.tsx'
+import { App } from './App.tsx'
+import MainProvider from '@context/MainContext.tsx'
+import '@styles/main.scss'
 
 const router = createBrowserRouter([
   {

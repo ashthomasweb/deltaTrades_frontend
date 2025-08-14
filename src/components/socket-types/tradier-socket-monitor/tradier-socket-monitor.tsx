@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import { useWebSocket } from '../../../hooks/useWebSocket'
+import { useWebSocket } from '@hooks/useWebSocket'
+import { Candlestick } from '@components/candlestick/candlestick.component.tsx'
+import { RequestControls } from '@components/request/request-controls/request-controls'
+import { ChartHeadingData, RequestParams } from '@dt-types'
 import './tradier-socket-monitor.scss'
-import { Candlestick } from '../../candlestick/candlestick.component.tsx'
-import { RequestControls } from '../../request/request-controls/request-controls'
-import { ChartHeadingData, RequestParams } from '../../../types/types'
 
 export const TradierSocketMonitor = () => {
   const [requestParams, setRequestParams] = useState<Partial<RequestParams>>({
@@ -37,7 +37,7 @@ export const TradierSocketMonitor = () => {
 
     const params: Partial<RequestParams> = {
       dataSource: 'tradier',
-      chartId
+      chartId,
     }
 
     for (const [key, value] of formData.entries()) {
