@@ -1,4 +1,4 @@
-const storedDataPaths: string[] = [
+const storedDataFilenames: string[] = [
   'MARA-1min-2025-01-full.json',
   'MARA-1min-2025-02-full.json',
   'MARA-1min-2025-03-full.json',
@@ -49,4 +49,4 @@ const storedDataPaths: string[] = [
   'TSLA-1min-2025-04-full.json',
 ]
 
-export default storedDataPaths
+export default storedDataFilenames

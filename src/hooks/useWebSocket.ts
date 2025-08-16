@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { MessageType, RequestParams } from '@dt-types'
 import DisplayService from '@services/display.service'
+import { request } from 'express'
 
 export const useWebSocket = (url: string, requestParams: Partial<RequestParams>, connectionType: string) => {
   const socket = useRef<WebSocket | null>(null)
@@ -65,29 +66,9 @@ export const useWebSocket = (url: string, requestParams: Partial<RequestParams>,
 
   const sendRequestParams = useCallback(() => {
     if (socket.current && socket.current.readyState === WebSocket.OPEN && requestParams) {
-      socket.current.send(
-        JSON.stringify({
-          // TODO: Does this need to be stringified? If the below hard-coded values are generated dynamically, couldn't the whole object be stringified at once?
-          requestType: requestParams.requestType,
-          requestOriginator: 'frontend',
-          returnToFE: true,
-          dataSource: requestParams.dataSource,
-          symbol: requestParams.symbol,
-          month: requestParams.month,
-          interval: requestParams.interval,
-          savedData: requestParams.savedData,
-          storeData: requestParams.storeData,
-          backfill: requestParams.backfill,
-          dataSize: requestParams.dataSize,
-          algorithm: requestParams.algorithm,
-          sendToQueue: requestParams.sendToQueue,
-          enableTrading: requestParams.enableTrading,
-          getPreviousDay: requestParams.getPreviousDay,
-          beginDate: requestParams.beginDate,
-          chartId: requestParams.chartId,
-          algoParams: requestParams.algoParams,
-        }),
-      )
+      requestParams.requestOriginator = 'frontend'
+      requestParams.returnToFE = true
+      socket.current.send(JSON.stringify(requestParams))
     }
   }, [requestParams])
 

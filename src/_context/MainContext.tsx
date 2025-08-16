@@ -1,13 +1,13 @@
 import { JSX, Dispatch, ReactNode, createContext, useReducer, useRef } from 'react'
 import DisplayService from '@services/display.service'
-import storedDataPaths from '@config/stored-data-paths'
+import storedDataFilenames from '@config/stored-data-filenames'
 import { ConnectionStatus } from '@dt-types'
 
 export type MainStateType = {
   userName: string | null
   userObj: unknown | null
   theme: 'day' | 'night'
-  savedData: string[]
+  storedDataFilenames: string[]
   realTimeConnectionStatus: ConnectionStatus | undefined
   historicalConnectionStatus: ConnectionStatus | undefined
 }
@@ -30,7 +30,7 @@ export const MainState: MainStateType = {
   userName: null,
   userObj: null,
   theme: 'night',
-  savedData: storedDataPaths,
+  storedDataFilenames,
   realTimeConnectionStatus: undefined,
   historicalConnectionStatus: undefined,
 }

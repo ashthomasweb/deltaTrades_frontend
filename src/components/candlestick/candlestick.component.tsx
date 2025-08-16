@@ -98,14 +98,18 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
     setOptions(null)
   }
 
+  // TODO: requestType handler functions could be refactored down - wait until app is more hardened
   useEffect(() => {
     if (!props.messages || props.messages.length === 0) return
-    const latestMessage = props.messages[props.messages.length - 1] as MessageType
-    if (!latestMessage?.data) return // TODO: Shouldn't this handle the possible 'undefined' that is currently requiring a non-null assertion below???
+    const latestMessage = props.messages.at(-1) as MessageType
 
-    const historicalOrStoredDataHandler = () => {
-      const latestMetaData = latestMessage.data!.metaData as AlphaVantageResponseMetaData
-      const latestChartData = latestMessage.data!.chartData
+    const data = latestMessage?.data
+    if (!data) return
+
+    const historicalHandler = () => {
+      console.log('trace: historicalHandler')
+      const latestMetaData = data.metaData as AlphaVantageResponseMetaData
+      const latestChartData = data.chartData
 
       setMetaData(latestMetaData)
       setChartData(latestChartData)
@@ -116,10 +120,10 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
       // Check id returned from BE - early return in the event that multiple charts are active.
       // This could be avoided if the EventBus was instanced to each websocket, or if the bus used
       // separate channels with the chartId assigned to it. But checking here would still give redundant security
-      if (latestMessage.id !== props.headingData.chartId) return // Needs handling for historical data. Currently, no id is passed back, and no id is generated. They both === undefined and pass early return
+      if (latestMessage.id !== props.headingData.chartId) return
 
-      const latestMetaData = latestMessage.data!.metaData as TradierResponseMetaData
-      const latestChartData = latestMessage.data!.chartData || { categoryData: [], values: [], volumes: [] }
+      const latestMetaData = data.metaData as TradierResponseMetaData
+      const latestChartData = data.chartData || { categoryData: [], values: [], volumes: [] }
       let existingChartData = chartData || { categoryData: [], values: [], volumes: [] }
       existingChartData = {
         categoryData: [...existingChartData.categoryData, ...latestChartData.categoryData],
@@ -134,32 +138,35 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
 
     const analysisHandler = () => {
       console.log('trace: analysisHandler')
-      const latestMetaData = latestMessage.data!.metaData as AlphaVantageResponseMetaData
-      const latestChartData = latestMessage.data!.chartData
+      const latestMetaData = data.metaData as AlphaVantageResponseMetaData
+      const latestChartData = data.chartData
 
       setMetaData(latestMetaData)
       setChartData(latestChartData)
       setAnalysisData(latestMessage.algoResults)
       extendedTickDataRef.current = latestMessage.algoResults?.extTickData
-      // console.log(latestMessage.algoResults.extTick)
       setOptions(buildOptions(getOptionsArgs(latestChartData, latestMetaData, latestMessage.algoResults)))
     }
 
-    if (latestMessage.type.match(/historical|storedData/)) {
-      // TODO: Refactor to switch case once historic/storedData is refactored
-      historicalOrStoredDataHandler()
-    } else if (latestMessage.type === 'realTime') {
-      realTimeHandler()
-    } else if (latestMessage.type === 'analysis') {
-      analysisHandler()
+    switch (latestMessage.type) {
+      case 'historical':
+        historicalHandler()
+        break
+
+      case 'realTime':
+        realTimeHandler()
+        break
+
+      case 'analysis':
+        analysisHandler()
+        break
+
+      default:
+        break
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.messages])
-
-  const onHover = params => {
-    // console.log(extendedTickDataRef.current[params.dataIndex])
-    // extendedTickDataHovered.current = extendedTickDataRef.current[params.dataIndex]
-  }
 
   return (
     <div className="candlestick-container">
@@ -170,21 +177,6 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
         socketControls={props.socketControls}
         clearChart={clearChart}
       />
-      {/* {extendedTickDataRef ? (
-        <div
-          style={{
-            position: 'absolute',
-            bottom: 0,
-            height: 200,
-            width: 200,
-          }}
-        >
-          <span>{extendedTickDataHovered?.current?.percentChange}</span>
-          <br />
-          <span>{extendedTickDataHovered?.current?.isWickCrossing}</span>
-        </div>
-      ) : null} */}
-
       {options ? (
         <ReactECharts
           notMerge={true}
@@ -196,7 +188,6 @@ export const Candlestick: React.FC<CandleStickProps> = (props: CandleStickProps)
           onEvents={{
             datazoom: onDataZoom,
             legendselectchanged: onLegendSelectChanged,
-            updateAxisPointer: onHover,
           }}
         />
       ) : null}

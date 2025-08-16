@@ -9,11 +9,11 @@ import './analysis-socket-monitor.scss'
 export const AnalysisSocketMonitor: React.FC = () => {
   const [requestParams, setRequestParams] = useState<Partial<RequestParams>>({
     requestType: undefined,
-    storeData: undefined,
+    storeRequestedData: undefined,
     symbol: undefined,
     interval: undefined,
     month: undefined,
-    savedData: undefined,
+    requestedStoredDataFilename: undefined,
     dataSize: undefined,
     sendToQueue: undefined,
   })

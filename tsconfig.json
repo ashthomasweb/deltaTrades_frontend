@@ -30,11 +30,9 @@
       "@hooks/*": ["src/hooks/*"],
       "@layout/*": ["src/layout/*"],
       "@services/*": ["src/services/*"],
-      "@dt-types": ["src/_types/index.ts"],
-    },
+      "@dt-types": ["src/_types/index.ts"]
+    }
   },
   "include": ["src"],
-  "references": [
-    { "path": "./tsconfig.node.json" }
-  ],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { LabeledNumberInput } from '@components/request/generic-inputs/number-input'
 import './algo-params.scss'
+import { NoiseWindows } from '@/_types'
 
 export const AlgoParams: React.FC = () => {
-  const [currentNoiseFunction, setCurrentNoiseFunction] = useState<string>('NW1') // TODO: Create literal type...
+  const [currentNoiseFunction, setCurrentNoiseFunction] = useState<NoiseWindows>('NW1')
 
   return (
     <div className="algo-param-container">
@@ -13,7 +14,7 @@ export const AlgoParams: React.FC = () => {
           Window Function:
           <select
             name="algoParam_noiseWindow"
-            onChange={e => setCurrentNoiseFunction(e.target.value)}
+            onChange={e => setCurrentNoiseFunction(e.target.value as NoiseWindows)}
           >
             <option value="NW1">NW1</option>
             <option value="NW2">NW2</option>
@@ -108,7 +109,7 @@ export const AlgoParams: React.FC = () => {
       <div className="param-section-wrapper moving-avg">
         <h3>Moving Average</h3>
         <LabeledNumberInput
-          label="Simple Moving Average Period 1"
+          label="Simple MA Period 1"
           name="algoParam_sma1Period"
           min={3}
           max={100}
@@ -119,7 +120,7 @@ export const AlgoParams: React.FC = () => {
           }
         />
         <LabeledNumberInput
-          label="Simple Moving Average Period 2"
+          label="Simple MA Period 2"
           name="algoParam_sma2Period"
           min={3}
           max={100}
@@ -130,7 +131,7 @@ export const AlgoParams: React.FC = () => {
           }
         />
         <LabeledNumberInput
-          label="Exponential Moving Average Period 1"
+          label="Exponential MA Period 1"
           name="algoParam_ema1Period"
           min={3}
           max={100}
@@ -141,7 +142,7 @@ export const AlgoParams: React.FC = () => {
           }
         />
         <LabeledNumberInput
-          label="Exponential Moving Average Period 2"
+          label="Exponential MA Period 2"
           name="algoParam_ema2Period"
           min={3}
           max={100}

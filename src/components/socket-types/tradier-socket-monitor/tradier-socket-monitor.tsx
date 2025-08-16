@@ -8,7 +8,6 @@ import './tradier-socket-monitor.scss'
 export const TradierSocketMonitor = () => {
   const [requestParams, setRequestParams] = useState<Partial<RequestParams>>({
     requestType: undefined,
-    storeData: undefined,
     symbol: undefined,
     backfill: undefined,
     sendToQueue: undefined,
@@ -31,6 +30,7 @@ export const TradierSocketMonitor = () => {
     chartId,
   }
 
+  // TODO: Analyze and clean up 'getPrevious' logic and 'backfill' length
   const setParams = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
@@ -54,6 +54,7 @@ export const TradierSocketMonitor = () => {
   return (
     <form onSubmit={setParams}>
       <div className="historical-container">
+        <RequestControls requestType="realTime" />
         <Candlestick
           messages={messages}
           headingData={headingData}
@@ -61,7 +62,6 @@ export const TradierSocketMonitor = () => {
           requestType="realTime"
           socketControls={socketControls}
         />
-        <RequestControls requestType="realTime" />
       </div>
     </form>
   )

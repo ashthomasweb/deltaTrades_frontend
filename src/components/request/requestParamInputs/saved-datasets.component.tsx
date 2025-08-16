@@ -7,14 +7,14 @@ type SavedDatasetProps = {
 
 export const SavedDatasetsInput: React.FC<SavedDatasetProps> = ({ handleSavedDataChange }) => {
   const {
-    mainState: { savedData },
+    mainState: { storedDataFilenames },
   } = useContext(MainContext)
 
   return (
     <label>
       Saved Datasets
       <select
-        name="primaryParam_savedData"
+        name="primaryParam_requestedStoredDataFilename"
         onChange={handleSavedDataChange}
       >
         <option
@@ -23,7 +23,7 @@ export const SavedDatasetsInput: React.FC<SavedDatasetProps> = ({ handleSavedDat
         >
           ------
         </option>
-        {savedData.map(entry => (
+        {storedDataFilenames.map(entry => (
           <option
             key={entry}
             value={entry}

@@ -6,8 +6,8 @@ export interface RequestParams {
   symbol: string | undefined
   month: string | undefined
   interval: string | undefined
-  savedData: string | undefined
-  storeData: string | undefined
+  requestedStoredDataFilename: string | undefined
+  storeRequestedData: string | undefined
   backfill: string | undefined
   dataSize: string | undefined
   algorithm: string | undefined
@@ -21,11 +21,12 @@ export interface RequestParams {
   algoParams: any
 }
 
-export type RequestType = 'historical' | 'realTime' | 'closeRequest' | 'storedData' | 'analysis' | undefined
+export type RequestType = 'historical' | 'realTime' | 'closeRequest' | 'storedData' | 'analysis'
 export type DataSource = 'alpha-vantage' | 'tradier' | 'storedData' | undefined
 export type RequestOriginator = 'frontend' | 'backend' | 'emergency'
 
-export interface AlphaVantageResponseMetaData { // This 'Response' is coming from backend, after normalization and parsing. It is NOT directly from the provider.
+export interface AlphaVantageResponseMetaData { // TODO: Is this the appropriate name? It's actually getting chartData built from NormalizedData ... wait until app is further hardened
+  // This 'Response' is coming from backend, after normalization and parsing. It is NOT directly from the provider.
   historicalMeta?: {
     beginDate: string
     endDate: string
@@ -37,7 +38,8 @@ export interface AlphaVantageResponseMetaData { // This 'Response' is coming fro
   tickerSymbol: string
 }
 
-export interface TradierResponseMetaData { // This 'Response' is coming from backend, after normalization and parsing. It is NOT directly from the provider.
+export interface TradierResponseMetaData {
+  // This 'Response' is coming from backend, after normalization and parsing. It is NOT directly from the provider.
   realTimeMeta?: {
     beginDate: string
     endDate: string
@@ -94,6 +96,9 @@ export type AnalysisDataPacket = {
       end: string
     }
   >
+  extTickData: Record<
+    string, any
+  >
 }
 
 export interface Tick {
@@ -149,3 +154,5 @@ export type MessageType = {
   algoResults?: AnalysisDataPacket
   id?: string
 }
+
+export type NoiseWindows = 'NW1' | 'NW2' | 'NW3' | 'NW4' | 'NW5' | 'NW6' // TODO: Create array to loop over for options - wait until app is more hardened

@@ -8,11 +8,9 @@ import './alpha-socket-monitor.scss'
 export const AlphaSocketMonitor: React.FC = () => {
   const [requestParams, setRequestParams] = useState<Partial<RequestParams>>({
     requestType: undefined,
-    storeData: undefined,
     symbol: undefined,
     interval: undefined,
     month: undefined,
-    savedData: undefined,
     dataSize: undefined,
     sendToQueue: undefined,
   })
@@ -41,16 +39,13 @@ export const AlphaSocketMonitor: React.FC = () => {
     }
 
     params.dataSource = 'alpha-vantage'
-    if (params.savedData !== 'none') {
-      params.requestType = 'storedData' // TODO: Check on need for this duplicated k:v - interacts in backend /data-adapter
-      params.dataSource = 'storedData' // TODO: Check on need for this duplicated k:v - interacts in backend /data-adapter
-    }
     setRequestParams(params)
   }
 
   return (
     <form onSubmit={setParams}>
       <div className="historical-container">
+        <RequestControls requestType="historical" />
         <Candlestick
           messages={messages}
           headingData={headingData}
@@ -58,7 +53,6 @@ export const AlphaSocketMonitor: React.FC = () => {
           requestType="historical"
           socketControls={socketControls}
         />
-        <RequestControls requestType="historical" />
       </div>
     </form>
   )

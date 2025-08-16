@@ -78,7 +78,7 @@ export const RequestControls = ({ requestType }: RequestControlsProps) => {
           <div className="secondary-controls">
             {requestType === 'historical' ? (
               <>
-                <SavedDatasetsInput handleSavedDataChange={handleSavedDataChange} />
+                {/* <SavedDatasetsInput handleSavedDataChange={handleSavedDataChange} /> */}
                 <LastFullRadio paramsDisabled={paramsDisabled} />
               </>
             ) : null}
