@@ -1,19 +1,19 @@
 import React, { useState } from 'react'
-import { useWebSocket } from '../../../hooks/useWebSocket'
-import { Candlestick } from '../../candlestick/candlestick.component.tsx'
+import { useWebSocket } from '@hooks/useWebSocket'
+import { Candlestick } from '@components/candlestick/candlestick.component.tsx'
+import { RequestControls } from '@components/request/request-controls/request-controls'
+import { RequestParams } from '@dt-types'
+import { AlgoParams } from '@components/request/algo-params/algo-params.tsx'
 import './analysis-socket-monitor.scss'
-import { RequestControls } from '../../request/request-controls/request-controls'
-import { RequestParams } from '../../../types/types'
-import { AlgoParams } from '../../request/algo-params/algo-params.tsx'
 
 export const AnalysisSocketMonitor: React.FC = () => {
   const [requestParams, setRequestParams] = useState<Partial<RequestParams>>({
-    type: undefined,
-    storeData: undefined,
+    requestType: undefined,
+    storeRequestedData: undefined,
     symbol: undefined,
     interval: undefined,
     month: undefined,
-    savedData: undefined,
+    requestedStoredDataFilename: undefined,
     dataSize: undefined,
     sendToQueue: undefined,
   })
@@ -43,6 +43,7 @@ export const AnalysisSocketMonitor: React.FC = () => {
         params.algoParams[key.replace('algoParam_', '') as keyof RequestParams] = value?.toString() ?? null
       }
     }
+    console.log(params)
 
     setRequestParams(params)
   }
@@ -50,6 +51,7 @@ export const AnalysisSocketMonitor: React.FC = () => {
   return (
     <form onSubmit={setParams}>
       <div className="analysis-container">
+        <RequestControls requestType="analysis" />
         <div className="upper-container">
           <Candlestick
             messages={messages}
@@ -60,7 +62,6 @@ export const AnalysisSocketMonitor: React.FC = () => {
           />
           <AlgoParams />
         </div>
-        <RequestControls requestType="analysis" />
       </div>
     </form>
   )

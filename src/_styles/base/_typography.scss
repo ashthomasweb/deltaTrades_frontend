@@ -99,7 +99,7 @@ a {
   transition: all 0.2s ease;
 
   &:hover {
-    // color: darken($cLinks, 20%); // TODO: deprecated - sass recommendation doesn't work out-of-box - needs research
+    // color: darken($cLinks, 20%); // TODO: SASS-EMBEDED - deprecated - sass recommendation doesn't work out-of-box - needs research
   }
 }
 

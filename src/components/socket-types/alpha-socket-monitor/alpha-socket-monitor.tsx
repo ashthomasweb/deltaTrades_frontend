@@ -1,18 +1,16 @@
 import React, { useState } from 'react'
-import { useWebSocket } from '../../../hooks/useWebSocket'
-import { Candlestick } from '../../candlestick/candlestick.component.tsx'
+import { useWebSocket } from '@hooks/useWebSocket'
+import { Candlestick } from '@components/candlestick/candlestick.component.tsx'
+import { RequestControls } from '@components/request/request-controls/request-controls'
+import { RequestParams } from '@dt-types'
 import './alpha-socket-monitor.scss'
-import { RequestControls } from '../../request/request-controls/request-controls'
-import { RequestParams } from '../../../types/types'
 
 export const AlphaSocketMonitor: React.FC = () => {
   const [requestParams, setRequestParams] = useState<Partial<RequestParams>>({
-    type: undefined,
-    storeData: undefined,
+    requestType: undefined,
     symbol: undefined,
     interval: undefined,
     month: undefined,
-    savedData: undefined,
     dataSize: undefined,
     sendToQueue: undefined,
   })
@@ -28,25 +26,26 @@ export const AlphaSocketMonitor: React.FC = () => {
   const setParams = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
-    const formValues = Object.fromEntries(formData.entries())
 
-    const params: Partial<RequestParams> = {
-      type: formValues.savedData?.toString() !== 'none' ? 'storedData' : (formValues.type?.toString() ?? null),
-      dataSource: formValues.savedData?.toString() !== 'none' ? 'storedData' : 'alpha-vantage',
-      storeData: formValues.storeData?.toString() ?? null,
-      symbol: formValues.symbol?.toString() ?? null,
-      interval: formValues.interval?.toString() ?? null,
-      month: formValues.month?.toString() ?? null,
-      savedData: formValues.savedData?.toString() ?? null,
-      dataSize: formValues.dataSize?.toString() ?? null,
-      sendToQueue: formValues.sendToQueue?.toString() ?? null,
+    const params: Partial<RequestParams> = {}
+
+    for (const [key, value] of formData.entries()) {
+      if (key.includes('primaryParam_')) {
+        params[key.replace('primaryParam_', '') as keyof RequestParams] = value?.toString() ?? null
+      }
+      if (key.includes('algoParam_')) {
+        params.algoParams[key.replace('algoParam_', '') as keyof RequestParams] = value?.toString() ?? null
+      }
     }
+
+    params.dataSource = 'alpha-vantage'
     setRequestParams(params)
   }
 
   return (
     <form onSubmit={setParams}>
       <div className="historical-container">
+        <RequestControls requestType="historical" />
         <Candlestick
           messages={messages}
           headingData={headingData}
@@ -54,7 +53,6 @@ export const AlphaSocketMonitor: React.FC = () => {
           requestType="historical"
           socketControls={socketControls}
         />
-        <RequestControls requestType="historical" />
       </div>
     </form>
   )

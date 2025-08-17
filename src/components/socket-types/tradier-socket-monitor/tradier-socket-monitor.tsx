@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react'
-import { useWebSocket } from '../../../hooks/useWebSocket'
+import { useWebSocket } from '@hooks/useWebSocket'
+import { Candlestick } from '@components/candlestick/candlestick.component.tsx'
+import { RequestControls } from '@components/request/request-controls/request-controls'
+import { ChartHeadingData, RequestParams } from '@dt-types'
 import './tradier-socket-monitor.scss'
-import { Candlestick } from '../../candlestick/candlestick.component.tsx'
-import { RequestControls } from '../../request/request-controls/request-controls'
-import { ChartHeadingData, RequestParams } from '../../../types/types'
 
 export const TradierSocketMonitor = () => {
   const [requestParams, setRequestParams] = useState<Partial<RequestParams>>({
-    type: undefined,
-    storeData: undefined,
+    requestType: undefined,
     symbol: undefined,
     backfill: undefined,
     sendToQueue: undefined,
@@ -16,10 +15,10 @@ export const TradierSocketMonitor = () => {
     enableTrading: undefined,
   })
 
-  const [chartId, setChartId] = useState<number | null>(null)
+  const [chartId, setChartId] = useState<string | null>(null)
 
   useEffect(() => {
-    setChartId(Math.ceil(Math.random() * 10e20))
+    setChartId(Math.ceil(Math.random() * 10e20).toString())
   }, [])
 
   const { isConnected, messages, socketControls } = useWebSocket('ws://localhost:8080', requestParams, 'realTime')
@@ -31,23 +30,23 @@ export const TradierSocketMonitor = () => {
     chartId,
   }
 
+  // TODO: Analyze and clean up 'getPrevious' logic and 'backfill' length
   const setParams = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
-    const formValues = Object.fromEntries(formData.entries())
 
     const params: Partial<RequestParams> = {
-      type: formValues.type?.toString() ?? null,
       dataSource: 'tradier',
-      storeData: formValues.storeData?.toString() ?? null,
-      symbol: formValues.symbol?.toString() ?? null,
-      backfill: formValues.backfill?.toString() ?? null,
-      sendToQueue: formValues.sendToQueue?.toString() ?? null,
-      algorithm: formValues.algorithm?.toString() ?? null,
-      enableTrading: formValues.enableTrading?.toString() ?? null,
-      getPrevious: formValues.getPrevious?.toString() ?? null,
-      beginDate: formValues.beginDate?.toString() ?? null,
-      chartId: chartId,
+      chartId,
+    }
+
+    for (const [key, value] of formData.entries()) {
+      if (key.includes('primaryParam_')) {
+        params[key.replace('primaryParam_', '') as keyof RequestParams] = value?.toString() ?? null
+      }
+      if (key.includes('algoParam_')) {
+        params.algoParams[key.replace('algoParam_', '') as keyof RequestParams] = value?.toString() ?? null
+      }
     }
     setRequestParams(params)
   }
@@ -55,14 +54,14 @@ export const TradierSocketMonitor = () => {
   return (
     <form onSubmit={setParams}>
       <div className="historical-container">
+        <RequestControls requestType="realTime" />
         <Candlestick
           messages={messages}
           headingData={headingData}
           requestParams={requestParams}
-          requestType="real-time"
+          requestType="realTime"
           socketControls={socketControls}
         />
-        <RequestControls requestType="real-time" />
       </div>
     </form>
   )

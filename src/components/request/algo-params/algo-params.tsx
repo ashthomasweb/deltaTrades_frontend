@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
+import { LabeledNumberInput } from '@components/request/generic-inputs/number-input'
 import './algo-params.scss'
-import { LabeledNumberInput } from '../generic-inputs/number-input'
+import { NoiseWindows } from '@/_types'
 
 export const AlgoParams: React.FC = () => {
-  const [currentNoiseFunction, setCurrentNoiseFunction] = useState<string>('NW1') // TODO: Create literal type...
+  const [currentNoiseFunction, setCurrentNoiseFunction] = useState<NoiseWindows>('NW1')
 
   return (
     <div className="algo-param-container">
@@ -13,7 +14,7 @@ export const AlgoParams: React.FC = () => {
           Window Function:
           <select
             name="algoParam_noiseWindow"
-            onChange={e => setCurrentNoiseFunction(e.target.value)}
+            onChange={e => setCurrentNoiseFunction(e.target.value as NoiseWindows)}
           >
             <option value="NW1">NW1</option>
             <option value="NW2">NW2</option>
@@ -94,7 +95,7 @@ export const AlgoParams: React.FC = () => {
       </div>
 
       {
-        // Time range // RETHINKING - If an algo is working on very specific days, it's inherently unstable over real-time trading. I was thinking the purpose of having this input was to ease the analysis flow... but the persistent timescale acheives that. I believe this should be RETIRED
+        // Time range // RETHINKING - If an algo is working on very specific days, it's inherently unstable over realTime trading. I was thinking the purpose of having this input was to ease the analysis flow... but the persistent timescale acheives that. I believe this should be RETIRED
         // backfill
         // Day group?
       }
@@ -108,8 +109,8 @@ export const AlgoParams: React.FC = () => {
       <div className="param-section-wrapper moving-avg">
         <h3>Moving Average</h3>
         <LabeledNumberInput
-          label="Simple Averaging Period 1"
-          name="algoParam_simpleAvgPeriod1"
+          label="Simple MA Period 1"
+          name="algoParam_sma1Period"
           min={3}
           max={100}
           step={1}
@@ -119,8 +120,8 @@ export const AlgoParams: React.FC = () => {
           }
         />
         <LabeledNumberInput
-          label="Simple Averaging Period 2"
-          name="algoParam_simpleAvgPeriod2"
+          label="Simple MA Period 2"
+          name="algoParam_sma2Period"
           min={3}
           max={100}
           step={1}
@@ -130,8 +131,8 @@ export const AlgoParams: React.FC = () => {
           }
         />
         <LabeledNumberInput
-          label="Exponential Averaging Period 1"
-          name="algoParam_emaAvgPeriod1"
+          label="Exponential MA Period 1"
+          name="algoParam_ema1Period"
           min={3}
           max={100}
           step={1}
@@ -141,8 +142,8 @@ export const AlgoParams: React.FC = () => {
           }
         />
         <LabeledNumberInput
-          label="Exponential Averaging Period 2"
-          name="algoParam_emaAvgPeriod2"
+          label="Exponential MA Period 2"
+          name="algoParam_ema2Period"
           min={3}
           max={100}
           step={1}
@@ -239,7 +240,7 @@ export const AlgoParams: React.FC = () => {
         <h3>Trend Detection</h3>
         <LabeledNumberInput
           label="Slope Period Raw Price"
-          name="algoParam_slopePeriodRawPrice"
+          name="algoParam_slopePeriodByRawPrice"
           min={1}
           max={100}
           step={1}
@@ -248,7 +249,7 @@ export const AlgoParams: React.FC = () => {
         />
         <LabeledNumberInput
           label="Slope Period SMA"
-          name="algoParam_slopePeriodSMA"
+          name="algoParam_slopePeriodBySMA"
           min={1}
           max={100}
           step={1}
@@ -257,7 +258,7 @@ export const AlgoParams: React.FC = () => {
         />
         <LabeledNumberInput
           label="Slope Period EMA"
-          name="algoParam_slopePeriodEMA"
+          name="algoParam_slopePeriodByEMA"
           min={1}
           max={100}
           step={1}

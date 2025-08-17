@@ -2,7 +2,7 @@ import { renderHook, waitFor } from '@testing-library/react'
 import { act } from 'react'
 import { useWebSocket } from './useWebSocket'
 import { vi } from 'vitest'
-import { RequestParams } from '../types/types'
+import { RequestParams } from '../_types/types'
 
 class MockWebSocket {
   static latest: MockWebSocket
@@ -43,7 +43,7 @@ describe('useWebSocket', () => {
   })
 
   it('should return expected structure', () => {
-    const { result } = renderHook(() => useWebSocket('ws://localhost:1234', { type: undefined }, 'test'))
+    const { result } = renderHook(() => useWebSocket('ws://localhost:1234', { requestType: undefined }, 'test'))
 
     expect(result.current).toMatchObject({
       isConnected: false,
@@ -56,7 +56,7 @@ describe('useWebSocket', () => {
   })
 
   it('should set isConnected to true when socket opens', async () => {
-    const { result } = renderHook(() => useWebSocket('ws://localhost:1234', { type: undefined }, 'test'))
+    const { result } = renderHook(() => useWebSocket('ws://localhost:1234', { requestType: undefined }, 'test'))
     socket = MockWebSocket.latest
 
     act(() => {
@@ -70,7 +70,7 @@ describe('useWebSocket', () => {
   })
 
   it('should update local message state after onMessage event', async () => {
-    const { result } = renderHook(() => useWebSocket('ws://localhost:1234', { type: undefined }, 'test'))
+    const { result } = renderHook(() => useWebSocket('ws://localhost:1234', { requestType: undefined }, 'test'))
 
     socket = MockWebSocket.latest
 
@@ -106,7 +106,7 @@ describe('useWebSocket', () => {
   })
 
   it('should log an error on malformed message', async () => {
-    renderHook(() => useWebSocket('ws://localhost:1234', { type: undefined }, 'test'))
+    renderHook(() => useWebSocket('ws://localhost:1234', { requestType: undefined }, 'test'))
 
     socket = MockWebSocket.latest
 
@@ -124,7 +124,7 @@ describe('useWebSocket', () => {
   })
 
   it('should update state when disconnect is called', async () => {
-    const { result } = renderHook(() => useWebSocket('ws://localhost:1234', { type: undefined }, 'test'))
+    const { result } = renderHook(() => useWebSocket('ws://localhost:1234', { requestType: undefined }, 'test'))
 
     socket = MockWebSocket.latest
 
@@ -149,7 +149,7 @@ describe('useWebSocket', () => {
   })
 
   it('should call .close() when component unmounts', async () => {
-    const { unmount } = renderHook(() => useWebSocket('ws://localhost:1234', { type: undefined }, 'test'))
+    const { unmount } = renderHook(() => useWebSocket('ws://localhost:1234', { requestType: undefined }, 'test'))
 
     socket = MockWebSocket.latest
 
@@ -163,7 +163,7 @@ describe('useWebSocket', () => {
   })
 
   it('should establish a new WebSocket connection when connect is called', async () => {
-    const { result } = renderHook(() => useWebSocket('ws://localhost:1234', { type: undefined }, 'test'))
+    const { result } = renderHook(() => useWebSocket('ws://localhost:1234', { requestType: undefined }, 'test'))
 
     const firstSocket = MockWebSocket.latest
 
@@ -195,10 +195,10 @@ describe('useWebSocket', () => {
   })
 
   it('should send request packet only when socket is open', async () => {
-    const initialParams: Partial<RequestParams> = { type: undefined }
+    const initialParams: Partial<RequestParams> = { requestType: undefined }
     const mockParams: Partial<RequestParams> = {
-      type: 'historical',
-      originator: 'frontend',
+      requestType: 'historical',
+      requestOriginator: 'frontend',
       returnToFE: true,
     }
 
@@ -232,7 +232,7 @@ describe('useWebSocket', () => {
   })
 
   it('should log message for user when socket fails to connect', () => {
-    const { result } = renderHook(() => useWebSocket('ws://localhost:1234', { type: undefined }, 'test'))
+    const { result } = renderHook(() => useWebSocket('ws://localhost:1234', { requestType: undefined }, 'test'))
 
     socket = MockWebSocket.latest
 
@@ -250,27 +250,27 @@ describe('useWebSocket', () => {
   })
 
   it('should NOT call send if requestParam type is undefined', () => {
-    renderHook(() => useWebSocket('ws://localhost:1234', { type: undefined }, 'test'))
+    renderHook(() => useWebSocket('ws://localhost:1234', { requestType: undefined }, 'test'))
 
     expect(socket.send).not.toHaveBeenCalled()
   })
 
   it('should NOT call send if socket is never opened', () => {
-    renderHook(() => useWebSocket('ws://localhost:1234', { type: 'historical' }, 'test'))
+    renderHook(() => useWebSocket('ws://localhost:1234', { requestType: 'historical' }, 'test'))
 
     expect(MockWebSocket.latest.send).not.toHaveBeenCalled()
   })
 
   it('should NOT call send if socket is not open', () => {
     const { rerender } = renderHook(({ params }) => useWebSocket('ws://localhost:1234', params, 'test'), {
-      initialProps: { params: { type: undefined } },
+      initialProps: { params: { requestType: undefined } },
     })
 
     socket = MockWebSocket.latest
     socket.readyState = WebSocket.CONNECTING
 
     const initialParams = {
-      type: undefined,
+      requestType: undefined,
     }
 
     rerender({ params: initialParams })
