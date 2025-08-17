@@ -1,4 +1,4 @@
-import { BuildOptionsArgsType } from '../../types/types'
+import { BuildOptionsArgsType } from '../../_types/types'
 import { downColor, options, upColor } from './candlestick-config'
 
 export const buildOptions = (dataOptions: BuildOptionsArgsType): unknown => {
@@ -7,9 +7,8 @@ export const buildOptions = (dataOptions: BuildOptionsArgsType): unknown => {
   let analysisMA10 = {}
   let analysisBollinger = []
   // let extendedTickDataIndexArray = []
-  console.log(dataOptions)
 
-  if (dataOptions.analysisData.analysis) {
+  if (dataOptions?.analysisData?.analysis) {
     for (const entry in dataOptions.analysisData.analysis.singleDirBlocks) {
       analysisSingleDirBlocks.push([
         {
@@ -64,7 +63,7 @@ export const buildOptions = (dataOptions: BuildOptionsArgsType): unknown => {
     },
   ]
 
-  if (dataOptions.analysisData.analysis) {
+  if (dataOptions.analysisData?.analysis) {
     legend[0].data.push(
       {
         name: 'Single Direction',
@@ -126,7 +125,7 @@ export const buildOptions = (dataOptions: BuildOptionsArgsType): unknown => {
     },
   ]
 
-  if (dataOptions.analysisData.analysis && Array.isArray(series)) {
+  if (dataOptions.analysisData?.analysis && Array.isArray(series)) {
     series.push(
       {
         type: 'scatter',

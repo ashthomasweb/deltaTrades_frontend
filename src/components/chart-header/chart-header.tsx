@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
+import { AlphaVantageResponseMetaData, ChartHeadingData, SocketControls, TradierResponseMetaData } from '@dt-types'
+import { MainContext } from '@context/MainContext'
 import './chart-header.scss'
-import { AlphaVantageMetaDataType, ChartHeadingData, SocketControls, TradierMetaDataType } from '../../types/types'
-import { MainContext } from '../../_context/MainContext'
 
 interface ChartHeaderProps {
   headingData: ChartHeadingData
-  metaData: AlphaVantageMetaDataType | TradierMetaDataType | null
+  metaData: AlphaVantageResponseMetaData | TradierResponseMetaData | null
   socketControls: SocketControls
   requestType: string
   clearChart: () => void

@@ -1,5 +1,5 @@
-import { MainStateType } from '../_context/MainContext'
-import { MainActionType } from '../_context/MainContext'
+import { MainStateType } from '@context/MainContext'
+import { MainActionType } from '@context/MainContext'
 import { Dispatch, RefObject } from 'react'
 // import ThemeService from "./theme.service"
 

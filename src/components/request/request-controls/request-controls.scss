@@ -3,7 +3,7 @@
 .request-controls-container {
   border: 2px solid useTheme(greyScale4);
   padding: 20px;
-  margin-top: 10px;
+  margin-bottom: 20px;
   border-radius: 12px;
   @include displayFlex();
   @include flexJustifyContent(space-around);
@@ -13,8 +13,9 @@
     @include flexDirection(column);
     flex-wrap: wrap;
     gap: 14px;
+    flex: 1;
     // width: 80%;
-    max-width: 970px;
+    // max-width: 970px;
 
     .global-controls {
       @include displayFlex();
@@ -76,8 +77,10 @@
     .params-container {
       @include displayFlex();
       @include flexDirection(row);
+      flex-wrap: wrap;
       gap: 20px;
       width: 100%;
+      @include flexJustifyContent(space-around);
 
       .primary-controls,
       .secondary-controls {
