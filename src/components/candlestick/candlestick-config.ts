@@ -22,7 +22,6 @@ export const options = {
       return obj
     },
     formatter: (params: any[]) => {
-
       const candle = params.find(p => p.seriesType === 'candlestick')
       const extended = params.find(p => p.seriesName === 'Extended Tick Data')
       const ADX = params.find(p => p.seriesName === 'ADX')
@@ -30,7 +29,7 @@ export const options = {
 
       const [_, open, close, low, high, volume] = candle.data
       const timestamp = candle.name
-      
+
       const analysisTooltipData = () => {
         /* ATTENTION! Params in the extended data block must match key in ExtTick type in BE */
         return `
@@ -65,11 +64,7 @@ export const options = {
       Low: ${low}<br/>
       <hr />
       Volume: ${volume}<br/>
-      ${  
-        extended?.data
-          ? analysisTooltipData()
-          : ''
-        }
+      ${extended?.data ? analysisTooltipData() : ''}
     `
     },
   },
