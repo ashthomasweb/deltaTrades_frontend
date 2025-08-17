@@ -25,7 +25,8 @@ export type RequestType = 'historical' | 'realTime' | 'closeRequest' | 'storedDa
 export type DataSource = 'alpha-vantage' | 'tradier' | 'storedData' | undefined
 export type RequestOriginator = 'frontend' | 'backend' | 'emergency'
 
-export interface AlphaVantageResponseMetaData { // TODO: Is this the appropriate name? It's actually getting chartData built from NormalizedData ... wait until app is further hardened
+export interface AlphaVantageResponseMetaData {
+  // TODO: Is this the appropriate name? It's actually getting chartData built from NormalizedData ... wait until app is further hardened
   // This 'Response' is coming from backend, after normalization and parsing. It is NOT directly from the provider.
   historicalMeta?: {
     beginDate: string
@@ -96,9 +97,7 @@ export type AnalysisDataPacket = {
       end: string
     }
   >
-  extTickData: Record<
-    string, any
-  >
+  extTickData: Record<string, any>
 }
 
 export interface Tick {
