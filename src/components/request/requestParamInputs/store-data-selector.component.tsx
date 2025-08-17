@@ -9,7 +9,7 @@ export const StoreDataSelectorInput: React.FC<StoreDataSelectorProps> = ({ reque
   <label className={`save-data ${paramsDisabled ? 'isDisabled' : ''}`}>
     {`${requestType === 'historical' ? 'Save Data' : 'Save Data On Close'}`}
     <input
-      name="primaryParam_storeData"
+      name="primaryParam_storeRequestedData"
       type="checkbox"
     />
   </label>

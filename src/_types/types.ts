@@ -1,49 +1,51 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 export interface RequestParams {
-  type: string | undefined
+  requestType: RequestType
   dataSource: DataSource
   symbol: string | undefined
   month: string | undefined
   interval: string | undefined
-  savedData: string | undefined
-  storeData: string | undefined
+  requestedStoredDataFilename: string | undefined
+  storeRequestedData: string | undefined
   backfill: string | undefined
   dataSize: string | undefined
   algorithm: string | undefined
   sendToQueue: string | undefined
   enableTrading: string | undefined
-  getPrevious: string | undefined
+  getPreviousDay: string | undefined
   beginDate: string | undefined
-  originator: string | undefined
+  requestOriginator: RequestOriginator
   returnToFE: boolean | undefined
-  chartId: number | null
+  chartId: string | null
   algoParams: any
 }
 
-export type DataSource = 'alpha-vantage' | 'tradier' | 'storedData'
+export type RequestType = 'historical' | 'realTime' | 'closeRequest' | 'storedData' | 'analysis'
+export type DataSource = 'alpha-vantage' | 'tradier' | 'storedData' | undefined
+export type RequestOriginator = 'frontend' | 'backend' | 'emergency'
 
-export type RequestType = 'historical' | 'real-time' | 'analysis'
-
-export interface AlphaVantageMetaDataType {
+export interface AlphaVantageResponseMetaData { // TODO: Is this the appropriate name? It's actually getting chartData built from NormalizedData ... wait until app is further hardened
+  // This 'Response' is coming from backend, after normalization and parsing. It is NOT directly from the provider.
   historicalMeta?: {
     beginDate: string
     endDate: string
     datasetSize: 'compact' | 'full'
   }
-  inputSource: 'AlphaVantage' | 'Tradier'
-  inputType: 'historical' | 'real-time'
+  dataSource: DataSource
+  requestType: RequestType
   interval: string
   tickerSymbol: string
 }
 
-export interface TradierMetaDataType {
+export interface TradierResponseMetaData {
+  // This 'Response' is coming from backend, after normalization and parsing. It is NOT directly from the provider.
   realTimeMeta?: {
     beginDate: string
     endDate: string
   }
-  inputSource: 'AlphaVantage' | 'Tradier'
-  inputType: 'historical' | 'real-time'
+  dataSource: DataSource
+  requestType: RequestType
   interval: string
   tickerSymbol: string
 }
@@ -52,7 +54,7 @@ export type ChartHeadingData = {
   title: string
   isConnected: boolean
   connectionType: string
-  chartId?: number | null
+  chartId?: string | null
 }
 
 export type ConnectionStatus = {
@@ -94,6 +96,9 @@ export type AnalysisDataPacket = {
       end: string
     }
   >
+  extTickData: Record<
+    string, any
+  >
 }
 
 export interface Tick {
@@ -131,7 +136,7 @@ export type CreationMeta = {
 
 export type BuildOptionsArgsType = {
   chartData: ChartData | null
-  metaData: AlphaVantageMetaDataType | TradierMetaDataType | null
+  metaData: AlphaVantageResponseMetaData | TradierResponseMetaData | null
   analysisData: any | null
   zoomData: any
   legendData: any | null
@@ -141,7 +146,7 @@ export type MessageType = {
   type: string
   data?: {
     chartData: ChartData
-    metaData: AlphaVantageMetaDataType | TradierMetaDataType
+    metaData: AlphaVantageResponseMetaData | TradierResponseMetaData
     id: number
     creationMeta: CreationMeta
   }
@@ -149,3 +154,5 @@ export type MessageType = {
   algoResults?: AnalysisDataPacket
   id?: string
 }
+
+export type NoiseWindows = 'NW1' | 'NW2' | 'NW3' | 'NW4' | 'NW5' | 'NW6' // TODO: Create array to loop over for options - wait until app is more hardened
